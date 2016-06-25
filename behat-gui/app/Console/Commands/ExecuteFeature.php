@@ -40,6 +40,8 @@ class ExecuteFeature extends Command
      */
     public function handle()
     {
+        $this->call('behat:compile', ["testNumber" => $this->argument('testNumber')]);
+
         $test = $this->argument('testNumber');
         $t = Test::where('id', '=', $test)->first();
         $name = explode('.', $t->location)[0];
@@ -69,5 +71,6 @@ class ExecuteFeature extends Command
         $result->save();
 
         rrmdir('features/report');
+        unlink($name.".feature");
     }
 }

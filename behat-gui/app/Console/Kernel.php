@@ -27,9 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         foreach(Scheduler::all() as $s) {
-            $frequency = $s->frequency();
-            $schedule->command($s->command, $s->parameters)
-                ->$frequency();
+            $schedule->command($s['command'], [$s['parameters']])->$s['frequency']();
         }
     }
 }
