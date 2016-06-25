@@ -45,8 +45,9 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ route('tests.index')  }}">Home</a></li>
+                    <li><a href="{{ route('tests.index')  }}">Home</a></li>
                     <li><a href="{{ route('variables.index')  }}">Variables</a></li>
+                    <li><a href="{{ route('schedulers.index')  }}">Scheduler</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

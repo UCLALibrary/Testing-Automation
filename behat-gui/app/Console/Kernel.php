@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Scheduler;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,7 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        foreach(Scheduler::all() as $s) {
+            $frequency = $s->frequency();
+            $schedule->command($s->command, $s->parameters)
+                ->$frequency();
+        }
     }
 }
