@@ -78,7 +78,7 @@ key,value
 /ask_link,Ask A Librarian
 /ask_url,/support/research-help
 /melvyl_filter,Melvyl UC Catalog (+selected articles)
-/ucla_filter,UCLA Library Catalog
+/uclacatalog_filter,UCLA Library Catalog
 /home,https://www.library.ucla.edu
 ~,~
 /#journals/searchcoursereserves_link,Search Course Reserves
@@ -148,3 +148,49 @@ key,value
 /sitesearchresult_search:”law library”,law library
 /sitesearchresult_query:”law library”,/site-search?search_query=law+library
 /locationssearchresult_query:”law library”,/locations?search_api_views_fulltext=law+library
+/booksbasicsearch_link,/vwebv/searchBasic
+/libacc_link,My Account/Renew Books
+/catalogbookbag_link,My Bookbag
+/sitesearchresult_search:”Renew Book”,Renew Book
+/sitesearchresult_query:”Renew Book”,/site-search?search_query=renew+book
+/sitesearchresult_link:”Renew Book”,Renewing and returning items
+/use/return_link,Renewing and Returning Items
+/use/borrowrenewreturn_link,"Borrow, Renew, Return"
+/use/borrowrenewreturn_url,/use/borrow-renew-return
+/advanced_link,Advanced
+/advanced_url,/vwebv/searchAdvanced
+/login_link,Log in
+/connect_link,Connect from Off-Campus
+/sitesearchresult_search:”VPN”,VPN
+/sitesearchresult_query:”VPN”,/site-search?search_query=vpn
+/connect/proxy_link,Proxy Server
+/connect/proxy_url,/services/proxy/
+/connect/vpn_link,Virtual Private Networking (VPN)
+/connect/vpn_url,/services/vpn/
+/connect/vpnmobile_link,VPN for Mobile Devices
+/connect/vpnmobile_url,/services/vpn/pda/
+/connect/vpnmednet_link,Mednet VPN
+/connect/vpnmednet_url,/body.cfm?id=25
+/connect/proxyanderson_link,UCLA Anderson Proxy Server
+/connect/proxyanderson_url,/rosenfeld-library/databases/anderson-proxy-server--off-campus-access
+/employment_link,Employment
+/employment_url,/about/employment-human-resources
+/about/employment/studentpositions_link,Student Positions
+/about/employment/studentpositions_url,/about/employment-human-resources/ucla-library-jobs-students
+/support/apply_link,Apply for a Student Job at the Library
+/support/apply_url,/about/employment-human-resources/ucla-library-jobs-students
+/sitesearchresult_search:”student jobs”,student jobs
+/sitesearchresult_query:”student jobs”,/site-search?search_query=student+jobs
+/sitesearchresult_link:”student jobs”,UCLA Library Jobs for Students
+/biomed/keyresources_link,Key Resources
+/biomed/keyresources_url,/biomed/key-resources
+/sitesearchresult_search:”Biomedical Library Key Resources”,Biomedical Library Key Resources
+/sitesearchresult_query:”Biomedical Library Key Resources”,/site-search?search_query=Biomedical+Library+key+resources
+/librariesmap_link,Map of All Libraries
+/librariesmap_url,/sites/default/files/libmap_091710.pdf
+/sitesearchresult_search:”Research Data Matters”,Research Data Matters
+/sitesearchresult_query:”Research Data Matters”,/site-search?search_query=Research+Data+Matters
+/news/researchvideo_link,Research Data Matters video
+/news/researchvideo_url,/news/research-data-matters-video
+/news/researchvideo_element,iframe
+/news/researchvideo_text,Viewers are encouraged to complete a brief feedback survey
