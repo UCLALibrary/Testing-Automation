@@ -1,0 +1,13 @@
+[/powlib_link] = Powell Library
+[/powlib_url] = /powell
+
+[/powell/np_link] = Night Powell
+[/powell/np_url] = /destination/night-powell
+
+[/powell/location_link] = At This Location
+[/powell/location_url] = /powell/at-this-location
+
+[/sitesearch_text] = Site Search
+[/#submit_element] = #submit
+[/sitesearch_res_url] = /site-search?search_query=night+powell+
+[search_nightpowell] = night powell
