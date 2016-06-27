@@ -17,7 +17,8 @@ class CompileFeature extends Command
      * @var string
      */
     protected $signature = 'behat:compile
-    {testNumber : The template to use for converting to a real feature file}';
+    {testNumber : The template to use for converting to a real feature file}
+    {setNumber : The set to use variables against}';
 
     /**
      * The console command description.
@@ -44,6 +45,7 @@ class CompileFeature extends Command
     public function handle()
     {
         $test = $this->argument('testNumber');
+        $set = $this->argument('setNumber');
         $t = \App\Test::where('id', '=', $test)->first();
         $file = file_get_contents($t->location);
         $file = str_replace(" ", " ", $file);
@@ -51,7 +53,12 @@ class CompileFeature extends Command
         $s = "/\[([a-zA-Z\/_]+)\]/";
         preg_match_all($s, $file, $match);
         foreach($match[1] as $m) {
-            $file = str_replace("[" . $m . "]", Variable::where('key', '=', $m)->first()->value, $file);
+            $variable = Variable::where('key', '=', $m)->first();
+            $sets = json_decode($variable->sets);
+            if(in_array($set, $sets)) {
+                $value = json_decode($variable->value)[$set];
+                $file = str_replace("[" . $m . "]", $value, $file);
+            }
         }
 
         $data = $file;

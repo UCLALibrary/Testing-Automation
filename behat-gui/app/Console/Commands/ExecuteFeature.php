@@ -14,7 +14,8 @@ class ExecuteFeature extends Command
      * @var string
      */
     protected $signature = 'behat:execute
-    {testNumber : The template to use for converting to a real feature file}';
+    {testNumber : The template to use for converting to a real feature file}
+    {setNumber : The set to use variables against}';
 
     /**
      * The console command description.
@@ -40,7 +41,7 @@ class ExecuteFeature extends Command
      */
     public function handle()
     {
-        $this->call('behat:compile', ["testNumber" => $this->argument('testNumber')]);
+        $this->call('behat:compile', ["testNumber" => $this->argument('testNumber'), 'setNumber' => $this->argument('setNumber')]);
 
         $test = $this->argument('testNumber');
         $t = Test::where('id', '=', $test)->first();
