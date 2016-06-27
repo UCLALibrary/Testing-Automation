@@ -4,7 +4,7 @@ As an anonymous user
 I need to check that all links are valid from different paths
 
 Background:
-  Given I go to "https://library.ucla.edu"
+  Given I go to "https://www.library.ucla.edu"
 
 Scenario: #1A
   Given I follow "Use CLICC Laptops and Services"

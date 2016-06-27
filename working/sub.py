@@ -15,20 +15,16 @@ tags = {}
 for line in lines:
   if not line:
     continue
-  entries = line.split(" = ")
+  entries = line.split(",")
   key = '"%s"' % entries[1]
-  value = '"%s"' % entries[0]
+  value = '[%s]' % entries[0]
   tags[key] = value
 
 replace_me = [line.rstrip('\n') for line in feature_file]
 
 for line in replace_me:
-  replace = False
+  this_line = line
   for key, value in tags.iteritems():
-    if key in line:
-      new_feature_file.write(line.replace(key, value))
-      replace = True
-      break
-  if replace == False:
-    new_feature_file.write(line)
-  new_feature_file.write("\n")
+    if key in this_line:
+      this_line = this_line.replace(key, value)
+  new_feature_file.write(this_line + "\n")

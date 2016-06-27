@@ -8,7 +8,7 @@ I need to check that we can access the page from different paths
 
   Scenario: #1A
     Given I follow "Powell Library"
-    Then I should be on "/powell"
+    Then I should be on "/location/powell"
     Then I follow "Night Powell"
     And I should be on "/destination/night-powell"
 

@@ -1,0 +1,100 @@
+key,value
+/books_link,Books & More
+/books_url,/#books
+/articles_link,ArticlesPlus
+/articles_url,/#articlesplus
+/database_link,Databases
+/database_url,/#databases
+/journals_link,Journals
+/journals_url,/#journals
+/researchguides_link,Research Guides
+/researchguides_url,/#guides
+/archivesmanuscripts_link,Archives & Manuscripts
+/archivesmanuscripts_url,/#oac
+/artlib_link,Arts Library
+/artlib_url,/arts
+/biolib_link,Biomedical Library (Louise M. Darling)
+/biolib_url,/biomed
+/ealib_link,East Asian Library (Richard C. Rudolph)
+/ealib_url,/eastasian
+/lawlib,Law Library (Hugh & Hazel Darling)
+/lawlib_url,/law
+/sclib_link,Library Special Collections
+/sclib_url,/location/library-special-collections
+/mgmlib_link,Management Library (Eugene and Maxine Rosenfeld)
+/mgmlib_url,/rosenfeld
+/muslib_link,Music Library
+/muslib_url,/music
+/powlib_link,Powell Library
+/powlib_url,/powell
+/reslib_link,Research Library (Charles E. Young)
+/reslib_url,/yrl
+/selib_link,Science and Engineering Library
+/selib_url,/sel
+/srlib,Southern Regional Library Facility
+/srlib_url,/srlf
+/search_link,Search
+/search_url,/search
+/support_link,Research & Teaching Support
+/support_url,/support
+/locations_link,Locations
+/locations_url,/locations
+/events_link,News & Events
+/events_url,/news-events
+/use_link,Using the Library
+/use_url,/use
+/hours_link,Hours
+/hours_url,/hours
+/lending_link,Laptop Lending (CLICC)
+/lending_url,/locations?f[0]=field_equipment%3A100
+/renew_link,Renew a book
+/renew_url,/use/borrow-renew-return/renewing-and-returning-items
+/connect_link,Connect from off-campus
+/connect_url,/use/computers-computing-services/connect-campus
+/gsr_link,Find a Group Study Room
+/gsr_url,/locations?f%5B0%5D=field_study_areas%3A36
+/pod_link,Find a Collaboration Pod
+/pod_url,/locations?f%5B0%5D=field_study_areas%3A41
+/libacc_link,Log in to your library account
+/libacc_url,/vwebv/login
+/libcard_link,Get your library card
+/libcard_url,/access-privileges/library-cards
+/reshelp_link,Get help with your research
+/reshelp_url,/support/research-help
+/resguide_link,Find a Research Guide
+/resguide_url,/
+/workshop_link,Attend a workshop
+/workshop_url,/support/research-help/attend-research-workshop
+/copy_link,Copier
+/copy_url,/locations?f[0]=field_equipment%3A17
+/print_link,Printer
+/print_url,/locations?f[0]=field_equipment%3A19
+/clicc_link,Use CLICC Laptops and Services
+/clicc_url,/clicc
+/equip_link,More Equipment
+/equip_link,/locations
+/contact_link,Contact
+/contact_url,/contact
+/ask_link,Ask A Librarian
+/ask_url,/support/research-help
+/melvyl_filter,Melvyl UC Catalog (+selected articles)
+/ucla_filter,UCLA Library Catalog
+/home,https://www.library.ucla.edu
+~,~
+/#journals/searchcoursereserves_link,Search Course Reserves
+/#journals/searchcoursereserves_url,/vwebv/enterCourseReserve.do
+/search/coursereserves_link,Course Reserves
+/search/coursereserves_url,/use/borrow-renew-return/course-reserves
+/search/searchcoursereservestab_link,UCLA Library Catalog Course Reserves Tab
+/support/students_link,Support for Students
+/support/students_url,/support/students
+/support/coursematerialsreserve_link,Get Course Materials on Reserve
+/sitesearch_text,Site Search
+/submit_element,#submit
+/arts/collections_link,Collections
+/arts/collections_url,/arts/collections
+/sitesearchresult_query:”course reserves”,/site-search?search_query=Course+reserve
+/sitesearchresult_link:”course reserves”,.field-content a:powell/collections/course-reserves
+/sitesearchresult_url:”course reserves”,/powell/collections/course-reserves
+/test-home,https://www-test.library.ucla.edu
+/sitesearchresult_search:”course reserves”,course reserves

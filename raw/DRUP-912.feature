@@ -11,9 +11,9 @@ Feature: CLICC Resources
     Then I should be on "/clicc"
 
   Scenario: #1B
-    Given I fill in "Site Search" with "CLICC"
+    Given I fill in "Site Search" with "clicc"
     And I click the "#submit" element
-    Then I should be on "/site-search?search_query=CLICC"
+    Then I should be on "/site-search?search_query=clicc"
     Given I follow "CLICC"
     Then I should be on "/clicc"
 
@@ -46,7 +46,7 @@ Feature: CLICC Resources
   Scenario: #1F
     Given I follow "Research Library (Charles E. Young)"
     Then I should be on "/yrl"
-    Given I follow "CLICC Laptop Lending (Research Library"
+    Given I follow "CLICC Laptop Lending (Research Library)"
     Then I should be on "/yrl/clicc-laptop-lending-research-library"
     Given I follow "CLICC Computer Specs"
     Then I should be on "/clicc"

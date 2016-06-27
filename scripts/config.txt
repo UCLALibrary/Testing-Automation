@@ -11,3 +11,22 @@
 [/#submit_element] = #submit
 [/sitesearch_res_url] = /site-search?search_query=night+powell+
 [search_nightpowell] = night powell
+
+------------------------------------------------------------------------
+
+[] = Journals
+[] = Search Course Reserves
+[] = /vwebv/enterCourseReserve.do
+[] = Search
+[] = /search
+[] = Course Reserves
+[] = use/borrow-renew-return/course-reserves
+[] = Search
+[] = /search
+[] = UCLA Library Catalog Course Reserves Tab
+[] = Research & Teaching Support
+[] = /support
+[] = Support for Students
+[] = /support/students
+[] = Get Course Materials on Reserve
+[] = 

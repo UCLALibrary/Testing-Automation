@@ -4,16 +4,16 @@ Feature: Getting Information About the Libraries
   I should check that these links are valid from all paths
 
   Background:
-    Given I go to "https://WWW.library.ucla.edu"
+    Given I go to "https://www.library.ucla.edu"
 
     Scenario: #1A
       Given I follow "Arts Library"
       Then I should be on "/arts"
 
     Scenario: #1B
-      Given I fill in "Site Search" with "Arts Library"
+      Given I fill in "Site Search" with "arts library"
       And I click the "#submit" element
-      Then I should be on "/site-search?search_query=Arts+Library"
+      Then I should be on "/site-search?search_query=arts+library"
       Given I follow "Arts Library"
       Then I should be on "/arts"
 
@@ -34,7 +34,7 @@ Feature: Getting Information About the Libraries
       Then I should be on "/biomed"
 
     Scenario: #1F
-      Given I fill in "Site Search" with "Biomed"
+      Given I fill in "Site Search" with "biomed"
       And I click the "#submit" element
       Then I should be on "/site-search?search_query=biomed"
       Given I follow "Biomedical Library (Louise M. Darling)"
@@ -57,9 +57,9 @@ Feature: Getting Information About the Libraries
       Then I should be on "/powell"
 
     Scenario: #1J
-      Given I fill in "Site Search" with "Powell"
+      Given I fill in "Site Search" with "powell"
       And I click the "#submit" element
-      Then I should be on "/site-search?search_query=Powell"
+      Then I should be on "/site-search?search_query=powell"
       Given I follow "Powell Library"
       Then I should be on "/powell"
 
@@ -72,9 +72,9 @@ Feature: Getting Information About the Libraries
     Scenario: #1L
       Given I follow "Locations"
       Then I should be on "/locations"
-      Given I fill in "" with "Powell Library"
+      Given I fill in "" with "powell library"
       And I click the "#edit-submit-location-search" element
-      Then I should be on "/locations?search_api_views_fulltext=Powell+Library&=Apply"
+      Then I should be on "/locations?search_api_views_fulltext=powell+library&=Apply"
       Given I follow "Powell Library"
       Then I should be on "/powell"
 
@@ -89,9 +89,9 @@ Feature: Getting Information About the Libraries
       Then I should be on "/yrl"
 
     Scenario: #1O
-      Given I fill in "Site Search" with "YRL"
+      Given I fill in "Site Search" with "yrl"
       And I click the "#submit" element
-      Then I should be on "/site-search?search_query=YRL"
+      Then I should be on "/site-search?search_query=yrl"
       Given I follow "Research Library (Charles E. Young)"
       Then I should be on "/yrl"
 
@@ -104,7 +104,7 @@ Feature: Getting Information About the Libraries
      Scenario: #1Q
        Given I follow "Locations"
        Then I should be on "/locations"
-       Given I fill in "" with "YRL"
+       Given I fill in "" with "yrl"
        Then I should be on "/locations?search_api_views_fulltext=yrl&=Apply"
        Given I follow "Research Library (Charles E. Young)"
        Then I should be on "/yrl"
@@ -120,9 +120,9 @@ Feature: Getting Information About the Libraries
        Then I should be on "/music"
 
      Scenario: #1T
-       Given I fill in "Site Search" with "Music Library"
+       Given I fill in "Site Search" with "music library"
        And I click the "#submit" element
-       Then I should be on "/site-search?search_query=Music+Library"
+       Then I should be on "/site-search?search_query=music+library"
        Given I follow "Music Library"
        Then I should be on "/music"
 
@@ -137,9 +137,9 @@ Feature: Getting Information About the Libraries
      Scenario: #1V
        Given I follow "Locations"
        Then I should be on "/locations"
-       Given I fill in "" with "Music Library"
+       Given I fill in "" with "music library"
        And I click the "#edit-submit-location-search" element
-       Then I should be on "/locations?search_api_views_fulltext=Music+Library&=Apply"
+       Then I should be on "/locations?search_api_views_fulltext=music+library&=Apply"
        Given I follow "Music Library"
        Then I should be on "/music"
 
@@ -154,9 +154,9 @@ Feature: Getting Information About the Libraries
        Then I should be on "/sel"
 
      Scenario: #1Y
-       Given I fill in "Site Search" with "Boelter Library"
+       Given I fill in "Site Search" with "boelter library"
        And I click the "#submit" element
-       Then I should be on "site-search?search_query=Boelter+Library"
+       Then I should be on "site-search?search_query=boelter+library"
        Given I follow "Science and Engineering Library"
        Then I should be on "/sel"
 
@@ -169,9 +169,9 @@ Feature: Getting Information About the Libraries
      Scenario: #2A
        Given I follow "Locations"
        Then I should be on "/locations"
-       Given I fill in "" with "Boelter Library"
+       Given I fill in "" with "boelter library"
        And I click the "#edit-submit-location-search" element
-       Then I should be on "/locations?search_api_views_fulltext=Boelter&=Apply"
+       Then I should be on "/locations?search_api_views_fulltext=boelter&=Apply"
        Given I follow "Science and Engineering Library"
        Then I should be on "/sel"
 
@@ -186,7 +186,7 @@ Feature: Getting Information About the Libraries
        Then I should be on "/law"
 
      Scenario: #2D
-       Given I fill in "Site Search" with "Law Library"
+       Given I fill in "Site Search" with "law library"
        And I click the "#submit" element
        Then I should be on "/site-search?search_query=law+library"
        Given I follow "Law Library (Hugh & Hazel Darling)"
@@ -201,7 +201,7 @@ Feature: Getting Information About the Libraries
      Scenario: #2F
        Given I follow "Locations"
        Then I should be on "/locations"
-       Given I fill in "" with "Law Library"
+       Given I fill in "" with "law library"
        And I click the "#edit-submit-location-search" element
        Then I should be on "/locations?search_api_views_fulltext=law+library"
 
