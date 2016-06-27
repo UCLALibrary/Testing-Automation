@@ -31,7 +31,6 @@ class Execute extends Job implements ShouldQueue
      */
     public function handle()
     {
-        Artisan::queue('behat:compile', ['testNumber' => $this->id]);
-        Artisan::queue('behat:execute', ['testNumber' => $this->id]);
+        Artisan::queue('behat:execute', ['testNumber' => $this->id, 'setNumber' => '0']);
     }
 }
