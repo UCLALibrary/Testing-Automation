@@ -141,7 +141,7 @@ class TestController extends Controller {
 
 		$test->name = $request->input("name");
 
-		file_put_contents($test->location, $request->input('location'));
+		file_put_contents($test->location, str_replace(" ", " ", $request->input('location')));
 
         $test->save();
 
