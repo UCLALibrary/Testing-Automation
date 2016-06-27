@@ -31,7 +31,7 @@
                                 <td>{{$test->name}}</td>
                                 <td class="code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</td>
                                 <td>@if(isset($status[$test->id])) @if($status[$test->id] == 0) <span class="label label-danger">Failed</span> @elseif($status[$test->id] == 1) <span class="label label-success">Success</span> @endif @else <span class="label label-primary">Not yet run</span> @endif</td>
-                                <td>@if(isset($tags[$test->id])) @foreach($tags[$test->id] as $t) {{ $t  }} <br />  @endforeach @endif</td>
+                                <td>@if(isset($tags[$test->id])) <ul> @foreach($tags[$test->id] as $t) <li>{{ $t  }}</li>  @endforeach </ul> @endif</td>
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-success" href="{{ route('tests.execute', $test->id) }}"> Execute</a>
                                     <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>

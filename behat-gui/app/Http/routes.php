@@ -9,3 +9,4 @@ Route::get('/tests/execute/{tests}', ['as' => 'tests.execute', 'uses' => 'TestCo
 
 Route::resource("variables","VariableController");
 Route::resource("schedulers","SchedulerController");
+Route::resource("sets","SetController");
