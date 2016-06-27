@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Execute;
 use App\Test;
 use App\TestResult;
+use Behat\Gherkin\Keywords\ArrayKeywords;
+use Behat\Gherkin\Lexer;
+use Behat\Gherkin\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +24,43 @@ class TestController extends Controller {
 	{
 		$tests = Test::orderBy('id', 'desc')->paginate(10);
 
-        return view('tests.index', compact('tests'));
+        $status = [];
+        $tags = [];
+        foreach($tests as $t){
+			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
+			if($r != null) {
+                $status[$t->id] = $r->success;
+            }
+
+            $name = $t->location;
+
+            $keywords = new ArrayKeywords([
+                'en' => array(
+                    'feature'          => 'Feature',
+                    'background'       => 'Background',
+                    'scenario'         => 'Scenario',
+                    'scenario_outline' => 'Scenario Outline|Scenario Template',
+                    'examples'         => 'Examples|Scenarios',
+                    'given'            => 'Given',
+                    'when'             => 'When',
+                    'then'             => 'Then',
+                    'and'              => 'And',
+                    'but'              => 'But'
+                )
+            ]);
+
+            $lexer = new Lexer($keywords);
+            $parser = new Parser($lexer);
+
+
+            $p = $parser->parse(file_get_contents($name));
+            $tags[$t->id] = $p->getTags();
+
+
+        }
+
+
+        return view('tests.index', compact('tests', 'status', 'tags'));
 	}
 
 	/**
@@ -51,6 +90,9 @@ class TestController extends Controller {
                 $request->file('location')->move(base_path()."/features", $name);
             }
         }
+
+        $file = str_replace(" ", " ", file_get_contents(base_path().'/features/'.$name));
+        file_put_contents(base_path()."/features/".$name, $file);
 
         $test->location = base_path()."/features/".$name;
 
@@ -115,6 +157,9 @@ class TestController extends Controller {
 	public function destroy($id)
 	{
 		$test = Test::findOrFail($id);
+
+        unlink($test->location);
+
 		$test->delete();
 
 		return redirect()->route('tests.index')->with('message', 'Item deleted successfully.');
