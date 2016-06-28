@@ -194,3 +194,19 @@ key,value
 /news/researchvideo_url,/news/research-data-matters-video
 /news/researchvideo_element,iframe
 /news/researchvideo_text,Viewers are encouraged to complete a brief feedback survey
+/#articlesplus/articlessearch_text,Search several databases at once.
+/#articlesplus/articlessearch_search:”New York Times”,New York Times
+/#articlesplus/articlessearch_submit,#edit-articlesplus-articlesplus-search
+/#articlesplus/articlessearch_query:”New York Times”,/#!/search?ho=t&l=en&q=New%20York%20Times
+/#articlesplus/limittopeerreview_filter,Limit to peer-reviewed
+/#articlesplus/articlessearch_query:”New York”,"/#!/search?ho=t&fvf=IsScholarly,true,f&l=en&q=New%20York"
+/articlesplus_url,/#!/
+/articleplus_submit,button.btn.btn-inverse.ng-binding
+/newtoolarticlesplus_link,New Search Tool: ArticlesPlus
+/#articlesplus/about_link,about ArticlesPlus
+/#articlesplus/about_url,/about-articlesplus
+,Advanced Search
+,/advanced#!/advanced
+,searchValue
+,button#advSearchSubmit.btn.btn-inverse.ng-binding
+,/advanced#!/search?ho=t&l=en&q=(New%20York%20Times)
