@@ -5,132 +5,192 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
-
-/**
- * Defines application features from the specific context.
- */
 class FeatureContext extends MinkContext
 {
+    /**
+     * @Given I click the :arg1 element
+     */
+    public function iClickTheElement($selector)
+    {
+        $page = $this->getSession()->getPage();
+        $element = $page->find('css', $selector);
+
+        if (empty($element)) {
+            throw new Exception("No html element found for the selector ('$selector')");
+        }
+
+        $element->click();
+    }
 
     /**
-     * Initializes context.
-     * Every scenario gets it's own context object.
-     *
-     * @param array $parameters context parameters (set them up through behat.yml)
+     * @When I wait for :text to appear
+     * @Then I should see :text appear
+     * @param $text
+     * @throws \Exception
      */
-    public function __construct()
+    public function iWaitForTextToAppear($text)
     {
-        // Initialize your context here
+        $this->spin(function (FeatureContext $context) use ($text) {
+            try {
+                $context->assertPageContainsText($text);
+                return true;
+            } catch (\Behat\Mink\Exception\ResponseTextException $e) {
+                // NOOP
+            }
+            return false;
+        });
     }
-     /**
-  * @Given /^wait (\d+) second$/
-  */
- public function waitSecond($arg1)
- {
-    $this->getSession()->wait(1000*$arg1);
-     //throw new PendingException();
- }
-  
-  
-  /**
-  * @Then /^I press the "([^"]*)" button in the browser$/
-  */
- public function iPressTheButtonInTheBrowser($arg1)
- {
-    $session = $this->getSession();
-    if ($arg1 == 'back') {
-            $session->back();
-        } else if ($arg1 == 'forward') {
-            $session->forward();
-        } else if ($arg1 == 'reload') {
-            $session->reload();
-        } else {
-            throw new ExpectationException('Unknown browser button.', $session);
-        }
-     
-     
- }
-     /**
-  * @Given /^I click the "([^"]*)" button$/
-  */
- public function iClickTheButton($arg1)
- {
-    $findName = $this->getSession()->getPage()->find("css", $arg1);
-        if (!$findName) {
-            throw new Exception($arg1 . " could not be found");
-        } else {
-            $findName->click();
-        }
- }
-     
+
+
     /**
- * @When /^I select the "([^"]*)" radio button$/
- */
-public function iSelectTheRadioButton($labelText)
-{
-    // Find the label by its text, then use that to get the radio item's ID
-    $radioId = null;
-    $ctx = $this->getMainContext();
-    /** @var $label NodeElement */
-    foreach ($ctx->getSession()->getPage()->findAll('css', 'label') as $label) {
-        if ($labelText === $label->getText()) {
-            if ($label->hasAttribute('for')) {
-                $radioId = $label->getAttribute('for');
-                break;
-            } else {
-                throw new \Exception("Radio button's label needs the 'for' attribute to be set");
+     * @When I wait for :text to disappear
+     * @Then I should see :text disappear
+     * @param $text
+     * @throws \Exception
+     */
+    public function iWaitForTextToDisappear($text)
+    {
+        $this->spin(function (FeatureContext $context) use ($text) {
+            try {
+                $context->assertPageContainsText($text);
+            } catch (\Behat\Mink\Exception\ResponseTextException $e) {
+                return true;
+            }
+            return false;
+        });
+    }
+
+    /**
+     * Based on Behat's own example
+     * @see http://docs.behat.org/en/v2.5/cookbook/using_spin_functions.html#adding-a-timeout
+     * @param $lambda
+     * @param int $wait
+     * @throws \Exception
+     */
+    public function spin($lambda, $wait = 60)
+    {
+        $time = time();
+        $stopTime = $time + $wait;
+        while (time() < $stopTime) {
+            try {
+                if ($lambda($this)) {
+                    return;
+                }
+            } catch (\Exception $e) {
+                // do nothing
+            }
+
+            usleep(250000);
+        }
+
+        throw new \Exception("Spin function timed out after {$wait} seconds");
+    }
+
+    /**
+     * @When /^I select the "([^"]*)" radio button$/
+     */
+    public function iSelectTheRadioButton($labelText)
+    {
+        // Find the label by its text, then use that to get the radio item's ID
+        $radioId = null;
+        $ctx = $this;
+
+        /** @var $label NodeElement */
+        foreach ($ctx->getSession()->getPage()->findAll('css', 'label') as $label) {
+            if ($labelText === $label->getText()) {
+                if ($label->hasAttribute('for')) {
+                    $radioId = $label->getAttribute('for');
+                    break;
+                } else {
+                    throw new \Exception("Radio button's label needs the 'for' attribute to be set");
+                }
             }
         }
-    }
-    if (!$radioId) {
-        throw new \InvalidArgumentException("Label '$labelText' not found.");
-    }
-    // Now use the ID to retrieve the button and click it
-    /** @var NodeElement $radioButton */
-    $radioButton = $ctx->getSession()->getPage()->find('css', "#$radioId");
-    if (!$radioButton) {
-        throw new \Exception("$labelText radio button not found.");
-    }
-    $ctx->fillField($radioId, $radioButton->getAttribute('value'));
-}
-    /**
- * @When /^I hover over the element "([^"]*)"$/
- */
-public function iHoverOverTheElement($locator)
-{
-        $session = $this->getSession(); // get the mink session
-        $element = $session->getPage()->find('css', $locator); // runs the actual query and returns the element
-        // errors must not pass silently
-        if (null === $element) {
-            throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', $locator));
+        if (!$radioId) {
+            throw new \InvalidArgumentException("Label '$labelText' not found.");
         }
-        // ok, let's hover it
-        $element->mouseOver();
-}
-/**
- * @Given /^I wait for the suggestion box to appear$/
- */
-public function iWaitForTheSuggestionBoxToAppear()
-{
-    $this->getSession()->wait(5000,
-        "$('.suggestions-results').children().length > 0"
-    );
-}
 
-/**
- * @Given I click the :arg1 element
- */
-public function iClickTheElement($selector)
-{
-    $page = $this->getSession()->getPage();
-    $element = $page->find('css', $selector);
+        // Now use the ID to retrieve the button and click it
+        /** @var NodeElement $radioButton */
+        $radioButton = $ctx->getSession()->getPage()->find('css', "#$radioId");
+        if (!$radioButton) {
+            throw new \Exception("$labelText radio button not found.");
+        }
 
-    if (empty($element)) {
-        throw new Exception("No html element found for the selector ('$selector')");
+        $ctx->fillField($radioId, $radioButton->getAttribute('value'));
     }
 
-    $element->click();
-}
+    /**
+     * Click some text
+     *
+     * @When /^I click on the text "([^"]*)"$/
+     */
+    public function iClickOnTheText($text)
+    {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '*//*[text()="' . $text . '"]')
+        );
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', $text));
+        }
+
+        $element->click();
+
+    }
+
+    /**
+     * Click on a link
+     *
+     * @When /^I click on the link "([^"]*)"$/
+     */
+    public function iClickOnTheLink($link)
+    {
+        $row = $this->getSession()->getPage()->find('css', sprintf('a:contains("%s")', $link));
+        if (!$row) {
+            throw new \Behat\Mink\Exception\ElementNotFoundException($this->getSession(), 'element', 'css', $link);
+        }
+
+        $row->click();
+    }
+
+    /**
+     * Click on the back link
+     *
+     * @When I click the back button
+     */
+    public function iClickTheBackButton(){
+        $this->getSession()->getDriver()->back();
+    }
+    
+    /**
+     * Click on the forward button
+     * 
+     * @When I click the forward button
+     */
+    public function iClickTheForwardButton(){
+        $this->getSession()->getDriver()->forward();
+    }
+
+    /**
+     * @Given /^wait (\d+) second$/
+     */
+    public function waitSecond($arg1)
+    {
+        $this->getSession()->wait(1000*$arg1);
+        //throw new PendingException();
+    }
+
+    /**
+     * @Given /^I switch to the next tab/
+     *
+     */
+    public function iSwitchTo(){
+        $windowNames = $this->getSession()->getWindowNames();
+        if(count($windowNames) > 1) {
+            $this->getSession()->switchToWindow($windowNames[1]);
+        }
+    }
 
 }
-
