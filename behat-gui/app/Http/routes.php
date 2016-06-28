@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('tests.index');
 });
 
 Route::resource("tests","TestController");
