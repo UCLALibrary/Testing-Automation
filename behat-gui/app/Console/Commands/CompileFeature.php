@@ -54,17 +54,19 @@ class CompileFeature extends Command
         preg_match_all($s, $file, $match);
         foreach($match[1] as $m) {
             $variable = Variable::where('key', '=', $m)->first();
-            $sets = json_decode($variable->sets);
-            if(in_array($set, $sets)) {
-                if(isset(json_decode($variable->value)[$set]) && json_decode($variable->value)[$set] != null) {
-                    $file = str_replace("[" . $m . "]", json_decode($variable->value)[$set], $file);
-                }elseif(!isset(json_decode($variable->value)[$set]) || json_decode($variable->value)[$set] == null){
-                    $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
-                }else{
+            if(!empty($variable)) {
+                $sets = json_decode($variable->sets);
+                if (in_array($set, $sets)) {
+                    if (isset(json_decode($variable->value)[$set]) && json_decode($variable->value)[$set] != null) {
+                        $file = str_replace("[" . $m . "]", json_decode($variable->value)[$set], $file);
+                    } elseif (!isset(json_decode($variable->value)[$set]) || json_decode($variable->value)[$set] == null) {
+                        $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
+                    } else {
+                        $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
+                    }
+                } else {
                     $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
                 }
-            }else{
-                $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
             }
         }
 
