@@ -29,7 +29,8 @@ class TestController extends Controller {
         foreach($tests as $t){
 			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
 			if($r != null) {
-                $status[$t->id] = $r->success;
+                $status[$t->id]['success'] = $r->success;
+				$status[$t->id]['timestamp'] = $r->created_at;
             }
 
             $name = $t->location;
