@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-md-12">
-
+            <form action="{{ route('feature_contexts.update', 1)  }}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -25,7 +25,7 @@
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a class="btn btn-link pull-right" href="{{ route('feature_contexts.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
                 </div>
-
+            </form>
         </div>
     </div>
 @endsection

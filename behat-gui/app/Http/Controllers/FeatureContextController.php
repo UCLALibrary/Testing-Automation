@@ -40,14 +40,9 @@ class FeatureContextController extends Controller {
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request)
 	{
-		$feature_context = FeatureContext::findOrFail($id);
-
-		$feature_context->function = $request->input("function");
-        $feature_context->name = $request->input("name");
-
-		$feature_context->save();
+		file_put_contents(base_path()."/features/bootstrap/FeatureContext.php", $request->input('feature_context'));
 
 		return redirect()->route('feature_contexts.index')->with('message', 'Item updated successfully.');
 	}
