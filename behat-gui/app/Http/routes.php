@@ -11,5 +11,5 @@ Route::resource("variables","VariableController");
 Route::resource("schedulers","SchedulerController");
 Route::resource("sets","SetController");
 Route::resource("feature_contexts","FeatureContextController");
-Route::resource("github","GithubController");
+Route::resource("githubs","GithubController");
 Route::post('/github/payload', ['as' => 'githubs.payload', 'uses' => 'GithubController@payload']);

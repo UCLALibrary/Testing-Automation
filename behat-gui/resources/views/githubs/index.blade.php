@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{$github->id}}</td>
                                 <td>{{$github->headers}}</td>
-                    <td>{{$github->payload}}</td>
+                                <td id="github{{ $github->id  }}" class="github{{ $github->id  }}"></td>
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('githubs.show', $github->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
                                     <a class="btn btn-xs btn-warning" href="{{ route('githubs.edit', $github->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
@@ -51,4 +51,13 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+    @foreach($githubs as $github)
+        var github{{ $github->id  }} = '{!!  str_replace('\\', '\\\'', str_replace('\/', '/',str_replace('\"', '"', $github->payload)))  !!}';
+        $("#github{{ $github->id  }}").jJsonViewer(github{{ $github->id  }});
+    @endforeach
+    </script>
 @endsection

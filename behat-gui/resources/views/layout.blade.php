@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
     <link rel="stylesheet" href="{{ asset('style.css')  }}" />
-
+    <link rel="stylesheet" href="{{ asset('jjsonviewer.css')  }}" />
     <!-- Custom styles for this template -->
     <!-- <link href="starter-template.css" rel="stylesheet"> -->
 
@@ -67,6 +67,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    <script type="text/javascript" src="{{ asset('jjsonviewer.js')  }}"></script>
     @yield('scripts')
 
     <script type="text/javascript">
