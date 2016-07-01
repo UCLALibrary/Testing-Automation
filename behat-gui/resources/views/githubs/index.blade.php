@@ -56,8 +56,10 @@
 @section('scripts')
     <script type="text/javascript">
     @foreach($githubs as $github)
-        var github{{ $github->id  }} = '{!!  str_replace('\\', '\\\'', str_replace('\/', '/',str_replace('\"', '"', $github->payload)))  !!}';
-        $("#github{{ $github->id  }}").jJsonViewer(github{{ $github->id  }});
+        var github{{ $github->id  }} = '{!!  addslashes($github->payload)  !!}';
+    $(function() {
+        $("#github{{ $github->id  }}").JSONView(github{{ $github->id  }}, { collapsed: true });
+    });
     @endforeach
     </script>
 @endsection

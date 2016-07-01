@@ -111,8 +111,7 @@ class GithubController extends Controller {
 	public function payload(Request $request){
 		$github = new Github();
 
-		$github->payload = json_encode($request->getContent());
-		$github->headers = $request->header();
+		$github->headers = json_encode($request->header());
 		$github->payload = $request->getContent();
 
 		$github->save();
