@@ -47,6 +47,7 @@ class CompileFeature extends Command
         $test = $this->argument('testNumber');
         $set = $this->argument('setNumber');
         $t = \App\Test::where('id', '=', $test)->first();
+        dd($t);
         $file = file_get_contents($t->location);
         $file = str_replace(" ", " ", $file);
 
