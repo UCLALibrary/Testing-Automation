@@ -60,14 +60,14 @@ class ExecuteFeature extends Command
         }
         libxml_use_internal_errors(false);
 
-        $s = true;
-        if(strpos($r, "alert-warning") !== false){
-            $s = false;
-        }elseif(strpos($r, "alert-danger") !== false){
-            $s = false;
-        }
-
         if(isset($r) && $r != null) {
+            $s = true;
+            if(strpos($r, "alert-warning") !== false){
+                $s = false;
+            }elseif(strpos($r, "alert-danger") !== false){
+                $s = false;
+            }
+
             $result = new TestResult();
             $result->test_id = $t->id;
             $result->result = $r;
