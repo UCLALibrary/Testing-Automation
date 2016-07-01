@@ -67,7 +67,7 @@ class ExecuteFeature extends Command
             $s = false;
         }
 
-        if($r != null) {
+        if(isset($r) && $r != null) {
             $result = new TestResult();
             $result->test_id = $t->id;
             $result->result = $r;
