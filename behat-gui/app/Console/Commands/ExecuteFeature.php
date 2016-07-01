@@ -49,13 +49,15 @@ class ExecuteFeature extends Command
         exec('/Users/ryangurnick/Desktop/Behat-GUI/bin/behat --format html '. $name.".feature", $output);
 
         libxml_use_internal_errors(true);
-        $html = file_get_contents('features/report/default.html');
-        $dom = new \DOMDocument();
-        $dom->loadHTML($html);
-        $xpath = new \DOMXPath($dom);
-        $div = $xpath->query('//div[@class="col-sm-8 details panel-group"]');
-        $div = $div->item(0);
-        $r = $dom->saveXML($div);
+        if(file_exists('features/report/default.html')) {
+            $html = file_get_contents('features/report/default.html');
+            $dom = new \DOMDocument();
+            $dom->loadHTML($html);
+            $xpath = new \DOMXPath($dom);
+            $div = $xpath->query('//div[@class="col-sm-8 details panel-group"]');
+            $div = $div->item(0);
+            $r = $dom->saveXML($div);
+        }
         libxml_use_internal_errors(false);
 
         $s = true;
@@ -65,11 +67,13 @@ class ExecuteFeature extends Command
             $s = false;
         }
 
-        $result = new TestResult();
-        $result->test_id = $t->id;
-        $result->result = $r;
-        $result->success = $s;
-        $result->save();
+        if($r != null) {
+            $result = new TestResult();
+            $result->test_id = $t->id;
+            $result->result = $r;
+            $result->success = $s;
+            $result->save();
+        }
 
         rrmdir('features/report');
         unlink($name.".feature");
