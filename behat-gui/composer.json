@@ -14,7 +14,8 @@
         "behat/mink-selenium2-driver": "*",
         "behat/gherkin": "^4.4",
         "neitanod/forceutf8": "^2.0",
-        "liebig/cron": "dev-master"
+        "liebig/cron": "dev-master",
+        "bugsnag/bugsnag-laravel": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
