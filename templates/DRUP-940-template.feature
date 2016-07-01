@@ -25,7 +25,7 @@ Feature: Find Articles Plus on the library website
       And I select the [/#articlesplus/limittopeerreview_filter] radio button
       Then I click the [/#articlesplus/articlessearch_submit] element
       And wait 2 second
-      Then I should be on "/#!/search?ho=t&fvf=IsScholarly,true,f&l=en&q=New%20York"
+      Then I should be on [/#articlesplus/articlessearch_query:”New York”]
 
     @javascript
     Scenario: #1C
@@ -64,18 +64,18 @@ Feature: Find Articles Plus on the library website
     Scenario: #1F
       Given I follow [/articles_link]
       Then I should be on [/articles_url]
-      Then I follow "Advanced Search"
-      Then I should be on "/advanced#!/advanced"
-      Then I fill in "searchValue" with [/#articlesplus/articlessearch_search:”New York Times”]
-      Then I click the "button#advSearchSubmit.btn.btn-inverse.ng-binding" element
+      Then I follow [/#articlesplus/advancedsearch_link]
+      Then I should be on [/#articlesplus/advancedsearch_url]
+      Then I fill in [/#articlesplus/advancedsearch_text] with [/#articlesplus/articlessearch_search:”New York Times”]
+      Then I click the [/#articlesplus/advancedsearch_submit] element
       And wait 3 second
-      Then I should be on "/advanced#!/search?ho=t&l=en&q=(New%20York%20Times)"
+      Then I should be on [/#articlesplus/advancedsearch_query:”New York Times”]
 
     @javascript
     Scenario: #1G
       Given I follow [/search_link]
       Then I should be on [/search_url]
-      Then I follow "About ArticlesPlus"
+      Then I follow [/search/aboutarticlesplus_link]
       Then I should be on [/#articlesplus/about_url]
       Then I follow [/articles_link]
       Then I should be on [/articlesplus_url]
@@ -87,8 +87,8 @@ Feature: Find Articles Plus on the library website
     Scenario: #1H
       Given I follow [/search_link]
       Then I should be on [/search_url]
-      Then I follow "Quick Articles"
-      Then I should be on "/quick-article-search"
+      Then I follow [/search/quickarticles_link]
+      Then I should be on [/search/quickarticles_url]
       Then I follow [/articles_link]
       Then I should be on [/articles_url]
       Then I fill in [/#articlesplus/articlessearch_text] with [/#articlesplus/articlessearch_search:”New York Times”]
@@ -101,8 +101,8 @@ Feature: Find Articles Plus on the library website
       Given I fill in [/sitesearch_text] with [/articles_link]
       Then I click the [/submit_element] element
       And wait 2 second
-      Then I should be on "/site-search?search_query=ArticlesPlus"
-      Then I follow "About ArticlesPlus"
+      Then I should be on [/sitesearchresult_url:”ArticlesPlus”]
+      Then I follow [/search/aboutarticlesplus_link]
       Then I should be on [/#articlesplus/about_url]
       Then I follow [/articles_link]
       Then I should be on [/articlesplus_url]
@@ -115,8 +115,8 @@ Feature: Find Articles Plus on the library website
       Given I fill in [/sitesearch_text] with [/articles_link]
       Then I click the [/submit_element] element
       And wait 2 second
-      Then I should be on "/site-search?search_query=ArticlesPlus"
-      Then I go to "http://www.library.ucla.edu/about-articlesplus-0"
+      Then I should be on [/sitesearchresult_url:”ArticlesPlus”]
+      Then I go to [/aboutarticlesplus_url]
       Then I follow [/articles_link]
       Then I should be on [/articles_url]
       Then I fill in [/#articlesplus/articlessearch_text] with [/#articlesplus/articlessearch_search:”New York Times”]
@@ -129,9 +129,9 @@ Feature: Find Articles Plus on the library website
       Given I fill in [/sitesearch_text] with [/articles_link]
       Then I click the [/submit_element] element
       And wait 2 second
-      Then I should be on "/site-search?search_query=ArticlesPlus"
-      Then I follow "Quick Article Search"
-      Then I should be on "/quick-article-search"
+      Then I should be on [/sitesearchresult_url:”ArticlesPlus”]
+      Then I follow [/aboutarticlesplus/quickarticlesearch_link]
+      Then I should be on [/search/quickarticles_url]
       Then I follow [/articles_link]
       Then I should be on [/articles_url]
       Then I fill in [/#articlesplus/articlessearch_text] with [/#articlesplus/articlessearch_search:”New York Times”]

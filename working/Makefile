@@ -1,5 +1,5 @@
 default:
-	./sub.py variables.csv DRUP-???.feature
+	./maketemp.py variables.csv DRUP-???.feature
 
 clean:
 	rm DRUP-*

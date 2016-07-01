@@ -205,8 +205,51 @@ key,value
 /newtoolarticlesplus_link,New Search Tool: ArticlesPlus
 /#articlesplus/about_link,about ArticlesPlus
 /#articlesplus/about_url,/about-articlesplus
-,Advanced Search
-,/advanced#!/advanced
-,searchValue
-,button#advSearchSubmit.btn.btn-inverse.ng-binding
-,/advanced#!/search?ho=t&l=en&q=(New%20York%20Times)
+/#articlesplus/advancedsearch_link,Advanced Search
+/#articlesplus/advancedsearch_url,/advanced#!/advanced
+/#articlesplus/advancedsearch_text,searchValue
+/#articlesplus/advancedsearch_submit,button#advSearchSubmit.btn.btn-inverse.ng-binding
+/#articlesplus/advancedsearch_query:”New York Times”,/advanced#!/search?ho=t&l=en&q=(New%20York%20Times)
+/search/aboutarticlesplus_link,About ArticlesPlus
+/search/quickarticles_link,Quick Articles
+/search/quickarticles_url,/quick-article-search
+/sitesearchresult_query:”ArticlesPlus”,/site-search?search_query=ArticlesPlus
+/sitesearchresult_url:”ArticlesPlus”,/site-search?search_query=ArticlesPlus
+/aboutarticlesplus_url,http://www.library.ucla.edu/about-articlesplus-0
+/aboutarticlesplus/quickarticlesearch_link,Quick Article Search
+/#journals/azjournals_link,A-Z Journal Titles
+/#journals/azjournals_url,/sfx_ucla/az/default?&param_sid_save=e21718f6c370481f02f52709928f7941&param_lang_save=eng&param_letter_group_save=A&param_perform_save=searchCategories&param_letter_group_script_save=Latin&param_chinese_checkbox_save=0&param_services2filter_save=getFullTxt&param_services2filter_save=getSelectedFullTxt&param_current_view_save=table&param_pattern_save=&param_jumpToPage_save=&param_type_save=browseLetterGroup&param_textSearchType_save=startsWith&&param_perform_value=searchTitle
+/search/findejournals_link,Find e-journals
+/search/findejournals_url,/sfx_ucla/az
+/sitesearchresult_search:”Journals”,Journals
+/sitesearchresult_query:”Journals”,/site-search?search_query=journals
+/sitesearchresult_link:”Journals”,Journal Articles and Conference Papers
+/locations/journalarticlesconference_url,/location/science-engineering-library/key-resources/journal-articles-conference-papers
+/locations/journalarticlesconference/scieen_link,E-Journals in Science and Engineering
+/locations/journalarticlesconference/scieen_url,/sfx_ucla/az/default?param_sid_save=2e0d461ec429331b2922a9477f072af2&param_locate_category_save=6&param_locate_category_save=8&param_locate_category_save=7&param_locate_category_save=3&param_locate_category_save=5&param_locate_category_save=1&param_locate_category_save=9&param_locate_category_save=12&param_locate_category_save=4&param_locate_category_save=10&param_locate_category_save=17&param_locate_category_save=15&param_lang_save=eng&param_letter_group_save=&param_perform_save=locate&param_letter_group_script_save=&param_issn_save=&param_chinese_checkbox_save=0&param_services2filter_save=getFullTxt&param_services2filter_save=getSelectedFullTxt&param_current_view_save=table&param_pattern_save=sci*&param_jumpToPage_save=&param_type_save=textSearch&param_textSearchType_save=startsWith&param_vendor_save=&param_jumpToPage_value=&param_pattern_value=&param_textSearchType_value=startsWith&param_issn_value=&param_vendor_active=1&param_locate_category_active=1&param_locate_category_value=6&param_locate_category_value=8&param_locate_category_value=7&param_locate_category_value=3&param_locate_category_value=5&param_locate_category_value=1&param_locate_category_value=9&param_locate_category_value=12&param_locate_category_value=4&param_locate_category_value=10&param_locate_category_value=17&param_locate_category_value=15
+/locations/journalarticlesconference/scieen/title_link,Title
+/locations/journalarticlesconference/scieen/title_url,/sfx_ucla/az/default?&param_sid_save=700b7081ba06eaf51cc5f0c095d38402&param_letter_group_script_save=&param_issn_save=&param_current_view_save=table&param_textSearchType_save=startsWith&param_locate_category_save=6&param_locate_category_save=8&param_locate_category_save=7&param_locate_category_save=3&param_locate_category_save=5&param_locate_category_save=1&param_locate_category_save=9&param_locate_category_save=12&param_locate_category_save=4&param_locate_category_save=10&param_locate_category_save=17&param_locate_category_save=15&param_lang_save=eng&param_chinese_checkbox_type_save=Pinyin&param_perform_save=locate&param_letter_group_save=&param_chinese_checkbox_save=0&param_services2filter_save=getFullTxt&param_services2filter_save=getSelectedFullTxt&param_pattern_save=&param_jumpToPage_save=&param_type_save=textSearch&param_langcode_save=en&param_vendor_save=&param_ui_control_scripts_save=&&param_perform_value=searchTitle
+/#database/search_text,Search for a database.
+/#database/search_search:”PsycINFO”,PsycINFO
+/#database/search_submit,#edit-databases-databases-search
+/#database/search_query:”PsycINFO”,/az.php?q=PsycINFO
+/psycinfo,/psycinfo/advanced
+/#database/az_link,A-Z List of Databases
+/#database/az_url,/az.php
+/azsearch_search:”P”,P
+/azsearch_query:”P”,/az.php?a=p
+/azsearch_text,Find databases by a keyword or EXACT phrase from the title or description
+/azsearch_submit,button.btn.btn-default
+/azsearch_query:”PsycINFO”,/az.php?a=p&q=PsycINFO
+/#database/databasesbysubject_link,Find Databases by Subject
+/#database/databasesbysubject_url,/databases-by-subject
+/#database/databasesbysubject/search_text,Search for a Database
+/#database/databasesbysubject/search_submit,button.s-lg-btn-api-drop.btn.btn-default
+/search/finddatabasebytitle_link,Find a Database by Title
+/search/browsedatabasesbysubject_link,Browse Databases by Subject
+/clicc/cliccclassrooms_link,CLICC Classrooms
+/clicc/cliccclassrooms_url,/clicc/clicc-classrooms
+/clicc/printersscanners_link,Printers and Scanners
+/clicc/printersscanners_url,/clicc/printers-scanners
+/clicc/laptopsmore_link,Laptops & More
+/clicc/laptopsmore_url,/clicc/lending
