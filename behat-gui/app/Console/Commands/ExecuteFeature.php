@@ -46,7 +46,7 @@ class ExecuteFeature extends Command
         $test = $this->argument('testNumber');
         $t = Test::where('id', '=', $test)->first();
         $name = explode('.', $t->location)[0];
-        exec('/Users/ryangurnick/Desktop/Behat-GUI/bin/behat --format html '. $name.".feature", $output);
+        exec(base_path().'/bin/behat --format html '. $name.".feature", $output);
 
         libxml_use_internal_errors(true);
         if(file_exists('features/report/default.html')) {
