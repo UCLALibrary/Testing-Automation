@@ -51,6 +51,10 @@
                                     <div class=btn-group>
                                       <button class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-refresh"></i> Execute</button>
                                       <ul class="dropdown-menu">
+                                          <li class="dropdown-header">Variable Sets</li>
+                                          <li>
+                                              <a href="{{ route('tests.execute', ['tests' => $test->id, 'sets' => 0])  }}">Default</a>
+                                          </li>
                                         @foreach(\App\Set::all() as $s)
                                         <li>
                                           <a href="{{ route('tests.execute', ['tests' => $test->id, 'sets' => $s->id]) }}">{{ $s->name }}</a>
