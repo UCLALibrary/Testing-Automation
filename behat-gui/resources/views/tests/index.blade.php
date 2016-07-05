@@ -46,7 +46,20 @@
                                     @endif
                                     </td>
                                 <td class="text-right">
-                                    <a class="btn btn-xs btn-success" href="{{ route('tests.execute', $test->id) }}"> Execute</a>
+                                    <!--- href="{{ route('tests.execute', $test->id) }}" -->
+
+                                    <div class=btn-group>
+                                      <button class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-refresh"></i> Execute</button>
+                                      <ul class="dropdown-menu">
+                                        @foreach(\App\Set::all() as $s)
+                                        <li>
+                                          <a href="{{ route('tests.execute', ['tests' => $test->id, 'sets' => $s->id]) }}">{{ $s->name }}</a>
+                                        </li>
+                                        @endforeach
+                                      </ul>
+                                    </div>
+
+
                                     <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a><br /><br />
                                     <a class="btn btn-xs btn-warning" href="{{ route('tests.edit', $test->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                                     <form action="{{ route('tests.destroy', $test->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">

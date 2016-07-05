@@ -166,9 +166,9 @@ class TestController extends Controller {
 		return redirect()->route('tests.index')->with('message', 'Item deleted successfully.');
 	}
 
-    public function execute($id){
+    public function execute(Request $request, $id){
         $this->dispatch(
-            new Execute($id)
+            new Execute($id, $request->input('set'))
         );
 
         return redirect()->back()->with('message', 'Test Queued');

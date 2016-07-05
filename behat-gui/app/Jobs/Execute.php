@@ -13,15 +13,17 @@ class Execute extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $id;
+    protected $set;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($id)
+    public function __construct($id, $set)
     {
         $this->id = $id;
+        $this->set = $set;
     }
 
     /**
@@ -31,6 +33,6 @@ class Execute extends Job implements ShouldQueue
      */
     public function handle()
     {
-        Artisan::queue('behat:execute', ['testNumber' => $this->id, 'setNumber' => '0']);
+        Artisan::queue('behat:execute', ['testNumber' => $this->id, 'setNumber' => $this->set]);
     }
 }
