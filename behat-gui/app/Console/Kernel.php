@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        if(class_exists('Scheduler')) {
+        if(class_exists('App\Scheduler')) {
             foreach (Scheduler::all() as $s) {
                 $schedule->command($s['command'], [$s['parameters']])->$s['frequency']();
             }
