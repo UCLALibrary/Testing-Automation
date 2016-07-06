@@ -17,6 +17,8 @@ class CreateTestsResultsTable extends Migration {
             $table->integer('test_id');
             $table->text('result');
             $table->integer('success');
+            $table->text('comment')->nullable();
+            $table->integer('comment_complete')->default(0);
             $table->timestamps();
         });
     }
