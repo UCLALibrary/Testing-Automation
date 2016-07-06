@@ -63,7 +63,7 @@
                                       </ul>
                                     </div>
 
-
+                                    <a class="btn btn-xs btn-info" href="{{ route('tests.category', $test->id) }}"><i class="glyphicon glyphicon-folder-open"></i> Add Category</a>
                                     <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a><br /><br />
                                     <a class="btn btn-xs btn-warning" href="{{ route('tests.edit', $test->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                                     <form action="{{ route('tests.destroy', $test->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
@@ -73,6 +73,20 @@
                                     </form>
                                 </td>
                             </tr>
+                            @if(isset($categories[$test->id]) && $categories[$test->id] != null)
+                            <tr>
+                                <td colspan="4" style="border-top:0; border-bottom: 1px solid black;">
+                                    <div class="row">
+                                        <div class="col-lg-2"><b>Categories:</b></div>
+                                        <div class="col-lg-10">
+                                            @foreach($categories[$test->id] as $c)
+                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }}<br />
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

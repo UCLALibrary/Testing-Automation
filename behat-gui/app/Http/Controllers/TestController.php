@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Category;
+use App\CategoryItem;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -25,7 +27,7 @@ class TestController extends Controller {
 		$tests = Test::orderBy('id', 'desc')->paginate(10);
 
         $status = [];
-        $tags = [];
+        $categories = [];
         foreach($tests as $t){
 			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
 			if($r != null) {
@@ -33,35 +35,14 @@ class TestController extends Controller {
 				$status[$t->id]['timestamp'] = $r->created_at;
             }
 
-            $name = $t->location;
-
-            $keywords = new ArrayKeywords([
-                'en' => array(
-                    'feature'          => 'Feature',
-                    'background'       => 'Background',
-                    'scenario'         => 'Scenario',
-                    'scenario_outline' => 'Scenario Outline|Scenario Template',
-                    'examples'         => 'Examples|Scenarios',
-                    'given'            => 'Given',
-                    'when'             => 'When',
-                    'then'             => 'Then',
-                    'and'              => 'And',
-                    'but'              => 'But'
-                )
-            ]);
-
-            $lexer = new Lexer($keywords);
-            $parser = new Parser($lexer);
-
-
-            $p = $parser->parse(file_get_contents($name));
-            $tags[$t->id] = $p->getTags();
-
+			$c = Category::where('test_id', '=', $t->id)->get();
+			foreach($c as $c) {
+				$categories[$t->id][] = $c->category;
+			}
 
         }
 
-
-        return view('tests.index', compact('tests', 'status', 'tags'));
+        return view('tests.index', compact('tests', 'status', 'categories'));
 	}
 
 	/**
@@ -173,4 +154,29 @@ class TestController extends Controller {
 
         return redirect()->back()->with('message', 'Test Queued');
     }
+
+		public function category($id){
+				if(Test::where('id', '=', $id)->first() != null){
+					$it = [];
+					$items = CategoryItem::all();
+					foreach($items as $i){
+						$it[$i->header][] = $i->value;
+					}
+
+					view()->share('items', $it);
+					view()->share('id', $id);
+					return view('tests.category');
+				}else{
+					return redirect()->route('tests.index')->withErrors(["Test does not exist"]);
+				}
+		}
+
+		public function category_store(Request $request, $id){
+				$category = new Category();
+				$category->test_id = $id;
+				$category->category = $request->input('category');
+				$category->save();
+
+				return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+		}
 }
