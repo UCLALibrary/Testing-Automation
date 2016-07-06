@@ -17,7 +17,7 @@ Feature: Accessing Databases
 #      Then I switch to the next window
 #      Then I should be on "/psycinfo/advanced"
 
-    @javascript
+    @javascript @homepage @sidebar @search @page @multiwindow @css
     Scenario: #1B
       Then I follow "Databases"
       Then I should be on "/#databases"
@@ -28,7 +28,7 @@ Feature: Accessing Databases
       Then I switch to the next window
       Then I should be on "/psycinfo/advanced"
 
-    @javascript
+    @javascript @homepage @sidebar @search @page @multiwindow @css
     Scenario: #1C
       Then I follow "Databases"
       Then I should be on "/#databases"
@@ -46,7 +46,7 @@ Feature: Accessing Databases
       Then wait 2 second
       Then I should be on "/psycinfo/advanced"
 
-    @javascript
+    @javascript @homepage @sidebar @css @multiwindow @search @page
     Scenario: #1D
       Then I follow "Databases"
       Then I should be on "/#databases"
@@ -60,13 +60,13 @@ Feature: Accessing Databases
       Then I switch to the next window
       Then I should be on "/psycinfo/advanced"
 
-    Scenario: #1E
+    Scenario: #1E @homepage @navbar @search
       Then I follow "Search"
       Then I should be on "/search"
       Then I follow "Browse Databases by Subject"
       Then I should be on "/databases-by-subject"
 
-    @javascript
+    @javascript @homepage @search @css @page @multiwindow
     Scenario: #1F
       Then I follow "Search"
       Then I should be on "/search"
@@ -79,7 +79,7 @@ Feature: Accessing Databases
       Then I switch to the next window
       Then I should be on "/psycinfo/advanced"
 
-    @javascript
+    @javascript @homepage @navbar @multiwindow @css @page
     Scenario: #1G
       Then I follow "Search"
       Then I should be on "/search"

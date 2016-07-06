@@ -6,7 +6,7 @@ Feature: Find Articles Plus on the library website
   Background:
     Given I go to "https://www.library.ucla.edu"
 
-    @javascript
+    @javascript @homepage @sidebar @search @css @topic
     Scenario: #1A
       Given I follow "ArticlesPlus"
       And wait 2 second
@@ -16,7 +16,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @homepage @sidebar @search @css @topic @filter
     Scenario: #1B
       Given I follow "ArticlesPlus"
       And wait 2 second
@@ -27,7 +27,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on "/#!/search?ho=t&fvf=IsScholarly,true,f&l=en&q=New%20York"
 
-    @javascript
+    @javascript @homepage @sidebar @search @css @topic
     Scenario: #1C
       Given I follow "ArticlesPlus"
       And wait 2 second
@@ -40,7 +40,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @homepage @search @css @topic
     Scenario: #1D
       Given I follow "New Search Tool: ArticlesPlus"
       Then I should be on "/#!/"
@@ -48,7 +48,7 @@ Feature: Find Articles Plus on the library website
       And I click the "button.btn.btn-inverse.ng-binding" element
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @homepage @sidebar @search @topic @css
     Scenario: #1E
       Given I follow "ArticlesPlus"
       Then I should be on "/#articlesplus"
@@ -60,7 +60,7 @@ Feature: Find Articles Plus on the library website
       And I click the "button.btn.btn-inverse.ng-binding" element
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @homepage @sidebar @search @advanced @topic @css
     Scenario: #1F
       Given I follow "ArticlesPlus"
       Then I should be on "/#articlesplus"
@@ -71,7 +71,7 @@ Feature: Find Articles Plus on the library website
       And wait 3 second
       Then I should be on "/advanced#!/search?ho=t&l=en&q=(New%20York%20Times)"
 
-    @javascript
+    @javascript @homepage @navbar @search @topic @css
     Scenario: #1G
       Given I follow "Search"
       Then I should be on "/search"
@@ -83,7 +83,7 @@ Feature: Find Articles Plus on the library website
       And I click the "button.btn.btn-inverse.ng-binding" element
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @homepage @navbar @search @topic @css
     Scenario: #1H
       Given I follow "Search"
       Then I should be on "/search"
@@ -96,7 +96,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @search @css @page @topic
     Scenario: #1I
       Given I fill in "Site Search" with "ArticlesPlus"
       Then I click the "#submit" element
@@ -110,7 +110,7 @@ Feature: Find Articles Plus on the library website
       Then I click the "button.btn.btn-inverse.ng-binding" element
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @search @css @page @topic
     Scenario: #1J
       Given I fill in "Site Search" with "ArticlesPlus"
       Then I click the "#submit" element
@@ -124,7 +124,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on "/#!/search?ho=t&l=en&q=New%20York%20Times"
 
-    @javascript
+    @javascript @search @page @css @topic
     Scenario: #1K
       Given I fill in "Site Search" with "ArticlesPlus"
       Then I click the "#submit" element

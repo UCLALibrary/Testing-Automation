@@ -2,6 +2,7 @@ Feature: Searching the Film & TV Catalog
 	Background:
 		Given I go to "https://www.library.ucla.edu"
 
+	@homepage @navbar @search @catalog
 	Scenario: 1A
 	Then I follow "Search"
 	Then the url should match "/search"
@@ -10,6 +11,7 @@ Feature: Searching the Film & TV Catalog
 	Then I follow "Catalog"
 	Then the url should match "/vwebv/searchBasic"
 
+	@homepage @navbar @search @catalog
 	Scenario: 1B
 	Then I follow "Search"
 	Then the url should match "/search"
@@ -18,6 +20,7 @@ Feature: Searching the Film & TV Catalog
 	Then I follow "UCLA Film & Television Archive Catalog"
 	Then the url should match "/vwebv/searchBasic"
 
+	@search @catalog @css
 	Scenario: 1C
 	Then I fill in "Site Search" with "Film & TV Catalog"
 	Then I click the "#submit" element

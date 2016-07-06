@@ -6,24 +6,28 @@ Feature: CLICC Resources Part II
   Background:
     Given I go to "https://www.library.ucla.edu"
 
+    @clicc @computerlab
     Scenario: #1A
       Then I follow "Use CLICC Laptops and Services"
       Then I should be on "/clicc"
       Then I follow "CLICC Computer Lab"
       Then I should be on "/powell/clicc-computer-lab"
 
+    @clicc @classrooms
     Scenario: #1B
       Then I follow "Use CLICC Laptops and Services"
       Then I should be on "/clicc"
       Then I follow "CLICC Classrooms"
       Then I should be on "/clicc/clicc-classrooms"
 
+    @clicc @printers @scanners
     Scenario: #1C
       Then I follow "Use CLICC Laptops and Services"
       Then I should be on "/clicc"
       Then I follow "Printers and Scanners"
       Then I should be on "/clicc/printers-scanners"
 
+    @clicc @lending
     Scenario: #1D
       Then I follow "Use CLICC Laptops and Services"
       Then I should be on "/clicc"

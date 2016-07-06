@@ -6,7 +6,7 @@ Feature: Accessing Journals
   Background:
     Given I go to "https://www.library.ucla.edu"
 
-    @javascript
+    @javascript @homepage @sidebar @multiwindow
     Scenario: #1A
       Given I follow "Journals"
       Then I should be on "/#journals"
@@ -15,12 +15,14 @@ Feature: Accessing Journals
       And wait 2 second
       Then I should be on "/sfx_ucla/az/default?&param_sid_save=e21718f6c370481f02f52709928f7941&param_lang_save=eng&param_letter_group_save=A&param_perform_save=searchCategories&param_letter_group_script_save=Latin&param_chinese_checkbox_save=0&param_services2filter_save=getFullTxt&param_services2filter_save=getSelectedFullTxt&param_current_view_save=table&param_pattern_save=&param_jumpToPage_save=&param_type_save=browseLetterGroup&param_textSearchType_save=startsWith&&param_perform_value=searchTitle"
 
+    @homepage @navbar @search
     Scenario: #1B
       Given I follow "Search"
       Then I should be on "/search"
       Then I follow "Find e-journals"
       Then I should be on "/sfx_ucla/az"
 
+    @search @css @topic @page
     Scenario: #1C
       Given I fill in "Site Search" with "Journals"
       And I click the "#submit" element
