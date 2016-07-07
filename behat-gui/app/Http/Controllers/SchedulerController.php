@@ -41,8 +41,9 @@ class SchedulerController extends Controller {
 		$scheduler = new Scheduler();
 
 		$scheduler->command = $request->input("command");
-        $scheduler->parameters = $request->input("parameters");
-        $scheduler->frequency = $request->input("frequency");
+    $scheduler->parameters = $request->input("parameters");
+    $scheduler->frequency = $request->input("frequency");
+		$scheduler->disabled = $request->input('disabled');
 
 		$scheduler->save();
 
@@ -87,8 +88,9 @@ class SchedulerController extends Controller {
 		$scheduler = Scheduler::findOrFail($id);
 
 		$scheduler->command = $request->input("command");
-        $scheduler->parameters = $request->input("parameters");
-        $scheduler->frequency = $request->input("frequency");
+    $scheduler->parameters = $request->input("parameters");
+    $scheduler->frequency = $request->input("frequency");
+		$scheduler->disabled = $request->input('disabled');
 
 		$scheduler->save();
 

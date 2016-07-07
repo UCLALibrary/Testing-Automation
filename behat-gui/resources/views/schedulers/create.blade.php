@@ -38,6 +38,14 @@
                         <span class="help-block">{{ $errors->first("frequency") }}</span>
                        @endif
                     </div>
+                    <div class="form-group @if($errors->has('disabled')) has-error @endif">
+                       <label for="disabled-field">Disabled</label>
+                       <input type="hidden" name="disabled" value="0" />
+                       <input type="checkbox" id="disabled-field" name="disabled" class="form-control" value="{{ old("disabled") }}"/>
+                       @if($errors->has("disabled"))
+                        <span class="help-block">{{ $errors->first("disabled") }}</span>
+                       @endif
+                    </div>
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">Create</button>
                     <a class="btn btn-link pull-right" href="{{ route('schedulers.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>

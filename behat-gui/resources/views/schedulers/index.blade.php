@@ -17,11 +17,12 @@
                 <table class="table table-condensed table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>COMMAND</th>
-                        <th>PARAMETERS</th>
-                        <th>FREQUENCY</th>
-                            <th class="text-right">OPTIONS</th>
+                          <th>ID</th>
+                          <th>COMMAND</th>
+                          <th>PARAMETERS</th>
+                          <th>FREQUENCY</th>
+                          <th>STATUS</th>
+                          <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>
 
@@ -30,8 +31,15 @@
                             <tr>
                                 <td>{{$scheduler->id}}</td>
                                 <td>{{$scheduler->command}}</td>
-                    <td>{{$scheduler->parameters}}</td>
-                    <td>{{$scheduler->frequency}}</td>
+                                <td>{{$scheduler->parameters}}</td>
+                                <td>{{$scheduler->frequency}}</td>
+                                <td>
+                                  @if($scheduler->disabled == 0)
+                                    <span class="label label-success">Active</span>
+                                  @elseif($scheduler->disabled == 1)
+                                    <span class="label label-danger">Disabled</span>
+                                  @endif
+                                </td>
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('schedulers.show', $scheduler->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
                                     <a class="btn btn-xs btn-warning" href="{{ route('schedulers.edit', $scheduler->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
