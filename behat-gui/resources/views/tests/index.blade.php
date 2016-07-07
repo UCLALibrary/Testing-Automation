@@ -53,11 +53,11 @@
                                       <ul class="dropdown-menu">
                                           <li class="dropdown-header">Variable Sets</li>
                                           <li>
-                                              <a href="{{ route('tests.execute', ['tests' => $test->id, 'sets' => 0])  }}">Default</a>
+                                              <a href="{{ route('tests.execute', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
                                           </li>
                                         @foreach(\App\Set::all() as $s)
                                         <li>
-                                          <a href="{{ route('tests.execute', ['tests' => $test->id, 'sets' => $s->id]) }}">{{ $s->name }}</a>
+                                          <a href="{{ route('tests.execute', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name }}</a>
                                         </li>
                                         @endforeach
                                       </ul>
