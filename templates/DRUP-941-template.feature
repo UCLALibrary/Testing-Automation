@@ -6,7 +6,7 @@ Feature: Accessing Journals
   Background:
     Given I go to [/home]
 
-    @javascript
+    @javascript @homepage @sidebar @multiwindow
     Scenario: #1A
       Given I follow [/sitesearchresult_search:”Journals”]
       Then I should be on [/journals_url]
@@ -15,12 +15,14 @@ Feature: Accessing Journals
       And wait 2 second
       Then I should be on [/#journals/azjournals_url]
 
+    @homepage @navbar @search
     Scenario: #1B
       Given I follow [/search_link]
       Then I should be on [/search_url]
       Then I follow [/search/findejournals_link]
       Then I should be on [/search/findejournals_url]
 
+    @search @css @topic @page
     Scenario: #1C
       Given I fill in [/sitesearch_text] with [/sitesearchresult_search:”Journals”]
       And I click the [/submit_element] element

@@ -6,7 +6,7 @@ Feature: Find Articles Plus on the library website
   Background:
     Given I go to [/home]
 
-    @javascript
+    @javascript @homepage @sidebar @search @css @topic
     Scenario: #1A
       Given I follow [/articles_link]
       And wait 2 second
@@ -16,7 +16,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @homepage @sidebar @search @css @topic @filter
     Scenario: #1B
       Given I follow [/articles_link]
       And wait 2 second
@@ -27,7 +27,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on [/#articlesplus/articlessearch_query:”New York”]
 
-    @javascript
+    @javascript @homepage @sidebar @search @css @topic
     Scenario: #1C
       Given I follow [/articles_link]
       And wait 2 second
@@ -40,7 +40,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @homepage @search @css @topic
     Scenario: #1D
       Given I follow [/newtoolarticlesplus_link]
       Then I should be on [/articlesplus_url]
@@ -48,7 +48,7 @@ Feature: Find Articles Plus on the library website
       And I click the [/articleplus_submit] element
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @homepage @sidebar @search @topic @css
     Scenario: #1E
       Given I follow [/articles_link]
       Then I should be on [/articles_url]
@@ -60,7 +60,7 @@ Feature: Find Articles Plus on the library website
       And I click the [/articleplus_submit] element
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @homepage @sidebar @search @advanced @topic @css
     Scenario: #1F
       Given I follow [/articles_link]
       Then I should be on [/articles_url]
@@ -71,7 +71,7 @@ Feature: Find Articles Plus on the library website
       And wait 3 second
       Then I should be on [/#articlesplus/advancedsearch_query:”New York Times”]
 
-    @javascript
+    @javascript @homepage @navbar @search @topic @css
     Scenario: #1G
       Given I follow [/search_link]
       Then I should be on [/search_url]
@@ -83,7 +83,7 @@ Feature: Find Articles Plus on the library website
       And I click the [/articleplus_submit] element
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @homepage @navbar @search @topic @css
     Scenario: #1H
       Given I follow [/search_link]
       Then I should be on [/search_url]
@@ -96,7 +96,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @search @css @page @topic
     Scenario: #1I
       Given I fill in [/sitesearch_text] with [/articles_link]
       Then I click the [/submit_element] element
@@ -110,7 +110,7 @@ Feature: Find Articles Plus on the library website
       Then I click the [/articleplus_submit] element
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @search @css @page @topic
     Scenario: #1J
       Given I fill in [/sitesearch_text] with [/articles_link]
       Then I click the [/submit_element] element
@@ -124,7 +124,7 @@ Feature: Find Articles Plus on the library website
       And wait 2 second
       Then I should be on [/#articlesplus/articlessearch_query:”New York Times”]
 
-    @javascript
+    @javascript @search @page @css @topic
     Scenario: #1K
       Given I fill in [/sitesearch_text] with [/articles_link]
       Then I click the [/submit_element] element

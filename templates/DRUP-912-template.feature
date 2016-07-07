@@ -6,10 +6,12 @@ Feature: CLICC Resources
   Background:
     Given I go to [/test-home]
 
+  @clicc @services
   Scenario: #1A
     Given I follow [/clicc_link]
     Then I should be on [/clicc_url]
 
+  @search @page @clicc @css
   Scenario: #1B
     Given I fill in [/sitesearch_text] with [/sitesearchresult_search:”clicc”]
     And I click the [/submit_element] element
@@ -17,6 +19,7 @@ Feature: CLICC Resources
     Given I follow [/powell/clicc]
     Then I should be on [/clicc_url]
 
+  @clicc @locations @powell @computerlab
   Scenario: #1C
     Given I follow [/lending_link]
     Then I should be on [/lending_url]
@@ -27,6 +30,7 @@ Feature: CLICC Resources
     Given I follow [/powell/clicc]
     Then I should be on [/clicc_url]
 
+  @locations @powell @clicc @computerlab
   Scenario: #1D
     Given I follow [/powlib_link]
     Then I should be on [/powlib_url]
@@ -35,6 +39,7 @@ Feature: CLICC Resources
     Given I follow [/powell/clicc]
     Then I should be on [/clicc_url]
 
+  @powell @locations @lending @clicc @computerspecs
   Scenario: #1E
     Given I follow [/powlib_link]
     Then I should be on [/powlib_url]
@@ -43,6 +48,7 @@ Feature: CLICC Resources
     Given I follow [/powell/computerspecs_link]
     Then I should be on [/clicc_url]
 
+  @locations @yrl @lending @computerspecs
   Scenario: #1F
     Given I follow [/reslib_link]
     Then I should be on [/reslib_url]
@@ -51,24 +57,28 @@ Feature: CLICC Resources
     Given I follow [/powell/computerspecs_link]
     Then I should be on [/clicc_url]
 
+  @homepage @navbar @clicc
   Scenario: #1G
     Given I follow [/support_link]
     Then I should be on [/support_url]
     Given I follow [/support/laptops_link]
     Then I should be on [/clicc_url]
 
+  @homepage @navbar @clicc
   Scenario: #1H
     Given I follow [/use_link]
     Then I should be on [/use_url]
     Given I follow [/use/laptops_link]
     Then I should be on [/clicc_url]
 
+  @homepage @navbar @clicc @classrooms
   Scenario: #1I
     Given I follow [/use_link]
     Then I should be on [/use_url]
-    Given I follow [/use/laptopslabclassrooms_link]
+    Given I follow "CLICC Laptops, Lab, and Classrooms"
     Then I should be on [/clicc_url]
 
+  @homepage @navbar @locations @powell @clicc @computerlab
   Scenario: #1J
     Given I follow [/locations_link]
     Then I should be on [/equip_link]
@@ -79,6 +89,7 @@ Feature: CLICC Resources
     Given I follow [/powell/clicc]
     Then I should be on [/clicc_url]
 
+  @locations @yrl @clicc @lending @computerspecs
   Scenario: #1K
     Given I follow [/locations_link]
     Then I should be on [/equip_link]

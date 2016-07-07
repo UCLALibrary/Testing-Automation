@@ -6,12 +6,14 @@ Feature: Information About Student Jobs at the Library
 Background:
   Given I go to [/home]
 
+@homepage @footer @misc @employment
 Scenario: #1A
   Given I follow [/employment_link]
   Then I should be on [/employment_url]
   Given I follow [/about/employment/studentpositions_link]
   Then I should be on [/support/apply_url]
 
+@homepage @navbar @misc @employment
 Scenario: #1B
   Given I follow [/support_link]
   Then I should be on [/support_url]
@@ -20,6 +22,7 @@ Scenario: #1B
   Given I follow [/support/apply_link]
   Then I should be on [/support/apply_url]
 
+@search @topic @css @misc @employment
 Scenario: #1C
   Given I fill in [/sitesearch_text] with [/sitesearchresult_search:”student jobs”]
   And I click the [/submit_element] element

@@ -6,6 +6,7 @@ Feature: Find Video on UCLA Library Website
   Background:
     Given I go to [/home]
 
+    @search @css @page @video
     Scenario: #1A
       Given I fill in [/sitesearch_text] with [/sitesearchresult_search:”Research Data Matters”]
       And I click the [/submit_element] element

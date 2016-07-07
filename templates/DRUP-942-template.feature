@@ -17,7 +17,7 @@ Feature: Accessing Databases
 #      Then I switch to the next window
 #      Then I should be on [/psycinfo]
 
-    @javascript
+    @javascript @homepage @sidebar @search @page @multiwindow @css
     Scenario: #1B
       Then I follow [/database_link]
       Then I should be on [/database_url]
@@ -28,7 +28,7 @@ Feature: Accessing Databases
       Then I switch to the next window
       Then I should be on [/psycinfo]
 
-    @javascript
+    @javascript @homepage @sidebar @search @page @multiwindow @css
     Scenario: #1C
       Then I follow [/database_link]
       Then I should be on [/database_url]
@@ -46,7 +46,7 @@ Feature: Accessing Databases
       Then wait 2 second
       Then I should be on [/psycinfo]
 
-    @javascript
+    @javascript @homepage @sidebar @css @multiwindow @search @page
     Scenario: #1D
       Then I follow [/database_link]
       Then I should be on [/database_url]
@@ -60,13 +60,13 @@ Feature: Accessing Databases
       Then I switch to the next window
       Then I should be on [/psycinfo]
 
-    Scenario: #1E
+    Scenario: #1E @homepage @navbar @search
       Then I follow [/search_link]
       Then I should be on [/search_url]
       Then I follow [/search/browsedatabasesbysubject_link]
       Then I should be on [/#database/databasesbysubject_url]
 
-    @javascript
+    @javascript @homepage @search @css @page @multiwindow
     Scenario: #1F
       Then I follow [/search_link]
       Then I should be on [/search_url]
@@ -79,7 +79,7 @@ Feature: Accessing Databases
       Then I switch to the next window
       Then I should be on [/psycinfo]
 
-    @javascript
+    @javascript @homepage @navbar @multiwindow @css @page
     Scenario: #1G
       Then I follow [/search_link]
       Then I should be on [/search_url]

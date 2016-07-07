@@ -2,6 +2,7 @@ Feature: Searching the Film & TV Catalog
 	Background:
 		Given I go to [/home]
 
+	@homepage @navbar @search @catalog
 	Scenario: 1A
 	Then I follow [/search_link]
 	Then the url should match [/search_url]
@@ -10,6 +11,7 @@ Feature: Searching the Film & TV Catalog
 	Then I follow [/resguide/catalog_link]
 	Then the url should match [/booksbasicsearch_link]
 
+	@homepage @navbar @search @catalog
 	Scenario: 1B
 	Then I follow [/search_link]
 	Then the url should match [/search_url]
@@ -18,6 +20,7 @@ Feature: Searching the Film & TV Catalog
 	Then I follow [/search/filmtelevisioncatalog_link]
 	Then the url should match [/booksbasicsearch_link]
 
+	@search @catalog @css
 	Scenario: 1C
 	Then I fill in [/sitesearch_text] with [/sitesearchresult_search:”Film & TV Catalog”]
 	Then I click the [/submit_element] element
