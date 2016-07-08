@@ -8,12 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Execute;
 use App\Test;
 use App\TestResult;
-use Behat\Gherkin\Keywords\ArrayKeywords;
-use Behat\Gherkin\Lexer;
-use Behat\Gherkin\Parser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
 
 class TestController extends Controller {
 
@@ -155,28 +150,50 @@ class TestController extends Controller {
         return redirect()->back()->with('message', 'Test Queued');
     }
 
-		public function category($id){
-				if(Test::where('id', '=', $id)->first() != null){
-					$it = [];
-					$items = CategoryItem::all();
-					foreach($items as $i){
-						$it[$i->header][] = $i->value;
-					}
-
-					view()->share('items', $it);
-					view()->share('id', $id);
-					return view('tests.category');
-				}else{
-					return redirect()->route('tests.index')->withErrors(["Test does not exist"]);
+	public function category($id){
+			if(Test::where('id', '=', $id)->first() != null){
+				$it = [];
+				$items = CategoryItem::all();
+				foreach($items as $i){
+					$it[$i->header][] = $i->value;
 				}
-		}
 
-		public function category_store(Request $request, $id){
-				$category = new Category();
-				$category->test_id = $id;
-				$category->category = $request->input('category');
-				$category->save();
+				view()->share('items', $it);
+				view()->share('id', $id);
+				return view('tests.category');
+			}else{
+				return redirect()->route('tests.index')->withErrors(["Test does not exist"]);
+			}
+	}
 
-				return redirect()->route('tests.index')->with('message', 'Category added successfully.');
-		}
+	public function category_store(Request $request, $id){
+			$category = new Category();
+			$category->test_id = $id;
+			$category->category = $request->input('category');
+			$category->save();
+
+			return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+	}
+
+	public function get_results(){
+		$r = TestResult::where('comment_complete', '=', 0)->get();
+        $return = [];
+        foreach($r as $r) {
+            $return[] = [
+                'result' => $r->result,
+                'id' => $r->id,
+            ];
+        }
+		echo json_encode($return);
+	}
+
+    public function put_comments(Request $request, $id){
+        $r = TestResult::where('id', '=', $id)->first();
+        $r->comment = $request->input('comment');
+        $r->comment_complete = 1;
+        $r->save();
+
+        echo 'true';
+    }
+
 }

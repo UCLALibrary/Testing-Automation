@@ -33,7 +33,24 @@
     <div class="row">
         <label>Results in execution order</label>
         @foreach($results as $r)
-            {!! str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result)) !!}
+            <div class="row">
+            <div class="col-sm-8">{!! str_replace("class=\"list-group\"","class=\"list-group\" style=\"overflow-y:scroll;\"", str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result))) !!}</div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Analysis of Message</div>
+                    <div class="panel-body">
+                        {{ $r->comment  }}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">More Info</div>
+                    <div class="panel-body">
+                        Created: {{ $r->created_at  }}<br />
+                        Updated: {{ $r->updated_at  }}
+                    </div>
+                </div>
+            </div>
+            </div>
         @endforeach
     </div>
     <div class="row">

@@ -3,7 +3,8 @@
 Route::get('/', function () {
     return redirect()->route('tests.index');
 });
-
+Route::get('/tests/results', ['as' => 'tests.results', 'uses' => 'TestController@get_results']);
+Route::post('/tests/comments/{id}', ['as' => 'tests.comments', 'uses' => 'TestController@put_comments']);
 Route::resource("tests","TestController");
 Route::resource("variables","VariableController");
 Route::resource("schedulers","SchedulerController");

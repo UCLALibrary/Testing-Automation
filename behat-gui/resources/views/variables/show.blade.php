@@ -24,7 +24,9 @@
                 </div>
                     <div class="form-group">
                      <label for="value">VALUE</label>
-                     <p class="form-control-static">{{$variable->value}}</p>
+                     <p class="form-control-static">
+                        <ul>@foreach(json_decode($variable->value) as $k => $v) <li>@if(json_decode($variable->sets)[$k] == 0) <b>Default:</b> @else <b>{{ \App\Set::where('id', '=', json_decode($variable->sets)[$k])->first()->name  }}:</b> @endif{{ wordwrap($v, 50, "\n")  }}</li> @endforeach</ul>
+                     </p>
                 </div>
             </form>
 
