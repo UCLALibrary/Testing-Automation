@@ -37,6 +37,7 @@ errors_expression['\(Link with id\|title\|alt\|text "([a-zA-Z0-9!@#$%^&*()_\-+=?
 errors_expression['cURL error 6: Couldn\'t resolve host \'(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\''] = 'Is website server down?\nIncorrect url.'
 errors_expression['No html element found for the selector \(\'([.#0-9a-zA-Z-_]+)\'\)\)'] = 'CSS identifier (class, id, or tag) is incorrect.'
 errors_expression['Form field with id\|name\|label\|value\|placeholder "([a-zA-Z0-9#._\- ]+)" not found.'] = 'This element is not on this page.\nAre you on the correct tag? Use Gherkin line "Then I switch to the next window"\nDid the page load fully? Try Gherkin line "Then wait <NUMBER> second" where <NUMBER> is time to pause in seconds (suggestion 2 or 3).'
+errors_expression['\(Expected selector, but <([a-zA-Z0-9!@#$%^&*_\-+=?., \"|>/]+)> found.'] = 'CSS selector is not correct. Go to this element on the website, right-click > Inspect Element '
 
 
 ########################################
