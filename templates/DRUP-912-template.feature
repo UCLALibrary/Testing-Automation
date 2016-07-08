@@ -4,7 +4,7 @@ Feature: CLICC Resources
   I need to make sure that the page is accessible from multiple paths
 
   Background:
-    Given I go to [/test-home]
+    Given I go to [/home]
 
   @clicc @services
   Scenario: #1A

@@ -253,3 +253,14 @@ key,value
 /clicc/printersscanners_url,/clicc/printers-scanners
 /clicc/laptopsmore_link,Laptops & More
 /clicc/laptopsmore_url,/clicc/lending
+/sitesearchresult_search:”hours”,hours
+/sitesearch_url,/site-search
+/search/researchandteaching_link,Research & Teaching
+/search/filmtelevision_link,UCLA Film & Television Archive
+/resguide/catalog_link,Catalog
+/search/libcatalog_link,Description of Library Catalog
+/search/libcatalog_url,/search/description-library-catalogs
+/search/filmtelevisioncatalog_link,UCLA Film & Television Archive Catalog
+/sitesearchresult_search:”Film & TV Catalog”,Film & TV Catalog
+/sitesearch/descriptionlibrarycatalog_link,Description of Library Catalogs
+/sitesearch/descriptionlibrarycatalog_url,/search/description-library-catalogs

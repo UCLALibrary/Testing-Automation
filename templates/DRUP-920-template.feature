@@ -73,4 +73,4 @@ Feature: Using Library Resources Away From Campus
     Given I follow [/connect_link]
     Then I should be on [/connect_url]
     Given I follow [/connect/proxyanderson_link]
-    Then I should be on [/connect/proxyanderson_url]
+    Then I should be on "/rosenfeld-library/databases/anderson-proxy-server-off-campus-access"

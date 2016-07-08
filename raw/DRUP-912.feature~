@@ -4,7 +4,7 @@ Feature: CLICC Resources
   I need to make sure that the page is accessible from multiple paths
 
   Background:
-    Given I go to "https://www.library.ucla.edu"
+    Given I go to "https://www-test.library.ucla.edu"
 
   @clicc @services
   Scenario: #1A

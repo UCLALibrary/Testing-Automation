@@ -73,4 +73,4 @@ Feature: Using Library Resources Away From Campus
     Given I follow "Connect from off-campus"
     Then I should be on "/use/computers-computing-services/connect-campus"
     Given I follow "UCLA Anderson Proxy Server"
-    Then I should be on "/rosenfeld-library/databases/anderson-proxy-server-off-campus-access"
+    Then I should be on "/rosenfeld-library/databases/anderson-proxy-server--off-campus-access"
