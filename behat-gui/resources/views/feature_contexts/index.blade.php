@@ -4,7 +4,6 @@
     <div class="page-header clearfix">
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> FeatureContexts
-            <a class="btn btn-success pull-right" href="{{ route('feature_contexts.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
         </h1>
 
     </div>
