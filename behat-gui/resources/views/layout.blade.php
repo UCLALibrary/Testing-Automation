@@ -69,6 +69,7 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
     <script type="text/javascript" src="{{ asset('jjsonviewer.js')  }}"></script>
+    <script type="text/javascript" src="{{ asset('autosize.min.js')  }}"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js"></script>
 
@@ -86,7 +87,10 @@
 
     @yield('scripts')
 
+
+
     <script type="text/javascript">
+        autosize($('textarea'));
         $(document).ready(function() {
             $('.code').each(function(i, block) {
                 hljs.highlightBlock(block);
