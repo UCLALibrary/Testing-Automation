@@ -1,4 +1,4 @@
-Feature: Biomedica Library Key Resources
+Feature: Biomedical Library Key Resources
   In order to find Biomedical Library Key Resources on the library website
   As an anonymous user
   I need to verify that these links work on various paths
@@ -6,12 +6,14 @@ Feature: Biomedica Library Key Resources
   Background:
     Given I go to "https://www.library.ucla.edu"
 
+    @locations @biomed
     Scenario: #1A
       Given I follow "Biomedical Library (Louise M. Darling)"
       Then I should be on "/biomed"
       Given I follow "Key Resources"
       Then I should be on "/biomed/key-resources"
 
+    @locations @biomed
     Scenario: #1B
       Given I follow "Locations"
       Then I should be on "/locations"
@@ -20,6 +22,7 @@ Feature: Biomedica Library Key Resources
       Given I follow "Key Resources"
       Then I should be on "/biomed/key-resources"
 
+    @search @location @css @biomed
     Scenario: #1C
       Given I fill in "Site Search" with "Biomedical Library Key Resources"
       And I click the "#submit" element

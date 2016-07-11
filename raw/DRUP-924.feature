@@ -6,12 +6,14 @@ Feature: Information About Student Jobs at the Library
 Background:
   Given I go to "https://www.library.ucla.edu"
 
+@homepage @footer @misc @employment
 Scenario: #1A
   Given I follow "Employment"
   Then I should be on "/about/employment-human-resources"
   Given I follow "Student Positions"
   Then I should be on "/about/employment-human-resources/ucla-library-jobs-students"
 
+@homepage @navbar @misc @employment
 Scenario: #1B
   Given I follow "Research & Teaching Support"
   Then I should be on "/support"
@@ -20,6 +22,7 @@ Scenario: #1B
   Given I follow "Apply for a Student Job at the Library"
   Then I should be on "/about/employment-human-resources/ucla-library-jobs-students"
 
+@search @topic @css @misc @employment
 Scenario: #1C
   Given I fill in "Site Search" with "student jobs"
   And I click the "#submit" element

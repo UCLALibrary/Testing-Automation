@@ -65,5 +65,5 @@ Feature: CLICC Software List
 	#Then the url should match "/locations"
 	#Then I follow "Powell Library"
 	#Then the url should match "/powell"
-	#Then I follow "CLICC Laptop Lending (Pwell Library)"
+	#Then I follow "CLICC Laptop Lending (Powell Library)"
 	#Then the url should match "/powell/clicc-laptop-lending-powell-library"
