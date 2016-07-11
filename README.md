@@ -11,7 +11,6 @@ Files related to Testing and Automation: Tests, Templates, Scripts, etc ...
 <li><i>maketemp.py:</i> creates -template.feature file from .feature file</li>
 <li><i>variables.csv:</i> contains all variables used to create temlate files</li>
 </ul>
-<br>
 <b>templates:</b> contains template versions of all .feature files in /raw
 <br>
 <b>working:</b> working folder to create template files. Includes most recent version of maketemp.py and variables.csv

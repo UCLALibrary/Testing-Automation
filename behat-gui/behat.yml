@@ -1,0 +1,20 @@
+default:
+    formatters:
+        html:
+          output_path: features/report
+    extensions:
+        Behat\MinkExtension:
+            base_url: http://library.ucla.edu
+            browser_name: phantomjs
+            sessions:
+                goutte: # fast, CLI, browser, no javascript support
+                    goutte: ~
+                selenium2: # fast, CLI, opens up a browser
+                    selenium2: ~
+        emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+            name: html
+            renderer: Twig
+            file_name: default
+            print_args: true
+            print_outp: true
+            loop_break: true

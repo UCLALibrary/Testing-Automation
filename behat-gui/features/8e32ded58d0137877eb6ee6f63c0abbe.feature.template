@@ -1,0 +1,9 @@
+Feature: Find Night Powell Hours on the library website. 
+
+  @javascript 
+  Scenario: 1A 
+    Given I go to "http://www.library.ucla.edu" 
+    And I follow "Powell Library" 
+    Then the url should match "/powell" 
+    And I follow "Night Powell" 
+    Then the url should match "night-powell" 
