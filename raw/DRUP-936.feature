@@ -6,6 +6,7 @@ Feature: Find Video on UCLA Library Website
   Background:
     Given I go to "https://www.library.ucla.edu"
 
+    @search @css @page @video
     Scenario: #1A
       Given I fill in "Site Search" with "Research Data Matters"
       And I click the "#submit" element

@@ -6,6 +6,7 @@ Feature: Renewing a Checked Out Book
   Background:
     Given I go to "https://www.library.ucla.edu"
 
+    @misc @renew @catalog @search
     Scenario: #1A
       Given I follow "Renew a book"
       Then I should be on "/use/borrow-renew-return/renewing-and-returning-items"
@@ -14,6 +15,7 @@ Feature: Renewing a Checked Out Book
       Given I follow "Log in"
       Then I should be on "/vwebv/login"
 
+    @misc @renew @catalog @search
     Scenario: #1B
       Given I follow "Renew a book"
       Then I should be on "/use/borrow-renew-return/renewing-and-returning-items"
@@ -22,7 +24,8 @@ Feature: Renewing a Checked Out Book
       Given I follow "My Account/Renew Books"
       Then I should be on "/vwebv/login"
 
-    Scenario: #1C
+  @misc @renew @catalog @search
+  Scenario: #1C
       Given I follow "Renew a book"
       Then I should be on "/use/borrow-renew-return/renewing-and-returning-items"
       Given I follow "UCLA Library Catalog"
@@ -30,7 +33,8 @@ Feature: Renewing a Checked Out Book
       Given I follow "My Bookbag"
       Then I should be on "/vwebv/login"
 
-    Scenario: #1D
+  @misc @renew @catalog @search @css @topic
+  Scenario: #1D
       Given I fill in "Site Search" with "Renew Book"
       And I click the "#submit" element
       Then I should be on "/site-search?search_query=renew+book"
@@ -39,14 +43,16 @@ Feature: Renewing a Checked Out Book
       Given I follow "UCLA Library Catalog"
       Then I should be on "/vwebv/searchBasic"
 
-    Scenario: #1E
+  @misc @renew @catalog @search @filter
+  Scenario: #1E
       //Given I follow "Books & More"
       //Then I should be on "/#books"
       Given I select the "UCLA Library Catalog" radio button
       And I follow "UCLA Library Catalog"
       Then I should be on "/vwebv/searchBasic"
 
-    Scenario: #1F
+  @misc @renew @catalog @search @homepage @navbar
+  Scenario: #1F
       Given I follow "Using the Library"
       Then I should be on "/use"
       Given I follow "Renewing and Returning Items"
@@ -54,7 +60,8 @@ Feature: Renewing a Checked Out Book
       Given I follow "UCLA Library Catalog"
       Then I should be on "/vwebv/searchBasic"
 
-    Scenario: #1G
+  @misc @renew @catalog @search @homepage @navbar
+  Scenario: #1G
       Given I follow "Using the Library"
       Then I should be on "/use"
       Given I follow "Borrow, Renew, Return"
@@ -64,7 +71,8 @@ Feature: Renewing a Checked Out Book
       Given I follow "UCLA Library Catalog"
       Then I should be on "/vwebv/searchBasic"
 
-    Scenario: #2A
+  @misc @renew @catalog @search @filter @advanced
+  Scenario: #2A
       Given I select the "UCLA Library Catalog" radio button
       And I follow "UCLA Library Catalog"
       Then I should be on "/vwebv/searchBasic"
