@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
     <link rel="stylesheet" href="{{ asset('style.css')  }}" />
-
+    <link rel="stylesheet" href="{{ asset('jjsonviewer.css')  }}" />
     <!-- Custom styles for this template -->
     <!-- <link href="starter-template.css" rel="stylesheet"> -->
 
@@ -45,8 +46,12 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ route('tests.index')  }}">Home</a></li>
+                    <li><a href="{{ route('tests.index')  }}">Home</a></li>
+                    <li><a href="{{ route('reports.index') }}">Report</a></li>
                     <li><a href="{{ route('variables.index')  }}">Variables</a></li>
+                    <li><a href="{{ route('sets.index')  }}">Sets</a></li>
+                    <li><a href="{{ route('schedulers.index')  }}">Scheduler</a></li>
+                    <li><a href="{{ route('feature_contexts.index')  }}">Feature Context</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -64,9 +69,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    <script type="text/javascript" src="{{ asset('jjsonviewer.js')  }}"></script>
+    <script type="text/javascript" src="{{ asset('autosize.min.js')  }}"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js"></script>
+
+    <script type="application/javascript">
+
+    @if ($errors->has())
+        @foreach ($errors->all() as $error)
+            $.jGrowl("{{ $error  }}", { header: 'Error', position: 'bottom-right', life: 10000 });
+        @endforeach
+    @endif
+    @if (session('message'))
+        $.jGrowl("{{ session('message')  }}", { header: 'Success', position: 'bottom-right', life: 10000 });
+        @endif
+    </script>
+
     @yield('scripts')
 
+
+
     <script type="text/javascript">
+        autosize($('textarea'));
         $(document).ready(function() {
             $('.code').each(function(i, block) {
                 hljs.highlightBlock(block);

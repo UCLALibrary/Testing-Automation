@@ -40,9 +40,26 @@ class VariableController extends Controller {
 	{
 		$variable = new Variable();
 
-		$variable->key = $request->input("key");
-        $variable->value = $request->input("value");
+        $main = json_decode($request->input('main'), true);
+        $data = json_decode($request->input('data'), true);
 
+        $json_array = [
+            $main['value'],
+        ];
+        $sets_array = ["0"];
+
+        foreach($data as $d){
+            $sets_array[] = $d['select'];
+            $json_array[] = $d['input'];
+        }
+
+        $json = json_encode($json_array);
+        $set = json_encode($sets_array);
+
+
+		$variable->key = $main['key'];
+        $variable->value = $json;
+        $variable->sets = $set;
 		$variable->save();
 
 		return redirect()->route('variables.index')->with('message', 'Item created successfully.');
@@ -85,12 +102,30 @@ class VariableController extends Controller {
 	{
 		$variable = Variable::findOrFail($id);
 
-		$variable->key = $request->input("key");
-        $variable->value = $request->input("value");
+        $main = json_decode($request->input('main'), true);
+        $data = json_decode($request->input('data'), true);
 
-		$variable->save();
 
-		return redirect()->route('variables.index')->with('message', 'Item updated successfully.');
+        $json_array = [
+            $main['value'],
+        ];
+        $sets_array = ["0"];
+
+        foreach($data as $d){
+            $sets_array[] = $d['select'];
+            $json_array[] = $d['input'];
+        }
+
+        $json = json_encode($json_array);
+        $set = json_encode($sets_array);
+
+
+        $variable->key = $main['key'];
+        $variable->value = $json;
+        $variable->sets = $set;
+        $variable->save();
+
+        return redirect()->route('variables.index')->with('message', 'Item updated successfully.');
 	}
 
 	/**

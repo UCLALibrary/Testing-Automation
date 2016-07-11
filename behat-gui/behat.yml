@@ -5,7 +5,7 @@ default:
     extensions:
         Behat\MinkExtension:
             base_url: http://library.ucla.edu
-            browser_name: chrome
+            browser_name: phantomjs
             sessions:
                 goutte: # fast, CLI, browser, no javascript support
                     goutte: ~
