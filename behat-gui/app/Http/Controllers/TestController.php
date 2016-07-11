@@ -5,6 +5,7 @@ use App\CategoryItem;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Jobs\Categories;
 use App\Jobs\Execute;
 use App\Set;
 use App\Test;
@@ -204,5 +205,16 @@ class TestController extends Controller {
 
         echo 'true';
     }
+
+	public function execute_category(Request $request)
+    {
+        foreach ($request->input('categories') as $category){
+            $this->dispatch(
+                new Categories($category, $request->input('set'))
+            );
+        }
+
+        return redirect()->route('tests.index')->with('message', 'Executed all tests relating to those categories');
+	}
 
 }

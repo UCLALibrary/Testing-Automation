@@ -5,6 +5,7 @@ Route::get('/', function () {
 });
 Route::get('/reports', ['as' => 'reports.index', 'uses' => 'ReportController@index']);
 Route::get('/tests/results', ['as' => 'tests.results', 'uses' => 'TestController@get_results']);
+Route::post('/tests/execute/category', ['as' => 'tests.executeCategory', 'uses' => 'TestController@execute_category']);
 Route::post('/tests/comments/{id}', ['as' => 'tests.comments', 'uses' => 'TestController@put_comments']);
 Route::resource("tests","TestController");
 Route::resource("variables","VariableController");

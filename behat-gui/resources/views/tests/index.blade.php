@@ -14,10 +14,11 @@
     <div class="row">
 
         <div class="form-group">
-            <a href="#" class="btn btn-primary form-control">Run by Category</a>
+            <a href="#" id="runbycategory" class="btn btn-primary form-control">Run by Category</a>
         </div>
-        <form action="#" method="POST">
-            <div class="col-sm-6">
+        <form action="{{ route('tests.executeCategory')  }}" method="POST" id="runbycategoryform" class="hidden">
+            {!! csrf_field() !!}
+            <div class="col-sm-6 ">
                     <div class="form-group">
                         <label for=categories">Categories</label>
                         <select name="categories[]" id="categories" multiple class="form-control">
@@ -135,4 +136,12 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $("#runbycategory").on('click', function(){
+            $("#runbycategoryform").toggleClass('hidden');
+        });
+    </script>
 @endsection
