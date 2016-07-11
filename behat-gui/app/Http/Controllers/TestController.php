@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Jobs\Execute;
+use App\Set;
 use App\Test;
 use App\TestResult;
 use Illuminate\Http\Request;
@@ -20,6 +21,12 @@ class TestController extends Controller {
 	public function index()
 	{
 		$tests = Test::orderBy('id', 'desc')->paginate(10);
+
+		$it = [];
+		$items = CategoryItem::all();
+		foreach($items as $i){
+			$it[$i->header][] = $i->value;
+		}
 
         $status = [];
         $categories = [];
@@ -37,6 +44,8 @@ class TestController extends Controller {
 
         }
 
+		view()->share('items', $it);
+        view()->share('sets', Set::all());
         return view('tests.index', compact('tests', 'status', 'categories'));
 	}
 

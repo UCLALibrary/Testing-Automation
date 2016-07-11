@@ -12,6 +12,43 @@
 
 @section('content')
     <div class="row">
+
+        <div class="form-group">
+            <a href="#" class="btn btn-primary form-control">Run by Category</a>
+        </div>
+        <form action="#" method="POST">
+            <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for=categories">Categories</label>
+                        <select name="categories[]" id="categories" multiple class="form-control">
+                        @foreach($items as $h => $i)
+                            <optgroup label="{{ $h }}">
+                                @foreach($i as  $j)
+                                    <option value="{{ \App\CategoryItem::where('header', '=', $h)->where('value', '=', $j)->first()->id }}">{{ $j }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                        </select>
+                    </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="set">Variable Set</label>
+                    <select name="set" id="set" class="form-control">
+                    @foreach($sets as $s)
+                        <option value="{{ $s->id  }}">{{ $s->name  }}</option>
+                    @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="form-control btn btn-primary" value="Execute" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="row">
         <div class="col-md-12">
             @if($tests->count())
                 <table class="table table-condensed table-striped">
