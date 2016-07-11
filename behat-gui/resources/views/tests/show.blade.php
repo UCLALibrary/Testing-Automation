@@ -40,6 +40,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Analysis of Message</div>
                     <div class="panel-body">
+                        <small>This area will give you some check points for failure.
+                            They will not include any issues that might be on the website you are testing.</small><br /><br />
                         <ul>
                         @foreach(explode("\n", $r->comment) as $e)<li>{!!  $e  !!}</li>@endforeach
                         </ul>
