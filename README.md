@@ -16,4 +16,4 @@ Files related to Testing and Automation: Tests, Templates, Scripts, etc ...
 <br>
 <b>working:</b> working folder to create template files. Includes most recent version of maketemp.py and variables.csv
 <br>
-<b>tags.ods:</b> contains tags used to categorize all tests
+<b>tags.csv:</b> contains tags used to categorize all tests
