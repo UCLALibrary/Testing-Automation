@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-# Written by Lilly An, July 2016
-# Github: swamplilly
+# AUTHORS:
+# Lilly An (Github: swamplilly)
+# Ryan Gurnick
 
 import requests
 import json
