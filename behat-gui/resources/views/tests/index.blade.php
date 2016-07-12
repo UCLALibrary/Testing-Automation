@@ -11,6 +11,7 @@
 @endsection
 
 @section('content')
+    @if($tests->count())
     <div class="row">
 
         <div class="form-group">
@@ -24,6 +25,7 @@
                         <select name="categories[]" id="categories" multiple class="form-control">
                         @foreach($items as $h => $i)
                             <optgroup label="{{ $h }}">
+                                    <option value="0">Default</option>
                                 @foreach($i as  $j)
                                     <option value="{{ \App\CategoryItem::where('header', '=', $h)->where('value', '=', $j)->first()->id }}">{{ $j }}</option>
                                 @endforeach
@@ -48,6 +50,7 @@
         </form>
 
     </div>
+    @endif
 
     <div class="row">
         <div class="col-md-12">
@@ -118,7 +121,7 @@
                                         <div class="col-lg-2"><b>Categories:</b></div>
                                         <div class="col-lg-10">
                                             @foreach($categories[$test->id] as $c)
-                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }}<br />
+                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $c)  }}">Delete</a><br />
                                             @endforeach
                                         </div>
                                     </div>

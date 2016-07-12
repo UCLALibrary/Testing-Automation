@@ -161,28 +161,33 @@ class TestController extends Controller {
     }
 
 	public function category($id){
-			if(Test::where('id', '=', $id)->first() != null){
-				$it = [];
-				$items = CategoryItem::all();
-				foreach($items as $i){
-					$it[$i->header][] = $i->value;
-				}
+        if(Test::where('id', '=', $id)->first() != null){
+            $it = [];
+            $items = CategoryItem::all();
+            foreach($items as $i){
+                $it[$i->header][] = $i->value;
+            }
 
-				view()->share('items', $it);
-				view()->share('id', $id);
-				return view('tests.category');
-			}else{
-				return redirect()->route('tests.index')->withErrors(["Test does not exist"]);
-			}
+            view()->share('items', $it);
+            view()->share('id', $id);
+            return view('tests.category');
+        }else{
+            return redirect()->route('tests.index')->withErrors(["Test does not exist"]);
+        }
+	}
+
+	public function delete_category($id){
+        Category::where('id', '=', $id)->first()->delete();
+        return redirect()->route('tests.index')->with('message', 'Category deleted');
 	}
 
 	public function category_store(Request $request, $id){
-			$category = new Category();
-			$category->test_id = $id;
-			$category->category = $request->input('category');
-			$category->save();
+        $category = new Category();
+        $category->test_id = $id;
+        $category->category = $request->input('category');
+        $category->save();
 
-			return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+        return redirect()->route('tests.index')->with('message', 'Category added successfully.');
 	}
 
 	public function get_results(){
