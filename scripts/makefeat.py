@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+
+# Written by Lilly An, July 2016
+# Github: swamplilly
+
 import fileinput, sys, csv
 from sys import argv
 
