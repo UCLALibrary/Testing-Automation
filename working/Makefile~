@@ -1,9 +1,6 @@
 default:
 	./maketemp.py variables.csv DRUP-???.feature
 
-alltemp:
-	xargs -n1 DRUP-???.feature | ./maketemp.py variables.csv
-
 cleanfeat:
 	rm DRUP-???.feature
 
