@@ -25,7 +25,6 @@
                         <select name="categories[]" id="categories" multiple class="form-control">
                         @foreach($items as $h => $i)
                             <optgroup label="{{ $h }}">
-                                    <option value="0">Default</option>
                                 @foreach($i as  $j)
                                     <option value="{{ \App\CategoryItem::where('header', '=', $h)->where('value', '=', $j)->first()->id }}">{{ $j }}</option>
                                 @endforeach
@@ -38,6 +37,7 @@
                 <div class="form-group">
                     <label for="set">Variable Set</label>
                     <select name="set" id="set" class="form-control">
+                        <option value="0">Default</option>
                     @foreach($sets as $s)
                         <option value="{{ $s->id  }}">{{ $s->name  }}</option>
                     @endforeach
