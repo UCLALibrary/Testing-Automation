@@ -21,5 +21,3 @@ Route::post('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'Test
 Route::get('/tests/execute/{tests}/', ['as' => 'tests.execute', 'uses' => 'TestController@execute']);
 
 Route::get('/variables/delete/{id}/{set}', ['as' => 'variables.deleteValue', 'uses' => 'VariableController@delete_value']);
-
-Route::get('/services', ['as' => 'services.index', 'uses' => 'ServiceController@index']);
