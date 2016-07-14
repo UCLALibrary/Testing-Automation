@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Test;
 use App\TestResult;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class ExecuteFeature extends Command
 {
@@ -77,6 +78,8 @@ class ExecuteFeature extends Command
 
         rrmdir('features/report');
         unlink($name.".feature");
+
+        $this->call('behat:analyze');
     }
 
     function sanitize_output($buffer) {

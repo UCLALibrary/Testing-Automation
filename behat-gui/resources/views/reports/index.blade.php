@@ -30,6 +30,7 @@
                             </div>
                         </div>
                         @if($r->comment_complete == 1)
+                            @if($r->comment != null)
                             <div class="panel panel-default">
                                 <div class="panel-heading">Analysis of Message</div>
                                 <div class="panel-body">
@@ -40,6 +41,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            @endif
                         @endif
                     </div>
                 </div>
