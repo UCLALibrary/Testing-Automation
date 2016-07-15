@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\CompileFeature::class,
         Commands\ExecuteFeature::class,
+        Commands\FriendlyMessages::class,
     ];
 
     /**

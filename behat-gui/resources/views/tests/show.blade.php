@@ -34,28 +34,32 @@
         <label>Results in execution order</label>
         @foreach($results as $r)
             <div class="row">
-            <div class="col-sm-8">{!! str_replace("class=\"list-group\"","class=\"list-group\" style=\"overflow-y:scroll;\"", str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result))) !!}</div>
-            <div class="col-sm-4">
-                @if($r->comment_complete == 1)
-                <div class="panel panel-default">
-                    <div class="panel-heading">Analysis of Message</div>
-                    <div class="panel-body">
-                        <small>This area will give you some check points for failure.
-                            They will not include any issues that might be on the website you are testing.</small><br /><br />
-                        <ul>
-                        @foreach(explode("\n", $r->comment) as $e)<li>{!!  $e  !!}</li>@endforeach
-                        </ul>
-                    </div>
-                </div>
+                @if($pattern = "/<div class=\"tags pull-right\">([a-zA-Z\"\/\<\> \n=]+)<\/div>/")
+                <div class="col-sm-8">{!! preg_replace($pattern, "", str_replace("class=\"list-group\"","class=\"list-group\" style=\"overflow-y:scroll;\"", str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result)))) !!}</div>
                 @endif
-                <div class="panel panel-default">
-                    <div class="panel-heading">More Info</div>
-                    <div class="panel-body">
-                        Created: {{ $r->created_at  }}<br />
-                        Updated: {{ $r->updated_at  }}
+                <div class="col-sm-4">
+                    @if($r->comment_complete == 1)
+                        @if($r->comment != null)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Analysis of Message</div>
+                        <div class="panel-body">
+                            <small>This area will give you some check points for failure.
+                                They will not include any issues that might be on the website you are testing.</small><br /><br />
+                            <ul>
+                            @foreach(explode("\n", $r->comment) as $e)<li>{!!  $e  !!}</li>@endforeach
+                            </ul>
+                        </div>
+                    </div>
+                        @endif
+                    @endif
+                    <div class="panel panel-default">
+                        <div class="panel-heading">More Info</div>
+                        <div class="panel-body">
+                            Created: {{ $r->created_at  }}<br />
+                            Updated: {{ $r->updated_at  }}
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
             <hr />
         @endforeach

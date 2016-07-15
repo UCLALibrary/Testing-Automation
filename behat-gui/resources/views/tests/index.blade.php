@@ -11,13 +11,15 @@
 @endsection
 
 @section('content')
+    @if($tests->count())
     <div class="row">
 
         <div class="form-group">
-            <a href="#" class="btn btn-primary form-control">Run by Category</a>
+            <a href="#" id="runbycategory" class="btn btn-primary form-control">Run by Category</a>
         </div>
-        <form action="#" method="POST">
-            <div class="col-sm-6">
+        <form action="{{ route('tests.executeCategory')  }}" method="POST" id="runbycategoryform" class="hidden">
+            {!! csrf_field() !!}
+            <div class="col-sm-6 ">
                     <div class="form-group">
                         <label for=categories">Categories</label>
                         <select name="categories[]" id="categories" multiple class="form-control">
@@ -35,6 +37,7 @@
                 <div class="form-group">
                     <label for="set">Variable Set</label>
                     <select name="set" id="set" class="form-control">
+                        <option value="0">Default</option>
                     @foreach($sets as $s)
                         <option value="{{ $s->id  }}">{{ $s->name  }}</option>
                     @endforeach
@@ -47,6 +50,7 @@
         </form>
 
     </div>
+    @endif
 
     <div class="row">
         <div class="col-md-12">
@@ -117,7 +121,7 @@
                                         <div class="col-lg-2"><b>Categories:</b></div>
                                         <div class="col-lg-10">
                                             @foreach($categories[$test->id] as $c)
-                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }}<br />
+                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $c)  }}">Delete</a><br />
                                             @endforeach
                                         </div>
                                     </div>
@@ -135,4 +139,12 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $("#runbycategory").on('click', function(){
+            $("#runbycategoryform").toggleClass('hidden');
+        });
+    </script>
 @endsection

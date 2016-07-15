@@ -27,7 +27,7 @@
                         @foreach($variables as $variable)
                             <tr>
                                 <td>{{$variable->key}}</td>
-                                <td><ul>@foreach(json_decode($variable->value) as $k => $v) <li>@if(json_decode($variable->sets)[$k] == 0) <b>Default:</b> @else <b>{{ \App\Set::where('id', '=', json_decode($variable->sets)[$k])->first()->name  }}:</b> @endif{{ substr($v, 0, 50)  }}...</li> @endforeach</ul></td>
+                                <td><ul>@foreach(json_decode($variable->value) as $k => $v) <li>@if(json_decode($variable->sets)[$k] == 0) <b>Default:</b> @else  <b>{{ \App\Set::where('id', '=', json_decode($variable->sets)[$k])->first()->name  }}:</b> @endif {{ substr($v, 0, 50)  }}... @if(json_decode($variable->sets)[$k] != 0) - <a href="{{ route('variables.deleteValue', [$variable->id, $k])  }}">Delete</a> @endif</li> @endforeach</ul></td>
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('variables.show', $variable->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
                                     <a class="btn btn-xs btn-warning" href="{{ route('variables.edit', $variable->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>

@@ -11,7 +11,7 @@ class ReportController extends Controller
 {
     public function index(){
 
-        $results = TestResult::all();
+        $results = TestResult::where('id', '!=', 0)->orderBy('created_at', 'desc')->get();
         return view('reports.index', compact('results'));
     }
 }
