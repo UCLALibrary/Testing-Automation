@@ -19,5 +19,9 @@ Route::get('/tests/category/delete/{test}', ['as' => 'tests.deleteCategory', 'us
 Route::get('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category']);
 Route::post('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category_store']);
 Route::get('/tests/execute/{tests}/', ['as' => 'tests.execute', 'uses' => 'TestController@execute']);
+Route::get('/tests/compiled/{test}/{set}', ['as' => 'tests.compiled', 'uses' => 'TestController@compiled']);
 
 Route::get('/variables/delete/{id}/{set}', ['as' => 'variables.deleteValue', 'uses' => 'VariableController@delete_value']);
+
+Route::resource("roles","RoleController");
+Route::resource("permissions","PermissionController");

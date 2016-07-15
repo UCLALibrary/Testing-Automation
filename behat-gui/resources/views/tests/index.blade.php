@@ -69,7 +69,7 @@
                         @foreach($tests as $test)
                             <tr>
                                 <td>{{$test->name}}<br />@if(isset($tags[$test->id])) <ul> @foreach($tags[$test->id] as $t) <li>{{ $t  }}</li>  @endforeach </ul> @endif</td>
-                                <td class="code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</td>
+                                <td><a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Source</a><br /><br /><div id="toggle_{{ $test->id  }}" class="hidden code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</div></td>
                                 <td>
                                     @if(isset($status[$test->id]['success']))
                                         @if($status[$test->id]['success'] == 0)
@@ -88,30 +88,50 @@
                                     </td>
                                 <td class="text-right">
                                     <!--- href="{{ route('tests.execute', $test->id) }}" -->
-
-                                    <div class=btn-group>
-                                      <button class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-refresh"></i> Execute</button>
-                                      <ul class="dropdown-menu">
-                                          <li class="dropdown-header">Variable Sets</li>
-                                          <li>
-                                              <a href="{{ route('tests.execute', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
-                                          </li>
-                                        @foreach(\App\Set::all() as $s)
-                                        <li>
-                                          <a href="{{ route('tests.execute', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name }}</a>
-                                        </li>
-                                        @endforeach
-                                      </ul>
-                                    </div>
-
-                                    <a class="btn btn-xs btn-info" href="{{ route('tests.category', $test->id) }}"><i class="glyphicon glyphicon-folder-open"></i> Add Category</a>
-                                    <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a><br /><br />
-                                    <a class="btn btn-xs btn-warning" href="{{ route('tests.edit', $test->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                                    <form action="{{ route('tests.destroy', $test->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-                                    </form>
+                                    <table class="pull-right">
+                                        <tr style="height: 35px">
+                                            <td>
+                                        <div class=btn-group>
+                                          <button class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-refresh"></i> Execute</button>
+                                          <ul class="dropdown-menu">
+                                              <li class="dropdown-header">Variable Sets</li>
+                                              <li>
+                                                  <a href="{{ route('tests.execute', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
+                                              </li>
+                                            @foreach(\App\Set::all() as $s)
+                                            <li>
+                                              <a href="{{ route('tests.execute', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name }}</a>
+                                            </li>
+                                            @endforeach
+                                          </ul>
+                                        </div>
+                                        <a class="btn btn-xs btn-info" href="{{ route('tests.category', $test->id) }}"><i class="glyphicon glyphicon-folder-open"></i> Add Category</a>
+                                        <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
+                                        </td>
+                                        </tr>
+                                        <tr><td>
+                                        <div class=btn-group>
+                                            <button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-download-alt"></i> Compiled</button>
+                                            <ul class="dropdown-menu">
+                                                <li class="dropdown-header">Variable Sets</li>
+                                                <li>
+                                                    <a href="{{ route('tests.compiled', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
+                                                </li>
+                                                @foreach(\App\Set::all() as $s)
+                                                    <li>
+                                                        <a href="{{ route('tests.compiled', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <a class="btn btn-xs btn-warning" href="{{ route('tests.edit', $test->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                                        <form action="{{ route('tests.destroy', $test->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                                        </form>
+                                            </td></tr>
+                                    </table>
                                 </td>
                             </tr>
                             @if(isset($categories[$test->id]) && $categories[$test->id] != null)
@@ -143,6 +163,11 @@
 
 @section('scripts')
     <script type="text/javascript">
+        @foreach($tests as $test)
+        $("#code_{{ $test->id  }}").on('click', function(){
+            $("#toggle_{{ $test->id  }}").toggleClass('hidden');
+        });
+        @endforeach
         $("#runbycategory").on('click', function(){
             $("#runbycategoryform").toggleClass('hidden');
         });
