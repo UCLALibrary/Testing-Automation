@@ -51,6 +51,7 @@
                     <li><a href="{{ route('variables.index')  }}">Variables</a></li>
                     <li><a href="{{ route('sets.index')  }}">Sets</a></li>
                     <li><a href="{{ route('schedulers.index')  }}">Scheduler</a></li>
+                    <li><a href="{{ route('categories.index')  }}">Categories</a></li>
                     <li><a href="{{ route('feature_contexts.index')  }}">Feature Context</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
