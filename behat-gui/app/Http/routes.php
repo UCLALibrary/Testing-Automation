@@ -25,3 +25,4 @@ Route::get('/variables/delete/{id}/{set}', ['as' => 'variables.deleteValue', 'us
 
 Route::resource("roles","RoleController");
 Route::resource("permissions","PermissionController");
+Route::resource("categories","CategoryController");
