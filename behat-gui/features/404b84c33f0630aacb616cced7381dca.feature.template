@@ -1,9 +1,0 @@
-Feature: Find Night Powell Hours on the library website.
-
-  @javascript
-  Scenario: 1B
-    Given I go to "[/home]"
-    And I follow "[/powlib_link]"
-    Then the url should match "[/powlib_url]"
-    And I follow "At This Location"
-    Then the url should match "/powell/at-this-location"
