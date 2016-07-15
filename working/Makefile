@@ -2,7 +2,7 @@ default:
 	./maketemp.py variables.csv DRUP-???.feature
 
 alltemp:
-	xargs -n1 DRUP-???.feature | ./maketemp.py variables.csv
+	ls *.feature | xargs -n1 ./maketemp.py variables.csv
 
 cleanfeat:
 	rm DRUP-???.feature
@@ -16,4 +16,4 @@ clean:
 move:
 	mv *-template.feature ~/Testing-Automation/templates/
 
-.PHONY: default clean
+.PHONY: default alltemp cleanfeat cleantemp clean move

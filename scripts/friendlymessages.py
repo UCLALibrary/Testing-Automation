@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# AUTHORS:
+# Lilly An (Github: swamplilly)
+# Ryan Gurnick
+
 import requests
 import json
 import re
