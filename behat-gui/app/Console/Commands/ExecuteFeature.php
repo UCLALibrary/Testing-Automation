@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Notifications;
 use App\Test;
 use App\TestResult;
 use Illuminate\Console\Command;
@@ -78,6 +79,8 @@ class ExecuteFeature extends Command
 
         rrmdir('features/report');
         unlink($name.".feature");
+
+        Notifications::firstOrCreate(['message' => $t->name.' was executed']);
 
         $this->call('behat:analyze');
     }

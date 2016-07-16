@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Notifications;
 use \Behat\Gherkin\Lexer;
 use \Behat\Gherkin\Parser;
 use \Behat\Gherkin\Keywords\ArrayKeywords;
@@ -46,7 +47,7 @@ class CompileFeature extends Command
     {
         $test = $this->argument('testNumber');
         $set = $this->argument('setNumber');
-        $t = \App\Test::where('id', '=', $test)->first();
+        $t = Test::where('id', '=', $test)->first();
         $file = file_get_contents($t->location);
         $file = str_replace(" ", " ", $file);
 
@@ -95,8 +96,8 @@ class CompileFeature extends Command
         $info = $parser->parse($data);
         $file = '# language: '. $info->getLanguage();
 
-        foreach($info->getTags() as $t){
-            $file .= "\n@". $t;
+        foreach($info->getTags() as $te){
+            $file .= "\n@". $te;
         }
 
         $file .= "\nFeature: ". $info->getTitle();
@@ -119,15 +120,15 @@ class CompileFeature extends Command
 
         $file .= "\n";
         foreach($info->getScenarios() as $s){
-            foreach($s->getTags() as $t){
-                $file .= "\n  @". $t;
+            foreach($s->getTags() as $te){
+                $file .= "\n  @". $te;
             }
             $file .= "\n  ".$s->getKeyword(). ": ";
-            foreach(explode("\n", $s->getTitle()) as $k => $t){
+            foreach(explode("\n", $s->getTitle()) as $k => $te){
                 if($k == 0){
-                    $file .= trim($t);
+                    $file .= trim($te);
                 }else{
-                    $file .= "\n    " . trim($t);
+                    $file .= "\n    " . trim($te);
                 }
             }
             foreach($s->getSteps() as $step){
@@ -142,6 +143,10 @@ class CompileFeature extends Command
         $f = fopen($name.".feature", "w");
         fwrite($f, $file);
         fclose($f);
+
+        Notifications::firstOrCreate(['message' =>  $t->name.' was compiled']);
+
+
 
     }
 }

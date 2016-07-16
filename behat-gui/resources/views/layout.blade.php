@@ -83,7 +83,7 @@
         @endforeach
     @endif
     @if (session('message'))
-        $.jGrowl("{{ session('message')  }}", { header: 'Success', position: 'bottom-right', life: 10000 });
+        $.jGrowl("{{ session('message')  }}", { header: 'Alert', position: 'bottom-right', life: 10000 });
         @endif
     </script>
 
@@ -94,10 +94,33 @@
     <script type="text/javascript">
         autosize($('textarea'));
         $(document).ready(function() {
+            $.ajax({
+                type: "get",
+                url: '/ajax/kill_notifications',
+                dataType: 'json',
+            });
             $('.code').each(function(i, block) {
                 hljs.highlightBlock(block);
             });
         });
+        setInterval(function(){
+            $.ajax({
+                type: "get",
+                url: '/ajax/notifications',
+                dataType: 'json',
+                success: function(request){
+                    $.each(request, function(k,v){
+                        $.jGrowl(v, { header: 'Alert', position: 'bottom-left', life: 10000 });
+                        $.ajax({
+                            type: "get",
+                            url: '/ajax/kill_notifications/'+k,
+                            dataType: 'json',
+                        });
+                    });
+                }
+            });
+        }, 1000);
+
     </script>
 </body>
 </html>

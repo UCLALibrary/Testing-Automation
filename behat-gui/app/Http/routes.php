@@ -23,6 +23,9 @@ Route::get('/tests/compiled/{test}/{set}', ['as' => 'tests.compiled', 'uses' => 
 
 Route::get('/variables/delete/{id}/{set}', ['as' => 'variables.deleteValue', 'uses' => 'VariableController@delete_value']);
 
+Route::get('/ajax/notifications', ['uses' => 'AjaxController@notification']);
+Route::get('/ajax/kill_notifications/{id}', ['uses' => 'AjaxController@kill_notification']);
+
 Route::resource("roles","RoleController");
 Route::resource("permissions","PermissionController");
 Route::resource("categories","CategoryController");

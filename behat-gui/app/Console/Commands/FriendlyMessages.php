@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Notifications;
+use App\Test;
 use App\TestResult;
 use Illuminate\Console\Command;
 
@@ -81,6 +83,8 @@ class FriendlyMessages extends Command
             }
             $r->comment_complete = 1;
             $r->save();
+
+            Notifications::firstOrCreate(['message' => Test::where('id', $results->test_id)->first()->name.' was analyzed']);
         }
 
 
