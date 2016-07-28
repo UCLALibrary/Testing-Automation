@@ -7,6 +7,11 @@ Route::get('/reports', ['as' => 'reports.index', 'uses' => 'ReportController@ind
 Route::get('/tests/results', ['as' => 'tests.results', 'uses' => 'TestController@get_results']);
 Route::post('/tests/execute/category', ['as' => 'tests.executeCategory', 'uses' => 'TestController@execute_category']);
 Route::post('/tests/comments/{id}', ['as' => 'tests.comments', 'uses' => 'TestController@put_comments']);
+Route::get('/tests/search', function(){
+    return redirect()->route('tests.index');
+});
+Route::get('/tests/search/{search}', ['as' => 'tests.search', 'uses' => 'TestController@search']);
+
 Route::resource("tests","TestController");
 Route::resource("variables","VariableController");
 Route::resource("schedulers","SchedulerController");

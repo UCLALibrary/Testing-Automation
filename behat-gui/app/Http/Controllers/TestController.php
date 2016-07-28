@@ -326,4 +326,34 @@ class TestController extends Controller {
 		echo $file;
 	}
 
+
+	public function search($search){
+		$tests = Test::where('name', 'like', '%'.$search.'%')->get();
+
+		$it = [];
+		$items = CategoryItem::all();
+		foreach($items as $i){
+			$it[$i->header][] = $i->value;
+		}
+
+		$status = [];
+		$categories = [];
+		foreach($tests as $t){
+			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
+			if($r != null) {
+				$status[$t->id]['success'] = $r->success;
+				$status[$t->id]['timestamp'] = $r->created_at;
+			}
+
+			$c = Category::where('test_id', '=', $t->id)->get();
+			foreach($c as $c) {
+				$categories[$t->id][] = $c->category;
+			}
+
+		}
+
+		view()->share('items', $it);
+		view()->share('sets', Set::all());
+		return view('tests.index', compact('tests', 'status', 'categories'));
+	}
 }
