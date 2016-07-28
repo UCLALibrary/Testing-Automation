@@ -17,6 +17,8 @@ Route::resource("variables","VariableController");
 Route::resource("schedulers","SchedulerController");
 Route::resource("sets","SetController");
 Route::resource("feature_contexts","FeatureContextController");
+Route::post('/github', ['as' => 'triggers.github', 'uses' => 'TriggerController@github']);
+Route::get('/github', ['as' => 'triggers.github', 'uses' => 'TriggerController@github_config']);
 
 Route::get('/tests/category/delete/{test}', ['as' => 'tests.deleteCategory', 'uses' => 'TestController@delete_category']);
 Route::get('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category']);

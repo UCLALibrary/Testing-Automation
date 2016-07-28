@@ -57,6 +57,16 @@
                             <li><a href="{{ route('sets.index')  }}">Sets</a></li>
                         </ul>
                     </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Triggers <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('triggers.github')  }}">Github</a></li>
+                            <li><a href="#">JIRA</a></li>
+                            <li><a href="#">Travis</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{ route('schedulers.index')  }}">Scheduler</a></li>
                     <li><a href="{{ route('categories.index')  }}">Categories</a></li>
                     <li><a href="{{ route('feature_contexts.index')  }}">Feature Context</a></li>
