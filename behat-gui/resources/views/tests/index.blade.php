@@ -149,8 +149,8 @@
                                     <div class="row">
                                         <div class="col-lg-2"><b>Categories:</b></div>
                                         <div class="col-lg-10">
-                                            @foreach($categories[$test->id] as $c)
-                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $c)  }}">Delete</a><br />
+                                            @foreach($categories[$test->id] as $k => $c)
+                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $k)  }}">Delete</a><br />
                                             @endforeach
                                         </div>
                                     </div>
