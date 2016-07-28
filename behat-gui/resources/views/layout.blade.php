@@ -48,8 +48,15 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('tests.index')  }}">Home</a></li>
                     <li><a href="{{ route('reports.index') }}">Report</a></li>
-                    <li><a href="{{ route('variables.index')  }}">Variables</a></li>
-                    <li><a href="{{ route('sets.index')  }}">Sets</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Templating <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('variables.index')  }}">Variables</a></li>
+                            <li><a href="{{ route('sets.index')  }}">Sets</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{ route('schedulers.index')  }}">Scheduler</a></li>
                     <li><a href="{{ route('categories.index')  }}">Categories</a></li>
                     <li><a href="{{ route('feature_contexts.index')  }}">Feature Context</a></li>
