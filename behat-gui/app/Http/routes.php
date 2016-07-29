@@ -1,5 +1,7 @@
 <?php
 
+
+
 Route::get('/', function () {
     return redirect()->route('tests.index');
 });
@@ -17,9 +19,13 @@ Route::resource("variables","VariableController");
 Route::resource("schedulers","SchedulerController");
 Route::resource("sets","SetController");
 Route::resource("feature_contexts","FeatureContextController");
+
 Route::post('/github', ['as' => 'triggers.github', 'uses' => 'TriggerController@github']);
 Route::get('/github', ['as' => 'triggers.github', 'uses' => 'TriggerController@github_config']);
 Route::post('/github/save', ['as' => 'triggers.github_save', 'uses' => 'TriggerController@github_config_post']);
+
+Route::get('/jira', ['as' => 'triggers.jira', 'uses' => 'TriggerController@jira_config']);
+Route::post('/jira', ['as' => 'triggers.jira_save', 'uses' => 'TriggerController@jira_config_post']);
 
 Route::get('/tests/category/delete/{test}', ['as' => 'tests.deleteCategory', 'uses' => 'TestController@delete_category']);
 Route::get('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category']);

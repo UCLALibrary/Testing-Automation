@@ -56,4 +56,28 @@ class TriggerController extends Controller
         view()->share('items', $it);
         return view('triggers.github');
     }
+
+    public function jira_config_post(Request $request){
+            $jira_assign = Trigger::firstOrNew(['key' => 'assign', 'namespace' => 'jira']);
+            $jira_assign->value = $request->input('assign');
+            $jira_assign->save();
+
+            $jira_label = Trigger::firstOrNew(['key' => 'label', 'namespace' => 'jira']);
+            $jira_label->value = json_encode(explode(",", $request->input('labels')));
+            $jira_label->save();
+
+            $jira_project = Trigger::firstOrNew(['key' => 'project', 'namespace' => 'jira']);
+            $jira_project->value = $request->input('project');
+            $jira_project->save();
+
+        return redirect()->route('triggers.jira');
+    }
+
+    public function jira_config(){
+
+        view()->share('assign', Trigger::where('namespace', '=', 'jira')->where('key', '=', 'assign')->first());
+        view()->share('label', Trigger::where('namespace', '=', 'jira')->where('key', '=', 'label')->first());
+        view()->share('project', Trigger::where('namespace', '=', 'jira')->where('key', '=', 'project')->first());
+        return view('triggers.jira');
+    }
 }
