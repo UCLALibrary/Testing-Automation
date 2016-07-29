@@ -4,7 +4,16 @@
     <div class="page-header clearfix">
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Tests
-            <a class="btn btn-success pull-right" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+            <div class="pull-right form-inline">
+                    {!! csrf_field() !!}
+                    <div class="input-group">
+                        <input type="text" id="search_value" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                        <input type="submit" id="search" class="btn btn-default" value="Go!" />
+                      </span>
+                    </div><!-- /input-group -->
+                <a class="btn btn-success pull-right" style="margin-top:10px;" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+            </div>
         </h1>
 
     </div>
@@ -140,8 +149,8 @@
                                     <div class="row">
                                         <div class="col-lg-2"><b>Categories:</b></div>
                                         <div class="col-lg-10">
-                                            @foreach($categories[$test->id] as $c)
-                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $c)  }}">Delete</a><br />
+                                            @foreach($categories[$test->id] as $k => $c)
+                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $k)  }}">Delete</a><br />
                                             @endforeach
                                         </div>
                                     </div>
@@ -151,7 +160,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $tests->render() !!}
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif
@@ -170,6 +178,10 @@
         @endforeach
         $("#runbycategory").on('click', function(){
             $("#runbycategoryform").toggleClass('hidden');
+        });
+
+        $("#search").on('click', function(){
+            window.location.replace('/tests/search/'+$("#search_value").val());
         });
     </script>
 @endsection

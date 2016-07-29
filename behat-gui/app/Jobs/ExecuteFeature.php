@@ -1,52 +1,47 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
+use App\Jobs\Job;
 use App\Notifications;
+use App\Test;
+use App\TestResult;
+use App\Variable;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use \Behat\Gherkin\Lexer;
 use \Behat\Gherkin\Parser;
 use \Behat\Gherkin\Keywords\ArrayKeywords;
-use App\Test;
-use App\Variable;
-use Illuminate\Console\Command;
 
-class CompileFeature extends Command
+class ExecuteFeature extends Job implements ShouldQueue
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'behat:compile
-    {testNumber : The template to use for converting to a real feature file}
-    {setNumber : The set to use variables against}';
+    use InteractsWithQueue, SerializesModels, DispatchesJobs;
+
+    protected $test;
+    protected $set;
 
     /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Removes variables from gherkin and puts in value';
-
-    /**
-     * Create a new command instance.
+     * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($test, $set)
     {
-        parent::__construct();
+        $this->test = $test;
+        $this->set = $set;
     }
 
     /**
-     * Execute the console command.
+     * Execute the job.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
-        $test = $this->argument('testNumber');
-        $set = $this->argument('setNumber');
+        $test = $this->test;
+        $set = $this->set;
         $t = Test::where('id', '=', $test)->first();
         $file = file_get_contents($t->location);
         $file = str_replace(" ", " ", $file);
@@ -73,7 +68,7 @@ class CompileFeature extends Command
 
         $data = $file;
 
-        $name = explode('.', $t->location)[0];
+        $file_name = explode('.', $t->location)[0];
 
         $keywords = new ArrayKeywords([
             'en' => array(
@@ -140,7 +135,7 @@ class CompileFeature extends Command
 
         }
 
-        $f = fopen($name.".feature", "w");
+        $f = fopen($file_name.".feature", "w");
         fwrite($f, $file);
         fclose($f);
 
@@ -148,5 +143,63 @@ class CompileFeature extends Command
 
 
 
+        $name = explode('.', $t->location)[0];
+        exec(base_path().'/bin/behat --format html '. $name.".feature", $output);
+
+        libxml_use_internal_errors(true);
+        if(file_exists('features/report/default.html')) {
+            $html = file_get_contents('features/report/default.html');
+            $dom = new \DOMDocument();
+            $dom->loadHTML($html);
+            $xpath = new \DOMXPath($dom);
+            $div = $xpath->query('//div[@class="col-sm-8 details panel-group"]');
+            $div = $div->item(0);
+            $r = $dom->saveXML($div);
+        }
+        libxml_use_internal_errors(false);
+
+        if(isset($r) && $r != null) {
+            $s = true;
+            if(strpos($r, "alert-warning") !== false){
+                $s = false;
+            }elseif(strpos($r, "alert-danger") !== false){
+                $s = false;
+            }
+
+            $result = new TestResult();
+            $result->test_id = $t->id;
+            $result->result = $this->sanitize_output($r);
+            $result->success = $s;
+            $result->save();
+        }
+
+        rrmdir('features/report');
+        unlink($name.".feature");
+
+        Notifications::firstOrCreate(['message' => $t->name.' was executed']);
+
+        $this->dispatch(new FriendlyMessages());
+        $this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
+
+    }
+
+
+    function sanitize_output($buffer) {
+
+        $search = array(
+            '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+            '/(\s)+/s'       // shorten multiple whitespace sequences
+        );
+
+        $replace = array(
+            '>',
+            '<',
+            '\\1'
+        );
+
+        $buffer = preg_replace($search, $replace, $buffer);
+
+        return $buffer;
     }
 }

@@ -48,8 +48,25 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('tests.index')  }}">Home</a></li>
                     <li><a href="{{ route('reports.index') }}">Report</a></li>
-                    <li><a href="{{ route('variables.index')  }}">Variables</a></li>
-                    <li><a href="{{ route('sets.index')  }}">Sets</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Templating <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('variables.index')  }}">Variables</a></li>
+                            <li><a href="{{ route('sets.index')  }}">Sets</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Triggers <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('triggers.github')  }}">Github</a></li>
+                            <li><a href="#">JIRA</a></li>
+                            <li><a href="#">Travis</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{ route('schedulers.index')  }}">Scheduler</a></li>
                     <li><a href="{{ route('categories.index')  }}">Categories</a></li>
                     <li><a href="{{ route('feature_contexts.index')  }}">Feature Context</a></li>
@@ -83,7 +100,7 @@
         @endforeach
     @endif
     @if (session('message'))
-        $.jGrowl("{{ session('message')  }}", { header: 'Success', position: 'bottom-right', life: 10000 });
+        $.jGrowl("{{ session('message')  }}", { header: 'Alert', position: 'bottom-right', life: 10000 });
         @endif
     </script>
 
@@ -94,10 +111,33 @@
     <script type="text/javascript">
         autosize($('textarea'));
         $(document).ready(function() {
+            $.ajax({
+                type: "get",
+                url: '/ajax/kill_notifications',
+                dataType: 'json',
+            });
             $('.code').each(function(i, block) {
                 hljs.highlightBlock(block);
             });
         });
+        setInterval(function(){
+            $.ajax({
+                type: "get",
+                url: '/ajax/notifications',
+                dataType: 'json',
+                success: function(request){
+                    $.each(request, function(k,v){
+                        $.jGrowl(v, { header: 'Alert', position: 'bottom-left', life: 10000 });
+                        $.ajax({
+                            type: "get",
+                            url: '/ajax/kill_notifications/'+k,
+                            dataType: 'json',
+                        });
+                    });
+                }
+            });
+        }, 1000);
+
     </script>
 </body>
 </html>

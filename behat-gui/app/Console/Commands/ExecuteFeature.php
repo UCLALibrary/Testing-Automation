@@ -2,13 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\Jira;
+use App\Notifications;
 use App\Test;
 use App\TestResult;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Artisan;
 
 class ExecuteFeature extends Command
 {
+    use DispatchesJobs;
+
     /**
      * The name and signature of the console command.
      *
@@ -79,7 +84,16 @@ class ExecuteFeature extends Command
         rrmdir('features/report');
         unlink($name.".feature");
 
+        Notifications::firstOrCreate(['message' => $t->name.' was executed']);
+
         $this->call('behat:analyze');
+        if(isset($r) && $r != null) {
+            if ($s == false) {
+                $this->dispatch(
+                    new Jira($t->id, $this->sanitize_output($r), $s)
+                );
+            }
+        }
     }
 
     function sanitize_output($buffer) {

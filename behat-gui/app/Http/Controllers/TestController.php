@@ -45,7 +45,7 @@ class TestController extends Controller {
 
 			$c = Category::where('test_id', '=', $t->id)->get();
 			foreach($c as $c) {
-				$categories[$t->id][] = $c->category;
+				$categories[$t->id][$c->id] = $c->category;
 			}
 
         }
@@ -187,12 +187,16 @@ class TestController extends Controller {
 	}
 
 	public function category_store(Request $request, $id){
-        $category = new Category();
-        $category->test_id = $id;
-        $category->category = $request->input('category');
-        $category->save();
+        if(empty(Category::where('test_id', '=', $id)->where('category', '=', $request->input('category'))->first())) {
+            $category = new Category();
+            $category->test_id = $id;
+            $category->category = $request->input('category');
+            $category->save();
 
-        return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+            return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+        }else{
+            return redirect()->route('tests.index')->with('message', 'Category already assigned');
+        }
 	}
 
 	public function get_results(){
@@ -326,4 +330,34 @@ class TestController extends Controller {
 		echo $file;
 	}
 
+
+	public function search($search){
+		$tests = Test::where('name', 'like', '%'.$search.'%')->get();
+
+		$it = [];
+		$items = CategoryItem::all();
+		foreach($items as $i){
+			$it[$i->header][] = $i->value;
+		}
+
+		$status = [];
+		$categories = [];
+		foreach($tests as $t){
+			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
+			if($r != null) {
+				$status[$t->id]['success'] = $r->success;
+				$status[$t->id]['timestamp'] = $r->created_at;
+			}
+
+			$c = Category::where('test_id', '=', $t->id)->get();
+			foreach($c as $c) {
+				$categories[$t->id][] = $c->category;
+			}
+
+		}
+
+		view()->share('items', $it);
+		view()->share('sets', Set::all());
+		return view('tests.index', compact('tests', 'status', 'categories'));
+	}
 }
