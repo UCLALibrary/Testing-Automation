@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-12">
             <h4 class="text-center">Current Settings</h4>
-            @if(!empty(json_decode($categories)) && $wait->value != null && $set->value != null)
+            @if(!empty(json_decode($categories)) && $wait != null && $set != null)
                 When Behat-GUI gets a github payload, it will wait <b>{{ $wait->value  }} seconds.</b> Then, the following categories will be executed with the <b>{{ \App\Set::where('id', '=', $set->value)->first()->name  }}</b> variable set.
                 <ul>
                 @foreach(json_decode($categories->value, true) as $category)
