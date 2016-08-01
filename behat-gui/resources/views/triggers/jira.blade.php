@@ -14,7 +14,9 @@
     <div class="row">
         <div class="col-md-12">
             <h4 class="text-center">Current Settings</h4>
+            @if($project->value != null && $assign->value != null && $label->value != null)
             <p>When a test is run create a jira ticket in the project: <b>{{ $project->value  }}</b>, assign it to <b>{{ $assign->value  }}</b> and then apply the labels: <b>@if(json_decode($label->value, true)) @foreach(json_decode($label->value, true) as $label) {{ $label  }}  @endforeach @endif</b></p>
+            @endif
             <hr />
             <form action="{{ route('triggers.jira_save')  }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
