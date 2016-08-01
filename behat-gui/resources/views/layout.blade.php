@@ -63,7 +63,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('triggers.github')  }}">Github</a></li>
-                            <li><a href="{{ route('triggers.jira')  }}">JIRA</a></li>
+                            <li><a href="{{ route('triggers.jira')   }}">JIRA</a></li>
                             <li><a href="#">Travis</a></li>
                         </ul>
                     </li>
