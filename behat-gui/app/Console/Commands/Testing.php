@@ -59,33 +59,38 @@ class Testing extends Command
         $dom = new Dom();
         $dom->load($this->result->result);
         $name = $dom->find('a[data-toggle=collapse]');
-        $items = $dom->find('li');
-        $result = [];
-        foreach($items as $item){
-            $color = 'black';
-            if(strpos($item->class, "alert-warning") !== false){
-                $color = '#f79232';
-            }elseif(strpos($item->class, "alert-danger") !== false){
-                $color = '#d04437';
-            }elseif(strpos($item->class, "alert-success") !== false){
-                $color = '#14892c';
-            }elseif(strpos($item->class, "alert-info") !== false){
-                $color = '#59afe1';
+        $description = '';
+        foreach($name as $n) {
+            $items = $dom->find('li');
+            $result = [];
+            foreach ($items as $item) {
+                $color = 'black';
+                if (strpos($item->class, "alert-warning") !== false) {
+                    $color = '#f79232';
+                } elseif (strpos($item->class, "alert-danger") !== false) {
+                    $color = '#d04437';
+                } elseif (strpos($item->class, "alert-success") !== false) {
+                    $color = '#14892c';
+                } elseif (strpos($item->class, "alert-info") !== false) {
+                    $color = '#59afe1';
+                }
+
+                $result[] = [
+                    'line' => $item->text,
+                    'color' => $color
+                ];
             }
 
-            $result[] = [
-                'line' => $item->text,
-                'color' => $color
-            ];
-        }
+            $description .= "{panel:title=Behat Output:" . trim($n->text) . "}";
 
-        $description = "{panel:title=Behat Output:".trim($name->text)."}";
-
-        foreach($result as $k => $r){
-            $description .= "{color:".$result[$k]['color']."}".$result[$k]['line']."{color}\n";
+            foreach ($result as $k => $r) {
+                $description .= "{color:" . $result[$k]['color'] . "}" . $result[$k]['line'] . "{color}\n";
+            }
         }
 
         $description .= "{panel}\n{panel:title=Analysis}{panel}";
+
+        dump($description);
         $post = array(
             'fields' => array(
                 'project' => array(

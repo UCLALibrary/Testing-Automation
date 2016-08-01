@@ -26,6 +26,9 @@
                                     <b>Result Info:</b><br />
                                     Created: {{ $r->created_at  }}<br />
                                     Updated: {{ $r->updated_at  }}
+                                    @if($r->jira_key)
+                                        <br />JIRA: <a target="_blank" href="{{ config('jira.ticket')  }}{{ $r->jira_key  }}">Ticket</a>
+                                    @endif
                                 @endif
                             </div>
                         </div>

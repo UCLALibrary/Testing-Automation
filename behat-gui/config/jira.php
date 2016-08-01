@@ -8,4 +8,5 @@ return [
 
     'password' => env('JIRA_PASS'),
 
+    'ticket' => env('JIRA_TICKET'),
 ];
