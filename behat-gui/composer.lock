@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "192ed0856cd5f783c3917713fa6b4627",
-    "content-hash": "3bbac3881c768e2769cde63bdeb1d184",
+    "hash": "249280386388f05d35b0a0398118510c",
+    "content-hash": "b447fb7492c3d4ba2c0cc703764791a7",
     "packages": [
         {
             "name": "behat/behat",
@@ -581,53 +581,6 @@
                 "tracking"
             ],
             "time": "2016-06-30 16:48:50"
-        },
-        {
-            "name": "chobie/jira-api-restclient",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/chobie/jira-api-restclient.git",
-                "reference": "68c082d2bbcab5e9ba97e8b46496b3b1afceed6f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/chobie/jira-api-restclient/zipball/68c082d2bbcab5e9ba97e8b46496b3b1afceed6f",
-                "reference": "68c082d2bbcab5e9ba97e8b46496b3b1afceed6f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Jira_": "./"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Shuhei Tanuma",
-                    "email": "chobieeee@php.net",
-                    "homepage": "http://blog.stfalcon.com"
-                }
-            ],
-            "description": "JIRA REST API.",
-            "keywords": [
-                "api",
-                "jira",
-                "rest"
-            ],
-            "time": "2014-07-27 11:40:44"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1216,7 +1169,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a01a102f1522da0d617ff53cc399f2e476cc6569",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ef392e1d11a4df6e1eedf720d37eb22f61e59543",
                 "reference": "86e30bac9d149a45c26a3c548b325bb3d84570c5",
                 "shasum": ""
             },
@@ -1478,7 +1431,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
                 "reference": "33df7889304575a7912935ada1beab36fa85a5d9",
                 "shasum": ""
             },
@@ -1721,6 +1674,101 @@
                 "php"
             ],
             "time": "2016-04-20 14:47:50"
+        },
+        {
+            "name": "paquettg/php-html-parser",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paquettg/php-html-parser.git",
+                "reference": "18845e09831dd0772b88b51e788a4f74c701224c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paquettg/php-html-parser/zipball/18845e09831dd0772b88b51e788a4f74c701224c",
+                "reference": "18845e09831dd0772b88b51e788a4f74c701224c",
+                "shasum": ""
+            },
+            "require": {
+                "paquettg/string-encode": "~0.1.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.0",
+                "phpunit/phpunit": "~4.8.0",
+                "satooshi/php-coveralls": "~0.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPHtmlParser": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gilles Paquette",
+                    "email": "paquettg@gmail.com",
+                    "homepage": "http://gillespaquette.ca"
+                }
+            ],
+            "description": "An HTML DOM parser. It allows you to manipulate HTML. Find tags on an HTML page with selectors just like jQuery.",
+            "homepage": "https://github.com/paquettg/php-html-parser",
+            "keywords": [
+                "dom",
+                "html",
+                "parser"
+            ],
+            "time": "2016-04-06 15:24:40"
+        },
+        {
+            "name": "paquettg/string-encode",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paquettg/string-encoder.git",
+                "reference": "cf08343649701979f581c1601d01247fa3782439"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paquettg/string-encoder/zipball/cf08343649701979f581c1601d01247fa3782439",
+                "reference": "cf08343649701979f581c1601d01247fa3782439",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "stringEncode": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gilles Paquette",
+                    "email": "paquettg@gmail.com",
+                    "homepage": "http://gillespaquette.ca"
+                }
+            ],
+            "description": "Facilitating the process of altering string encoding in PHP.",
+            "homepage": "https://github.com/paquettg/string-encoder",
+            "keywords": [
+                "charset",
+                "encoding",
+                "string"
+            ],
+            "time": "2014-05-29 18:38:09"
         },
         {
             "name": "paragonie/random_compat",
@@ -2167,7 +2215,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/dd5bbad49ca17b6ebfdfe4d24c0d8356348b10d1",
+                "url": "https://api.github.com/repos/symfony/console/zipball/926061e74229e935d3c5b4e9ba87237316c6693f",
                 "reference": "7bd8c5e0f93debe2c79ed4d4d8337d85bd236b55",
                 "shasum": ""
             },
@@ -2280,7 +2328,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/134a136d9af7a84f9c22be09374db22e9b1d2231",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/697c527acd9ea1b2d3efac34d9806bf255278b0a",
                 "reference": "e67e1552dd7313df1cf6535cb606751899e0e727",
                 "shasum": ""
             },
@@ -2337,7 +2385,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/5bb4fe3106317fdaa67a54b56ef904a0c78ce351",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/d53a91bb53b8b70449e8c9ac3ad5f8db7e5ff02b",
                 "reference": "1ecb72626ce86223e953bb94f855706cdde7a50d",
                 "shasum": ""
             },
@@ -2397,7 +2445,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/8e4ca1fc602bf2670eaf2f47fa813b8d6311f6e9",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/dff8fecf1f56990d88058e3a1885c2a5f1b8e970",
                 "reference": "49b588841225b205700e5122fa01911cabada857",
                 "shasum": ""
             },
@@ -2513,7 +2561,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/4dfc4630390f9a88625f5991a0fc83549767b59d",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a803b0e3dedec72dcea22da6836f598dc9263194",
                 "reference": "3e52b8f4f3b451e6a0a51a4aa9bfb37892da3981",
                 "shasum": ""
             },
@@ -2664,7 +2712,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/fedd4337f3442b2776a9a683fc71a9e09f2d8b8d",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/03ac7bbc8fccbf002e0bea88dbe09262b29dc2a9",
                 "reference": "f314a0fd0d4f3b85e0c97ba47f73b58d96ed46bf",
                 "shasum": ""
             },
@@ -3037,7 +3085,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/4d5c3edabe4a994a4105bddd1b31b4460f126f43",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/eee6c664853fd0576f21ae25725cfffeafe83f26",
                 "reference": "d32edff5f9c7d708993de17d60b6216306f742f0",
                 "shasum": ""
             },
@@ -3202,44 +3250,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-06-21 06:41:01"
-        },
-        {
-            "name": "univerze/laravel-jira",
-            "version": "v0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/univerze/laravel-jira.git",
-                "reference": "7e41380670a2841adb4bf68ab711982f6029204d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/univerze/laravel-jira/zipball/7e41380670a2841adb4bf68ab711982f6029204d",
-                "reference": "7e41380670a2841adb4bf68ab711982f6029204d",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Univerze\\Jira\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roland Bécsi",
-                    "email": "roland.becsi@gmail.com"
-                }
-            ],
-            "description": "Laravel5 service for Jira REST api to search and create issues",
-            "keywords": [
-                "atlassian",
-                "jira",
-                "laravel"
-            ],
-            "time": "2016-02-28 09:14:46"
         },
         {
             "name": "vlucas/phpdotenv",
