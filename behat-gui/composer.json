@@ -16,7 +16,8 @@
         "neitanod/forceutf8": "^2.0",
         "liebig/cron": "dev-master",
         "bugsnag/bugsnag-laravel": "1.*",
-        "zizaco/entrust": "^1.7"
+        "zizaco/entrust": "^1.7",
+        "paquettg/php-html-parser": "^1.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

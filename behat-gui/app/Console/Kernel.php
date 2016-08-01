@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\CompileFeature::class,
         Commands\ExecuteFeature::class,
         Commands\FriendlyMessages::class,
+        Commands\Testing::class,
     ];
 
     /**

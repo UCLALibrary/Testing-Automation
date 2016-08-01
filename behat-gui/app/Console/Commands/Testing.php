@@ -1,45 +1,51 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Console\Commands;
 
-use App\Jobs\Job;
 use App\Test;
 use App\TestResult;
 use App\Trigger;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Console\Command;
 use PHPHtmlParser\Dom;
 
-class Jira extends Job implements ShouldQueue
+class Testing extends Command
 {
-    use InteractsWithQueue, SerializesModels, DispatchesJobs;
-
-    protected $test_id;
-    protected $result;
-    protected $success;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'behat:testing';
 
     /**
-     * Create a new job instance.
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Testing some stuff';
+
+    /**
+     * Create a new command instance.
      *
      * @return void
      */
-    public function __construct($test_id, $result, $success)
+    public function __construct()
     {
-        $this->test_id = $test_id;
-        $this->test = Test::where('id', '=', $test_id)->first();
-        $this->result = TestResult::where('test_id', '=', $test_id)->orderBy('created_at', 'desc')->first();
-        $this->success = $success;
+        parent::__construct();
     }
 
     /**
-     * Execute the job.
+     * Execute the console command.
      *
-     * @return void
+     * @return mixed
      */
     public function handle()
     {
+        $test_id = 8;
+
+        $this->test_id = $test_id;
+        $this->test = Test::where('id', '=', $test_id)->first();
+        $this->result = TestResult::where('test_id', '=', $test_id)->orderBy('created_at', 'desc')->first();
 
         $assign = Trigger::where('namespace', '=', 'jira')->where('key', '=', 'assign')->first();
         $labels = Trigger::where('namespace', '=', 'jira')->where('key', '=', 'label')->first();
@@ -76,10 +82,10 @@ class Jira extends Job implements ShouldQueue
         $description = "{panel:title=Behat Output:".trim($name->text)."}";
 
         foreach($result as $k => $r){
-            $description .= "# {color:".$result[$k]['color']."}".$result[$k]['line']."{color}\n";
+            $description .= "{color:".$result[$k]['color']."}".$result[$k]['line']."{color}\n";
         }
 
-        $description .= "{panel}\n{panel:title=Analysis}".$this->result->comment."{panel}";
+        $description .= "{panel}\n{panel:title=Analysis}{panel}";
         $post = array(
             'fields' => array(
                 'project' => array(
@@ -96,25 +102,6 @@ class Jira extends Job implements ShouldQueue
                 'labels' => json_decode($labels->value, true),
             )
         );
-
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($curl, CURLOPT_VERBOSE, 1);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_USERPWD, config('jira.username').":".config('jira.password'));
-        curl_setopt($curl, CURLOPT_URL, config('jira.url'). '/rest/api/2/issue');
-        curl_setopt($curl,CURLOPT_POST, count($post));
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($curl,CURLOPT_POSTFIELDS, json_encode($post));
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-
-        dump($response);
 
     }
 }

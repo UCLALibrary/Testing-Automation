@@ -84,7 +84,7 @@ class FriendlyMessages extends Command
             $r->comment_complete = 1;
             $r->save();
 
-            Notifications::firstOrCreate(['message' => Test::where('id', $results->test_id)->first()->name.' was analyzed']);
+            Notifications::firstOrCreate(['message' => Test::where('id', $r->test_id)->first()->name.' was analyzed']);
         }
 
 
