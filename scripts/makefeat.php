@@ -11,7 +11,7 @@ if (count($argv) != 3) {
 }
 
 $config = $argv[1];
-$feature = $argv[2];
+$template = $argv[2];
 
 $csv_tag = ".csv";
 $template_tag = "-template.feature";
@@ -21,12 +21,8 @@ if (strpos($config, $csv_tag) === false) {
     exit("ERROR: Variables are not in csv format.\n* Is variables.csv in the same directory?\n* If you are using another variable file, does it end with .csv?\n");
 }
 
-if (strpos($feature, $template_tag) !== false) {
+if (strpos($template, $template_tag) === false) {
     exit("ERROR: Input file is a template.\n* Please make sure your template file is named as: <NAME_OF_FILE>.feature, WITHOUT -template.feature\n");
-}
-
-if (strpos($feature, $feature_tag) === false) {
-    exit("ERROR: Input file not detected as feature.\n* Does your file end with .feature?\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,14 +33,14 @@ if (strpos($feature, $feature_tag) === false) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // create -template.feature file
-$new_template = str_replace($feature_tag, $template_tag, $feature);
-$new_template_fd = fopen($new_template, "w+");
+$new_feature = str_replace($template_tag, $feature_tag, $template);
+$new_feature_fd = fopen($new_feature, "w+");
 
 // store elements from config
 $config_dict = array_map('str_getcsv', file($config));
 
 //read feature file
-$feature_lines = file($feature, FILE_IGNORE_NEW_LINES);
+$template_lines = file($template, FILE_IGNORE_NEW_LINES);
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -52,17 +48,17 @@ $feature_lines = file($feature, FILE_IGNORE_NEW_LINES);
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-foreach($feature_lines as $line) {
+foreach($template_lines as $line) {
     $this_line = $line . "\n";
     foreach($config_dict as $def) {
         $key = "[" . $def[0] . "]";
         $val = "\"" . $def[1] . "\"";
 
-        if (strpos($this_line, $val) !== false) {
-            $this_line = str_replace($val, $key, $line) . "\n";
+        if (strpos($this_line, $key) !== false) {
+            $this_line = str_replace($key, $val, $line) . "\n";
         }
     }
-    fwrite($new_template_fd, $this_line);
+    fwrite($new_feature_fd, $this_line);
 }
 
 ?>
