@@ -12,7 +12,11 @@
                         <input type="submit" id="search" class="btn btn-default" value="Go!" />
                       </span>
                     </div><!-- /input-group -->
-                <a class="btn btn-success pull-right" style="margin-top:10px;" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                <div class="btn-group pull-right" role="group" aria-label="...">
+                    <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
+                    <a class="btn btn-success btn-group" style="margin-top:10px;" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                </div>
+
             </div>
         </h1>
 
