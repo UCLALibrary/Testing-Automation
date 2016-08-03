@@ -6,7 +6,7 @@
             <i class="glyphicon glyphicon-align-justify"></i> Tests
             <div class="pull-right form-inline">
                     {!! csrf_field() !!}
-                <div class="btn-group pull-right" role="group" aria-label="...">
+                <div class="btn-group" role="group" aria-label="...">
                     <div class="input-group">
                         <input type="text" id="search_value" class="form-control" placeholder="Search for...">
                         <span class="input-group-btn">
