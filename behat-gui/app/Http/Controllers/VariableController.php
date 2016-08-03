@@ -56,8 +56,7 @@ class VariableController extends Controller {
         $json = json_encode($json_array);
         $set = json_encode($sets_array);
 
-
-		$variable->key = $main['key'];
+		$variable->key = str_replace("&amp;", "&", $main['key']);
         $variable->value = $json;
         $variable->sets = $set;
 		$variable->save();

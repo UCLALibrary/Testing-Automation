@@ -54,14 +54,14 @@ class ExecuteFeature extends Job implements ShouldQueue
                 $sets = json_decode($variable->sets);
                 if (in_array($set, $sets)) {
                     if (isset(json_decode($variable->value)[$set]) && json_decode($variable->value)[$set] != null) {
-                        $file = str_replace("[" . $m . "]", json_decode($variable->value)[$set], $file);
+                        $file = str_replace("[" . $m . "]", '"'.json_decode($variable->value)[$set].'"', $file);
                     } elseif (!isset(json_decode($variable->value)[$set]) || json_decode($variable->value)[$set] == null) {
-                        $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
+                        $file = str_replace("[" . $m . "]", '"'.json_decode($variable->value)[0].'"', $file);
                     } else {
-                        $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
+                        $file = str_replace("[" . $m . "]", '"'.json_decode($variable->value)[0].'"', $file);
                     }
                 } else {
-                    $file = str_replace("[" . $m . "]", json_decode($variable->value)[0], $file);
+                    $file = str_replace("[" . $m . "]", '"'.json_decode($variable->value)[0].'"', $file);
                 }
             }
         }
