@@ -53,9 +53,11 @@
                     <label for="set">Variable Set</label>
                     <select name="set" id="set" class="form-control">
                         <option value="0">Default</option>
+                        @if(!$sets->isEmpty())
                     @foreach($sets as $s)
                         <option value="{{ $s->id  }}">{{ $s->name  }}</option>
                     @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="form-group">

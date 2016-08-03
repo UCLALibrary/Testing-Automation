@@ -15,10 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\CompileFeature::class,
-        Commands\ExecuteFeature::class,
-        Commands\FriendlyMessages::class,
-        Commands\Testing::class,
+        Commands\ExecuteFeature::class
     ];
 
     /**

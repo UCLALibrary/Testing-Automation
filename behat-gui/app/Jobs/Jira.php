@@ -127,6 +127,8 @@ class Jira extends Job implements ShouldQueue
             curl_close($curl);
 
             Notifications::firstOrCreate(['message' => 'JIRA ticket created.']);
+        }else{
+            $this->delete();
         }
     }
 }
