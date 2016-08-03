@@ -5,14 +5,14 @@
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Tests
                     {!! csrf_field() !!}
-                    <div class="btn-group" role="group" aria-label="...">
-                    <div class="pull-right form-inline">
-                    <div class="input-group">
-                        <input type="text" id="search_value" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                        <input type="submit" id="search" class="btn btn-default" value="Go!" />
-                      </span>
-                    </div>
+                <div class="btn-group pull-right" role="group">
+                    <div class="form-inline">
+                        <div class="input-group">
+                            <input type="text" id="search_value" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <input type="submit" id="search" class="btn btn-default" value="Go!" />
+                            </span>
+                        </div>
                     </div><!-- /input-group -->
                     <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
                     <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
