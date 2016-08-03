@@ -6,13 +6,13 @@
             <i class="glyphicon glyphicon-align-justify"></i> Tests
             <div class="pull-right form-inline">
                     {!! csrf_field() !!}
+                <div class="btn-group pull-right" role="group" aria-label="...">
                     <div class="input-group">
                         <input type="text" id="search_value" class="form-control" placeholder="Search for...">
                         <span class="input-group-btn">
                         <input type="submit" id="search" class="btn btn-default" value="Go!" />
                       </span>
                     </div><!-- /input-group -->
-                <div class="btn-group pull-right" role="group" aria-label="...">
                     <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
                     <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
                 </div>
