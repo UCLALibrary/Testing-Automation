@@ -83,6 +83,7 @@
 
                     <tbody>
                         @foreach($tests as $test)
+                            @if(!$test->trashed())
                             <tr>
                                 <td>{{$test->name}}<br />@if(isset($tags[$test->id])) <ul> @foreach($tags[$test->id] as $t) <li>{{ $t  }}</li>  @endforeach </ul> @endif</td>
                                 <td><a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Source</a><br /><br /><div id="toggle_{{ $test->id  }}" class="hidden code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</div></td>
@@ -159,6 +160,7 @@
                                     </table>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

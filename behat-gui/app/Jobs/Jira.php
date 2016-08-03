@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use App\Notifications;
 use App\Test;
 use App\TestResult;
 use App\Trigger;
@@ -125,7 +126,7 @@ class Jira extends Job implements ShouldQueue
             $this->result->save();
             curl_close($curl);
 
-            dump($response);
+            Notifications::firstOrCreate(['message' => 'JIRA ticket created.']);
         }
     }
 }

@@ -21,7 +21,7 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">Test</div>
                             <div class="panel-body">
-                                @if($test = \App\Test::where('id', '=', $r->test_id)->first())
+                                @if($test = \App\Test::where('id', '=', $r->test_id)->withTrashed()->first())
                                     Name: <a href="{{ route('tests.show', $test->id)  }}">{{ $test->name  }}</a><br />
                                     <b>Result Info:</b><br />
                                     Created: {{ $r->created_at  }}<br />
