@@ -14,7 +14,7 @@
                     </div><!-- /input-group -->
                 <div class="btn-group pull-right" role="group" aria-label="...">
                     <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
-                    <a class="btn btn-success btn-group" style="margin-top:10px;" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                    <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
                 </div>
 
             </div>
