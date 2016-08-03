@@ -6,6 +6,7 @@
             <i class="glyphicon glyphicon-align-justify"></i> Tests
                     {!! csrf_field() !!}
             <br /><br /><br />
+            @if($tests->count())
             <div class="form-inline pull-left">
             <div class="input-group">
                 <input type="text" id="search_value" class="form-control" placeholder="Search for...">
@@ -14,6 +15,7 @@
                       </span>
             </div><!-- /input-group -->
             </div>
+            @endif
                 <div class="btn-group pull-right" style="margin-top:5px;" role="group">
                     @if($tests->count())
                     <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
@@ -74,6 +76,7 @@
                             <th>NAME</th>
                             <th>FILE</th>
                             <th>LAST STATUS</th>
+                            <th>CATEGORIES</th>
                             <th class="text-right">OPTIONS</th>
                         </tr>
                     </thead>
@@ -98,6 +101,15 @@
                                                 <br /> <span class="label label-primary">{{ $status[$test->id]['timestamp']->diffInMonths(\Carbon\Carbon::now()) >= 1 ? $status[$test->id]['timestamp']->format('j M Y , g:ia') : $status[$test->id]['timestamp']->diffForHumans() }}</span>
                                         @endif
                                     @endif
+                                    </td>
+                                    <td>
+                                        @if(isset($categories[$test->id]) && $categories[$test->id] != null)
+                                        @foreach($categories[$test->id] as $k => $c)
+                                            {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $k)  }}">Delete</a><br />
+                                        @endforeach
+                                        @else
+                                            None
+                                        @endif
                                     </td>
                                 <td class="text-right">
                                     <!--- href="{{ route('tests.execute', $test->id) }}" -->
@@ -147,20 +159,6 @@
                                     </table>
                                 </td>
                             </tr>
-                            @if(isset($categories[$test->id]) && $categories[$test->id] != null)
-                            <tr>
-                                <td colspan="4" style="border-top:0; border-bottom: 1px solid black;">
-                                    <div class="row">
-                                        <div class="col-lg-2"><b>Categories:</b></div>
-                                        <div class="col-lg-10">
-                                            @foreach($categories[$test->id] as $k => $c)
-                                                {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $k)  }}">Delete</a><br />
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endif
                         @endforeach
                     </tbody>
                 </table>
