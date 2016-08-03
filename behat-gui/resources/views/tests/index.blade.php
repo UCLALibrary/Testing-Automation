@@ -5,16 +5,19 @@
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Tests
                     {!! csrf_field() !!}
-                <div class="btn-group pull-right" role="group">
-                    <div class="form-inline">
-                        <div class="input-group">
-                            <input type="text" id="search_value" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <input type="submit" id="search" class="btn btn-default" value="Go!" />
-                            </span>
-                        </div>
-                    </div><!-- /input-group -->
+            <br /><br /><br />
+            <div class="form-inline pull-left">
+            <div class="input-group">
+                <input type="text" id="search_value" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                        <input type="submit" id="search" class="btn btn-default" value="Go!" />
+                      </span>
+            </div><!-- /input-group -->
+            </div>
+                <div class="btn-group pull-right" style="margin-top:5px;" role="group">
+                    @if($tests->count())
                     <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
+                    @endif
                     <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
                 </div>
 
@@ -27,9 +30,6 @@
     @if($tests->count())
     <div class="row">
 
-        <div class="form-group">
-            <a href="#" id="runbycategory" class="btn btn-primary form-control">Run by Category</a>
-        </div>
         <form action="{{ route('tests.executeCategory')  }}" method="POST" id="runbycategoryform" class="hidden">
             {!! csrf_field() !!}
             <div class="col-sm-6 ">
@@ -57,7 +57,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="form-control btn btn-primary" value="Execute" />
+                    <input type="submit" class="form-control btn btn-danger" value="Execute" />
                 </div>
             </div>
         </form>
@@ -68,7 +68,7 @@
     <div class="row">
         <div class="col-md-12">
             @if($tests->count())
-                <table class="table table-condensed table-striped">
+                <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>NAME</th>
