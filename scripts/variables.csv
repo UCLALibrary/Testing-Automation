@@ -72,7 +72,7 @@ key,value
 /clicc_link,Use CLICC Laptops and Services
 /clicc_url,/clicc
 /equip_link,More Equipment
-/equip_link,/locations
+/equip_url,/locations
 /contact_link,Contact
 /contact_url,/contact
 /ask_link,Ask A Librarian
@@ -111,7 +111,7 @@ key,value
 /support/laptops_link,CLICC Laptops and Services
 /use/laptopslabclassrooms_link,"CLICC Laptops, Lab and Classrooms"
 /use/laptops_link,CLICC Laptops & Services
-/clicc/studyrooms_link,Study Room Services
+/clicc/studyroomservices_link,Study Room Services
 /clicc/studyrooms_url,/clicc/study-rooms
 /clicc/reserve_link,Reserve Study Spaces
 /clicc/studyrooms_link,Study Rooms
@@ -122,7 +122,7 @@ key,value
 /destination/rcstudyrooms_link,More group study rooms on campus
 /support/study_link,Find Places to Study and Collaborate
 /support/study_url,/support/support-students/find-places-study-collaborate
-/gsr_link,Group Study Rooms
+/gsrs_link,Group Study Rooms
 /use/study_link,Study and Learning Spaces
 /use/study_url,/use/access-privileges/study-learning-spaces
 /sitesearchresult_search:”arts library”,arts library
@@ -149,7 +149,7 @@ key,value
 /sitesearchresult_query:”law library”,/site-search?search_query=law+library
 /locationssearchresult_query:”law library”,/locations?search_api_views_fulltext=law+library
 /booksbasicsearch_link,/vwebv/searchBasic
-/libacc_link,My Account/Renew Books
+/libaccrenew_link,My Account/Renew Books
 /catalogbookbag_link,My Bookbag
 /sitesearchresult_search:”Renew Book”,Renew Book
 /sitesearchresult_query:”Renew Book”,/site-search?search_query=renew+book
@@ -160,7 +160,7 @@ key,value
 /advanced_link,Advanced
 /advanced_url,/vwebv/searchAdvanced
 /login_link,Log in
-/connect_link,Connect from Off-Campus
+/connectcap_link,Connect from Off-Campus
 /sitesearchresult_search:”VPN”,VPN
 /sitesearchresult_query:”VPN”,/site-search?search_query=vpn
 /connect/proxy_link,Proxy Server

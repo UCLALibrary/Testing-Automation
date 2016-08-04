@@ -72,7 +72,7 @@ key,value
 /clicc_link,Use CLICC Laptops and Services
 /clicc_url,/clicc
 /equip_link,More Equipment
-/equip_link,/locations
+/equip_url,/locations
 /contact_link,Contact
 /contact_url,/contact
 /ask_link,Ask A Librarian
@@ -111,7 +111,7 @@ key,value
 /support/laptops_link,CLICC Laptops and Services
 /use/laptopslabclassrooms_link,"CLICC Laptops, Lab and Classrooms"
 /use/laptops_link,CLICC Laptops & Services
-/clicc/studyrooms_link,Study Room Services
+/clicc/studyroomservices_link,Study Room Services
 /clicc/studyrooms_url,/clicc/study-rooms
 /clicc/reserve_link,Reserve Study Spaces
 /clicc/studyrooms_link,Study Rooms
@@ -122,7 +122,7 @@ key,value
 /destination/rcstudyrooms_link,More group study rooms on campus
 /support/study_link,Find Places to Study and Collaborate
 /support/study_url,/support/support-students/find-places-study-collaborate
-/gsr_link,Group Study Rooms
+/gsrs_link,Group Study Rooms
 /use/study_link,Study and Learning Spaces
 /use/study_url,/use/access-privileges/study-learning-spaces
 /sitesearchresult_search:”arts library”,arts library
@@ -149,7 +149,7 @@ key,value
 /sitesearchresult_query:”law library”,/site-search?search_query=law+library
 /locationssearchresult_query:”law library”,/locations?search_api_views_fulltext=law+library
 /booksbasicsearch_link,/vwebv/searchBasic
-/libacc_link,My Account/Renew Books
+/libaccrenew_link,My Account/Renew Books
 /catalogbookbag_link,My Bookbag
 /sitesearchresult_search:”Renew Book”,Renew Book
 /sitesearchresult_query:”Renew Book”,/site-search?search_query=renew+book
@@ -160,7 +160,7 @@ key,value
 /advanced_link,Advanced
 /advanced_url,/vwebv/searchAdvanced
 /login_link,Log in
-/connect_link,Connect from Off-Campus
+/connectcap_link,Connect from Off-Campus
 /sitesearchresult_search:”VPN”,VPN
 /sitesearchresult_query:”VPN”,/site-search?search_query=vpn
 /connect/proxy_link,Proxy Server
@@ -264,26 +264,3 @@ key,value
 /sitesearchresult_search:”Film & TV Catalog”,Film & TV Catalog
 /sitesearch/descriptionlibrarycatalog_link,Description of Library Catalogs
 /sitesearch/descriptionlibrarycatalog_url,/search/description-library-catalogs
-/resguide_link,UCLA Digital Collections
-/sitesearchresult_search:”Digital Collections”,Digital Collections
-/about/resguide_url,/about/about-collections/ucla-library-digital-collections
-/sitesearchresult_link:”Digital Collections”,UCLA Library Digital Collections
-/home,http://library.ucla.edu
-/sitesearchresult_query:”resguide”,/site-search?search_query=research+guides
-/researchguides_url,/special-collections/discover-collections/research-guides
-/afam_link,African American Studies
-/afam_url,/library-special-collections/african-american-studies
-/uclalib_link,UCLA Library
-/resguide/browse_link,Browse All Research Guides
-/sitesearchresult_search:”Online Research Guide”,Online Research Guide
-/sitesearchresult_query:”Online Research Guide”,/site-search?search_query=online+research+guide
-/sitesearchresult_link:”Online Research Guide”,Library Research Guides Updated
-/sitesearchresult_url:”Online Research Guide”,/news/library-research-guides-updated
-/onlineresguide_link,online research guides
-/guides_url,http://guides.library.ucla.edu
-/clicc/software_link,Software
-/clicc/software_url,/clicc/software
-/clicc/softwarelist_link,CLICC Software List
-/sitesearchresult_search:”CLICC Software”,CLICC Software
-/clicc/equip_link,Equipment
-/clicc/comp_filter,Computers (CLICC)
