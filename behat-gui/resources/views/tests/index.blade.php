@@ -9,7 +9,7 @@
             @if($tests->count())
             <div class="form-inline pull-left">
             <div class="input-group">
-                <input type="text" id="search_value" class="form-control" placeholder="Search for...">
+                <input type="text" id="search_value" class="form-control" placeholder="Search tests...">
                         <span class="input-group-btn">
                         <input type="submit" id="search" class="btn btn-default" value="Go!" />
                       </span>
@@ -88,7 +88,7 @@
                             @if(!$test->trashed())
                             <tr>
                                 <td>{{$test->name}}<br />@if(isset($tags[$test->id])) <ul> @foreach($tags[$test->id] as $t) <li>{{ $t  }}</li>  @endforeach </ul> @endif</td>
-                                <td><a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Source</a><br /><br /><div id="toggle_{{ $test->id  }}" class="hidden code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</div></td>
+                                <td><a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Code</a><br /><br /><div id="toggle_{{ $test->id  }}" class="hidden code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</div></td>
                                 <td>
                                     @if(isset($status[$test->id]['success']))
                                         @if($status[$test->id]['success'] == 0)
@@ -134,12 +134,12 @@
                                           </ul>
                                         </div>
                                         <a class="btn btn-xs btn-info" href="{{ route('tests.category', $test->id) }}"><i class="glyphicon glyphicon-folder-open"></i> Add Category</a>
-                                        <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
+                                        <a class="btn btn-xs btn-primary" href="{{ route('tests.show', $test->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View Results</a>
                                         </td>
                                         </tr>
                                         <tr><td>
                                         <div class=btn-group>
-                                            <button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-download-alt"></i> Compiled</button>
+                                            <button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-download-alt"></i> Download Code</button>
                                             <ul class="dropdown-menu">
                                                 <li class="dropdown-header">Variable Sets</li>
                                                 <li>
@@ -156,7 +156,7 @@
                                         <form action="{{ route('tests.destroy', $test->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                                            <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete Test</button>
                                         </form>
                                             </td></tr>
                                     </table>
