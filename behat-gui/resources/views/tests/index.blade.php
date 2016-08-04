@@ -18,9 +18,9 @@
             @endif
                 <div class="btn-group pull-right" style="margin-top:5px;" role="group">
                     @if($tests->count())
-                    <a href="#" id="runbycategory" class="btn btn-primary btn-group">Run by Category</a>
+                    <a href="#" id="runbycategory" class="btn btn-primary btn-group"><i class="glyphicon glyphicon-tasks"></i> Run by Category</a>
                     @endif
-                    <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                    <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create Test</a>
                 </div>
 
         </h1>
@@ -61,7 +61,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="form-control btn btn-danger" value="Execute" />
+                    <input type="submit" class="form-control btn btn-danger" value="Run Tests" />
                 </div>
             </div>
         </form>
@@ -120,7 +120,7 @@
                                         <tr style="height: 35px">
                                             <td>
                                         <div class=btn-group>
-                                          <button class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-refresh"></i> Execute</button>
+                                          <button class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-refresh"></i> Run Test</button>
                                           <ul class="dropdown-menu">
                                               <li class="dropdown-header">Variable Sets</li>
                                               <li>
