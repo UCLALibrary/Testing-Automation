@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryItemsTable extends Migration
+class AddSoftdeleteToTests extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateCategoryItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_items', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('header');
-            $table->string('value');
-            $table->timestamps();
+        Schema::table('tests', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +24,8 @@ class CreateCategoryItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categories_items');
+        Schema::table('tests', function (Blueprint $table) {
+            $table->dropColumn('deleted_at');
+        });
     }
 }

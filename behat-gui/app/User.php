@@ -14,9 +14,12 @@ class User extends Model implements \Illuminate\Contracts\Auth\Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'email', 'github_id', 'avatar'];
 
     /**
      * The attributes that should be hidden for arrays.

@@ -19,21 +19,69 @@
 
                 <div class="form-group @if($errors->has('command')) has-error @endif">
                        <label for="command-field">Command</label>
-                    <input type="text" id="command-field" name="command" class="form-control" value="{{ old("command") }}"/>
+                       <select name="command" class="form-control">
+                           <option value="behat:execute">Execute</option>
+                       </select>
                        @if($errors->has("command"))
                         <span class="help-block">{{ $errors->first("command") }}</span>
                        @endif
                     </div>
-                    <div class="form-group @if($errors->has('parameters')) has-error @endif">
-                       <label for="parameters-field">Parameters</label>
-                    <input type="text" id="parameters-field" name="parameters" class="form-control" value="{{ old("parameters") }}"/>
-                       @if($errors->has("parameters"))
-                        <span class="help-block">{{ $errors->first("parameters") }}</span>
-                       @endif
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if($errors->has('parameters')) has-error @endif">
+                            <label for="parameters-field">Test ID</label>
+                            <select name="test_id" class="form-control">
+                                @if(!$tests->isEmpty())
+                                    @foreach($tests as $test)
+                                        <option value="{{ $test->id  }}">{{ $test->name  }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @if($errors->has("test_id"))
+                                <span class="help-block">{{ $errors->first("test_id") }}</span>
+                            @endif
+                        </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group @if($errors->has('set_id')) has-error @endif">
+                            <label for="parameters-field">Set ID</label>
+                            <select name="set_id" class="form-control">
+                                <option value="0">Default</option>
+                                @if(!$sets->isEmpty())
+                                    @foreach($sets as $s)
+                                        <option value="{{ $s->id  }}">{{ $s->name  }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @if($errors->has("set_id"))
+                                <span class="help-block">{{ $errors->first("set_id") }}</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                     <div class="form-group @if($errors->has('frequency')) has-error @endif">
                        <label for="frequency-field">Frequency</label>
-                    <input type="text" id="frequency-field" name="frequency" class="form-control" value="{{ old("frequency") }}"/>
+                        <select name="frequency" class="form-control">
+                            <option value="everyMinute">Every Minute</option>
+                            <option value="everyFiveMinutes">Every Five Minutes</option>
+                            <option value="everyTenMinutes">Every Ten Minutes</option>
+                            <option value="everyThirtyMinutes">Every Thirty Minutes</option>
+                            <option value="hourly">Hourly</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="yearly">Yearly</option>
+                            <option value="weekdays">Weekdays</option>
+                            <option value="sundays">Sundays</option>
+                            <option value="mondays">Mondays</option>
+                            <option value="tuesdays">Tuesdays</option>
+                            <option value="wednesdays">Wednesdays</option>
+                            <option value="thursdays">Thursdays</option>
+                            <option value="fridays">Fridays</option>
+                            <option value="saturdays">Saturdays</option>
+                        </select>
                        @if($errors->has("frequency"))
                         <span class="help-block">{{ $errors->first("frequency") }}</span>
                        @endif

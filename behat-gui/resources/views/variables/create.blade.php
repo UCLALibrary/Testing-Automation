@@ -73,8 +73,12 @@
                 final[num[num.length-1]].input = $(id).val();
 
             });
-            main['key'] = $("#default-key").val();
+            var key = $("#default-key").val();
+
+            main['key'] = key.replace("&", "&amp;");
             main['value'] = $("#default-value").val();
+
+            console.log(main);
 
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
 

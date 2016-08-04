@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class Execute extends Job implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     protected $id;
     protected $set;
@@ -33,6 +34,8 @@ class Execute extends Job implements ShouldQueue
      */
     public function handle()
     {
-        Artisan::queue('behat:execute', ['testNumber' => $this->id, 'setNumber' => $this->set]);
+        $this->dispatch(
+            new ExecuteFeature($this->id, $this->set)
+        );
     }
 }

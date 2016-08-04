@@ -4,6 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Scheduler;
+use App\Set;
+use App\Test;
 use Illuminate\Http\Request;
 
 class SchedulerController extends Controller {
@@ -27,7 +29,10 @@ class SchedulerController extends Controller {
 	 */
 	public function create()
 	{
-		return view('schedulers.create');
+		$tests = Test::all();
+        $sets = Set::all();
+
+		return view('schedulers.create', compact('tests', 'sets'));
 	}
 
 	/**
@@ -41,8 +46,8 @@ class SchedulerController extends Controller {
 		$scheduler = new Scheduler();
 
 		$scheduler->command = $request->input("command");
-    $scheduler->parameters = $request->input("parameters");
-    $scheduler->frequency = $request->input("frequency");
+        $scheduler->parameters = $request->input("test_id"). ' '. $request->input('set_id');
+        $scheduler->frequency = $request->input("frequency");
 		$scheduler->disabled = $request->input('disabled');
 
 		$scheduler->save();
@@ -72,8 +77,11 @@ class SchedulerController extends Controller {
 	public function edit($id)
 	{
 		$scheduler = Scheduler::findOrFail($id);
+        $tests = Test::all();
+        $sets = Set::all();
 
-		return view('schedulers.edit', compact('scheduler'));
+
+        return view('schedulers.edit', compact('scheduler', 'tests', 'sets'));
 	}
 
 	/**
@@ -88,8 +96,8 @@ class SchedulerController extends Controller {
 		$scheduler = Scheduler::findOrFail($id);
 
 		$scheduler->command = $request->input("command");
-    $scheduler->parameters = $request->input("parameters");
-    $scheduler->frequency = $request->input("frequency");
+        $scheduler->parameters = $request->input("test_id"). ' '. $request->input('set_id');
+        $scheduler->frequency = $request->input("frequency");
 		$scheduler->disabled = $request->input('disabled');
 
 		$scheduler->save();
