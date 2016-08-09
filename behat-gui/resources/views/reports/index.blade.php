@@ -32,6 +32,15 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Behat Color Key</div>
+                            <div class="panel-body">
+                                <span class="label label-success">Green</span>: Successfully executed.<br />
+                                <span class="label label-primary">Blue</span>: Skipped over.<br />
+                                <span class="label label-warning">Yellow</span>: Skipped over due to syntax error.<br />
+                                <span class="label label-danger">Red</span> Executed, returned with error.<br />
+                            </div>
+                        </div>
                         @if($r->comment_complete == 1)
                             @if($r->comment != null)
                             <div class="panel panel-default">

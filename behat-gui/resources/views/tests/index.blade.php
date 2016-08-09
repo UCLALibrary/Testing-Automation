@@ -20,7 +20,7 @@
                     @if($tests->count())
                     <a href="#" id="runbycategory" class="btn btn-primary btn-group"><i class="glyphicon glyphicon-tasks"></i> Run by Category</a>
                     @endif
-                    <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create Test</a>
+                    <a class="btn btn-success btn-group" href="{{ route('tests.create') }}"><i class="glyphicon glyphicon-plus"></i> Create New Test</a>
                 </div>
 
         </h1>
