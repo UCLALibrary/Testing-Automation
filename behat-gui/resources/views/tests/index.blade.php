@@ -240,6 +240,17 @@
 
                 window.location.replace("/tests/multiple/"+selected.join(","));
             });
+
+            $("#add-category").click(function(){
+                var selected = [];
+                $("input:checked").each(function(){
+                    if($(this).attr('class') != undefined) {
+                        selected.push($(this).attr('class'));
+                    }
+                });
+
+                window.location.replace("/tests/category/"+selected.join(","));
+            });
         });
     </script>
 @endsection

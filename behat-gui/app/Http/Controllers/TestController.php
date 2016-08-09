@@ -197,15 +197,28 @@ class TestController extends Controller {
 	}
 
 	public function category_store(Request $request, $id){
-        if(empty(Category::where('test_id', '=', $id)->where('category', '=', $request->input('category'))->first())) {
-            $category = new Category();
-            $category->test_id = $id;
-            $category->category = $request->input('category');
-            $category->save();
-
+        if(strpos($id,",") !== false){
+            $array = explode(",", $id);
+            foreach($array as $item){
+                if(empty(Category::where('test_id', '=', $item)->where('category', '=', $request->input('category'))->first())) {
+                    $category = new Category();
+                    $category->test_id = $item;
+                    $category->category = $request->input('category');
+                    $category->save();
+                }
+            }
             return redirect()->route('tests.index')->with('message', 'Category added successfully.');
         }else{
-            return redirect()->route('tests.index')->with('message', 'Category already assigned');
+            if(empty(Category::where('test_id', '=', $id)->where('category', '=', $request->input('category'))->first())) {
+                $category = new Category();
+                $category->test_id = $id;
+                $category->category = $request->input('category');
+                $category->save();
+
+                return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+            }else{
+                return redirect()->route('tests.index')->with('message', 'Category already assigned');
+            }
         }
 	}
 
