@@ -78,6 +78,7 @@
                         <button id="delete" class="btn btn-xs btn-danger" disabled="true"><i class="glyphicon glyphicon-trash"></i> Delete Test</button>
                     </tr>
                 </table>
+                <br />
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
