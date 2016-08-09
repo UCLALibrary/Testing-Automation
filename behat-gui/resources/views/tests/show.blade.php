@@ -23,8 +23,9 @@
                      <p class="form-control-static">{{$test->name}}</p>
                 </div>
                     <div class="form-group">
-                     <label for="location">FILE</label>
-                     <p class="form-control-static code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</p>
+                     <label for="location">FILE</label><br />
+                     <a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Code</a><br /><br />
+                     <p class="form-control-static code gherkin hidden" id="toggle_{{ $test->id  }}">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</p>
                 </div>
             </form>
 
@@ -72,4 +73,11 @@
         </div>
     </div>
 
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+    $("#code_{{ $test->id  }}").on('click', function(){
+        $("#toggle_{{ $test->id  }}").toggleClass('hidden');
+    });
+    </script>
 @endsection
