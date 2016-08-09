@@ -4,7 +4,10 @@
     <div class="page-header clearfix">
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Variables
-            <a class="btn btn-success pull-right" href="{{ route('variables.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+            <div class="btn-group pull-right">
+                <a class="btn btn-success btn-group" href="{{ route('variables.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                <a class="btn btn-primary btn-group" href="{{ route('variables.upload') }}"><i class="glyphicon glyphicon-upload"></i> Upload</a>
+            </div>
         </h1>
 
     </div>

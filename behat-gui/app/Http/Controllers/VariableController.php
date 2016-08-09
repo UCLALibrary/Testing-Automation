@@ -3,8 +3,10 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Set;
 use App\Variable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class VariableController extends Controller {
 
@@ -159,4 +161,32 @@ class VariableController extends Controller {
 		return redirect()->route('variables.index')->with('message', 'Variable value deleted successfully.');
 
 	}
+
+    public function upload(){
+        $sets = Set::all();
+
+        return view('variables.upload', compact('sets'));
+    }
+
+    public function upload_store(Request $request){
+        $name = md5(time());
+        $validator = validator($request->input(), [
+            'file' => 'required|file',
+            'set' => 'required|exists:sets,id'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+
+        if($request->hasFile('location')){
+            if($request->file('location')->isValid()){
+                $request->file('location')->move(base_path()."/storage/app/tmp/".$name);
+            }
+        }
+
+        $file = file_get_contents(base_path()."/storage/app/tmp/".$name);
+        dump($file);
+        unlink(base_path()."/storage/app/tmp/".$name);
+    }
 }
