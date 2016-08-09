@@ -157,6 +157,16 @@ class TestController extends Controller {
 		return redirect()->route('tests.index')->with('message', 'Item deleted successfully.');
 	}
 
+	public function destory_multiple($id){
+		$array = explode(",", $id);
+		foreach($array as $item){
+			$test = Test::findOrFail($item);
+			unlink($test->location);
+			$test->delete();
+		}
+		return redirect()->route('tests.index')->with('message', 'Items deleted successfully.');
+	}
+
     public function execute(Request $request, $id){
         $this->dispatch(
             new Execute($id, $request->input('set'))
