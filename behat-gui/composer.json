@@ -18,7 +18,8 @@
         "bugsnag/bugsnag-laravel": "1.*",
         "zizaco/entrust": "^1.7",
         "paquettg/php-html-parser": "^1.7",
-        "laravel/socialite": "dev-master"
+        "laravel/socialite": "dev-master",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
