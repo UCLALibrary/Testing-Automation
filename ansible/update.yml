@@ -1,0 +1,14 @@
+---
+- name: update behat-env
+  sudo: true
+  hosts: webservers
+
+  vars:
+    jira_ticket: https://jira-test.library.ucla.edu/browse/
+    jira_url: https://jira-test.library.ucla.edu
+    jira_user: 
+    jira_pass: 
+    mysql_root_db_pass: 
+
+  roles:
+     - { role: ansible_uclalib_role_update_behat }
