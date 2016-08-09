@@ -157,6 +157,16 @@ class TestController extends Controller {
 		return redirect()->route('tests.index')->with('message', 'Item deleted successfully.');
 	}
 
+	public function destory_multiple($id){
+		$array = explode(",", $id);
+		foreach($array as $item){
+			$test = Test::findOrFail($item);
+			unlink($test->location);
+			$test->delete();
+		}
+		return redirect()->route('tests.index')->with('message', 'Items deleted successfully.');
+	}
+
     public function execute(Request $request, $id){
         $this->dispatch(
             new Execute($id, $request->input('set'))
@@ -187,15 +197,28 @@ class TestController extends Controller {
 	}
 
 	public function category_store(Request $request, $id){
-        if(empty(Category::where('test_id', '=', $id)->where('category', '=', $request->input('category'))->first())) {
-            $category = new Category();
-            $category->test_id = $id;
-            $category->category = $request->input('category');
-            $category->save();
-
+        if(strpos($id,",") !== false){
+            $array = explode(",", $id);
+            foreach($array as $item){
+                if(empty(Category::where('test_id', '=', $item)->where('category', '=', $request->input('category'))->first())) {
+                    $category = new Category();
+                    $category->test_id = $item;
+                    $category->category = $request->input('category');
+                    $category->save();
+                }
+            }
             return redirect()->route('tests.index')->with('message', 'Category added successfully.');
         }else{
-            return redirect()->route('tests.index')->with('message', 'Category already assigned');
+            if(empty(Category::where('test_id', '=', $id)->where('category', '=', $request->input('category'))->first())) {
+                $category = new Category();
+                $category->test_id = $id;
+                $category->category = $request->input('category');
+                $category->save();
+
+                return redirect()->route('tests.index')->with('message', 'Category added successfully.');
+            }else{
+                return redirect()->route('tests.index')->with('message', 'Category already assigned');
+            }
         }
 	}
 

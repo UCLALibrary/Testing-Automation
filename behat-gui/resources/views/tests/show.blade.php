@@ -23,8 +23,9 @@
                      <p class="form-control-static">{{$test->name}}</p>
                 </div>
                     <div class="form-group">
-                     <label for="location">FILE</label>
-                     <p class="form-control-static code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</p>
+                     <label for="location">FILE</label><br />
+                     <a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Code</a><br /><br />
+                     <p class="form-control-static code gherkin hidden" id="toggle_{{ $test->id  }}">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</p>
                 </div>
             </form>
 
@@ -38,6 +39,15 @@
                 <div class="col-sm-8">{!! preg_replace($pattern, "", str_replace("class=\"list-group\"","class=\"list-group\" style=\"overflow-y:scroll;\"", str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result)))) !!}</div>
                 @endif
                 <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Behat Color Key</div>
+                        <div class="panel-body">
+                            <span class="label label-success">Green</span>: Successfully executed.<br />
+                            <span class="label label-primary">Blue</span>: Skipped over.<br />
+                            <span class="label label-warning">Yellow</span>: Skipped over due to syntax error.<br />
+                            <span class="label label-danger">Red</span> Executed, returned with error.<br />
+                        </div>
+                    </div>
                     @if($r->comment_complete == 1)
                         @if($r->comment != null)
                     <div class="panel panel-default">
@@ -72,4 +82,11 @@
         </div>
     </div>
 
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+    $("#code_{{ $test->id  }}").on('click', function(){
+        $("#toggle_{{ $test->id  }}").toggleClass('hidden');
+    });
+    </script>
 @endsection

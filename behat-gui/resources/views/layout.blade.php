@@ -42,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Behat</a>
+                <a class="navbar-brand" href="{{ route('tests.index') }}">Behat</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 @if(Auth::check())

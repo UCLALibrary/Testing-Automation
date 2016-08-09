@@ -16,7 +16,7 @@ Route::group(['middleware' => 'auth'], function(){
         return redirect()->route('tests.index');
     });
     Route::get('/tests/search/{search}', ['as' => 'tests.search', 'uses' => 'TestController@search']);
-
+    Route::get('/tests/multiple/{tests}', ['as' => 'tests.destroy_multiple', 'uses' => 'TestController@destory_multiple']);
     Route::resource("tests","TestController");
     Route::resource("variables","VariableController");
     Route::resource("schedulers","SchedulerController");
