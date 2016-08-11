@@ -65,6 +65,11 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">More Info</div>
                         <div class="panel-body">
+                            @if($r->user_id != 0)
+                                User: <a href="mailto:{{  \App\User::where('id', '=', $r->user_id)->first()->email }}">{{  \App\User::where('id', '=', $r->user_id)->first()->email }}</a><br />
+                            @elseif($r->user_id == 0)
+                                User: System<br />
+                            @endif
                             Created: {{ $r->created_at  }}<br />
                             Updated: {{ $r->updated_at  }}
                         </div>
