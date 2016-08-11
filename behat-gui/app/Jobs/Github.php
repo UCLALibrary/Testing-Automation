@@ -15,6 +15,8 @@ class Github extends Job implements ShouldQueue
 
     protected $categories;
 
+    protected $request;
+
     protected $set;
 
     protected $wait;
@@ -24,9 +26,10 @@ class Github extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($request)
     {
         //get the categories to run and the var set
+        $this->request = $request;
         $this->categories = json_decode(Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->first()->value, true);
         $this->set = Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->first()->value;
         $this->set = Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->first()->value;

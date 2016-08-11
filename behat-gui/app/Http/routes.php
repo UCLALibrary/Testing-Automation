@@ -17,29 +17,26 @@ Route::group(['middleware' => 'auth'], function(){
     });
     Route::get('/tests/search/{search}', ['as' => 'tests.search', 'uses' => 'TestController@search']);
     Route::get('/tests/multiple/{tests}', ['as' => 'tests.destroy_multiple', 'uses' => 'TestController@destory_multiple']);
-    Route::resource("tests","TestController");
-    Route::resource("variables","VariableController");
-    Route::resource("schedulers","SchedulerController");
-    Route::resource("sets","SetController");
-    Route::resource("feature_contexts","FeatureContextController");
-
+    Route::get('/variables/delete/{id}/{set}', ['as' => 'variables.deleteValue', 'uses' => 'VariableController@delete_value']);
+    Route::get('/variables/upload', ['as' => 'variables.upload', 'uses' => 'VariableController@upload']);
+    Route::post('/variables/upload', ['as' => 'variables.upload', 'uses' => 'VariableController@upload_store']);
     Route::get('/github', ['as' => 'triggers.github', 'uses' => 'TriggerController@github_config']);
     Route::post('/github/save', ['as' => 'triggers.github_save', 'uses' => 'TriggerController@github_config_post']);
-
     Route::get('/jira', ['as' => 'triggers.jira', 'uses' => 'TriggerController@jira_config']);
     Route::post('/jira', ['as' => 'triggers.jira_save', 'uses' => 'TriggerController@jira_config_post']);
-
     Route::get('/tests/category/delete/{test}', ['as' => 'tests.deleteCategory', 'uses' => 'TestController@delete_category']);
     Route::get('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category']);
     Route::post('/tests/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category_store']);
     Route::get('/tests/execute/{tests}/', ['as' => 'tests.execute', 'uses' => 'TestController@execute']);
     Route::get('/tests/compiled/{test}/{set}', ['as' => 'tests.compiled', 'uses' => 'TestController@compiled']);
-
-    Route::get('/variables/delete/{id}/{set}', ['as' => 'variables.deleteValue', 'uses' => 'VariableController@delete_value']);
-
     Route::get('/ajax/notifications', ['uses' => 'AjaxController@notification']);
     Route::get('/ajax/kill_notifications/{id}', ['uses' => 'AjaxController@kill_notification']);
 
+    Route::resource("tests","TestController");
+    Route::resource("variables","VariableController");
+    Route::resource("schedulers","SchedulerController");
+    Route::resource("sets","SetController");
+    Route::resource("feature_contexts","FeatureContextController");
     Route::resource("roles","RoleController");
     Route::resource("permissions","PermissionController");
     Route::resource("categories","CategoryController");

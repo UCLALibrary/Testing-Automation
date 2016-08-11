@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,6 +15,7 @@ class Execute extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     protected $id;
+    protected $request;
     protected $set;
 
     /**
@@ -21,9 +23,10 @@ class Execute extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($id, $set)
+    public function __construct($request, $id, $set)
     {
         $this->id = $id;
+        $this->request = $request;
         $this->set = $set;
     }
 
@@ -35,7 +38,7 @@ class Execute extends Job implements ShouldQueue
     public function handle()
     {
         $this->dispatch(
-            new ExecuteFeature($this->id, $this->set)
+            new ExecuteFeature($this->request, $this->id, $this->set)
         );
     }
 }

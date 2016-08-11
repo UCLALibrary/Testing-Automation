@@ -14,6 +14,7 @@ use App\Variable;
 use Behat\Gherkin\Keywords\ArrayKeywords;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -169,7 +170,7 @@ class TestController extends Controller {
 
     public function execute(Request $request, $id){
         $this->dispatch(
-            new Execute($id, $request->input('set'))
+            new Execute($request->user(), $id, $request->input('set'))
         );
 
         return redirect()->back()->with('message', 'Test Queued');
@@ -247,7 +248,7 @@ class TestController extends Controller {
     {
         foreach ($request->input('categories') as $category){
             $this->dispatch(
-                new Categories($category, $request->input('set'))
+                new Categories($request->user(), $category, $request->input('set'))
             );
         }
 
