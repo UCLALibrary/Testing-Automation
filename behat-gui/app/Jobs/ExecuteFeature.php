@@ -170,11 +170,16 @@ class ExecuteFeature extends Job implements ShouldQueue
                 $s = false;
             }
 
+
             $result = new TestResult();
             $result->test_id = $t->id;
             $result->result = $this->sanitize_output($r);
             $result->success = $s;
-            $result->user_id = $this->auth->id;
+            if($this->auth->id == null){
+                $result->user_id = 0;
+            }elseif($this->auth->id != null) {
+                $result->user_id = $this->auth->id;
+            }
             $result->save();
         }
 
