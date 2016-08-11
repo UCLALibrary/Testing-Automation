@@ -83,7 +83,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <input id="check-all" type="checkbox" style="width:25px;height:25px" />
+                                <input id="check-all" type="checkbox" style="width:15px;height:15px" />
                             </th>
                             <th>NAME</th>
                             <th>FILE</th>
@@ -97,7 +97,7 @@
                         @foreach($tests as $test)
                             @if(!$test->trashed())
                             <tr>
-                                <td><input id="check" class="{{ $test->id  }}" type="checkbox" style="width:25px;height:25px" /></td>
+                                <td><input id="check" class="{{ $test->id  }}" type="checkbox" style="width:15px;height:15px" /></td>
                                 <td>{{$test->name}}<br />@if(isset($tags[$test->id])) <ul> @foreach($tags[$test->id] as $t) <li>{{ $t  }}</li>  @endforeach </ul> @endif</td>
                                 <td><a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Code</a><br /><br /><div id="toggle_{{ $test->id  }}" class="hidden code gherkin">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</div></td>
                                 <td>
@@ -228,7 +228,6 @@
                     $("#add-category").prop("disabled", true);
                 }
 
-                //window.alert(check_count);
             });
 
             $("#delete").click(function(){
