@@ -184,6 +184,10 @@ class VariableController extends Controller {
             }
         }
 
+        if($request->file('location')->getClientOriginalExtension() != 'csv'){
+            return redirect()->back()->withErrors(['File must be a csv']);
+        }
+
         $file = file_get_contents(base_path()."/storage/app/tmp/".$file_name);
 
         $explode = explode("\n", $file);
@@ -229,5 +233,7 @@ class VariableController extends Controller {
         }
 
         unlink(base_path()."/storage/app/tmp/".$file_name);
+
+        return redirect()->route('variables.index')->with('message', 'CSV successfully uploaded & processed');
     }
 }
