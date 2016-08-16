@@ -53,12 +53,23 @@ class PullTests extends Command
             sleep(1);
             $name = md5(time()).".feature.template";
             $current_file = file_get_contents($directory.'/'.$item);
-            file_put_contents(base_path().'/features/'.$name, $current_file);
+            $md5 = md5($current_file);
+            $t_check = Test::where('md5', '=', $md5)->first();
+            if(empty($t_check) || $t_check == null) {
+                file_put_contents(base_path().'/features/'.$name, $current_file);
 
-            $test = new Test();
-            $test->name = explode('.',$item)[0];
-            $test->location = base_path().'/features/'.$name;
-            $test->save();
+                $test = new Test();
+                $test->name = explode('.', $item)[0];
+                $test->location = base_path() . '/features/' . $name;
+                $test->md5 = $md5;
+                $test->save();
+            }elseif(!empty($t_check)){
+                unlink($t_check->location);
+                file_put_contents(base_path().'/features/'.$name, $current_file);
+                $t_check->location = base_path().'/features/'.$name;
+                $t_check->md5 = $md5;
+                $t_check->save();
+            }
 
             unlink($directory.'/'.$item);
         }

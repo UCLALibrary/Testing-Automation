@@ -84,9 +84,11 @@ class TestController extends Controller {
         }
 
         $file = str_replace(" ", " ", file_get_contents(base_path().'/features/'.$name));
+		$md5 = md5($file);
         file_put_contents(base_path()."/features/".$name, $file);
 
         $test->location = base_path()."/features/".$name;
+		$test->md5 = $md5;
 
 		$test->save();
 
