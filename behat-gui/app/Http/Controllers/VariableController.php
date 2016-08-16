@@ -228,7 +228,6 @@ class VariableController extends Controller {
             }
         }
 
-        dd("hi");
         unlink(base_path()."/storage/app/tmp/".$file_name);
     }
 }
