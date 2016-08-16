@@ -27,7 +27,7 @@ class TestController extends Controller {
 	 */
 	public function index()
 	{
-		$tests = Test::orderBy('id', 'desc')->paginate(10);
+		$tests = Test::orderBy('id', 'desc')->get();
 
 		$it = [];
 		$items = CategoryItem::all();
