@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ExecuteFeature::class
+        Commands\ExecuteFeature::class,
+        Commands\PullTests::class,
     ];
 
     /**
@@ -30,7 +31,11 @@ class Kernel extends ConsoleKernel
         if(class_exists('App\Scheduler')) {
             foreach (Scheduler::all() as $s) {
                 if($s->disabled == 0){
-                  $schedule->command($s['command'], [$s['parameters']])->$s['frequency']();
+                    if($s['command'] == "behat:execute") {
+                        $schedule->command($s['command'], [$s['parameters']])->$s['frequency']();
+                    }else{
+                        $schedule->command($s['command'])->$s['frequency']();
+                    }
                 }
             }
         }
