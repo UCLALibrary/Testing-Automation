@@ -75,7 +75,6 @@ class TestController extends Controller {
 	public function store(Request $request)
 	{
 		$test = new Test();
-
 		$test->name = $request->input("name");
 		$name = md5(time()).".feature.template";
 		if($request->hasFile('location')){

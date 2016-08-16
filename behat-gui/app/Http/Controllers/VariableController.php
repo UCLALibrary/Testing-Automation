@@ -169,24 +169,66 @@ class VariableController extends Controller {
     }
 
     public function upload_store(Request $request){
-        $name = md5(time());
         $validator = validator($request->input(), [
-            'file' => 'required|file',
-            'set' => 'required|exists:sets,id'
+            'set' => 'required'
         ]);
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator);
         }
 
+        $file_name = '';
         if($request->hasFile('location')){
             if($request->file('location')->isValid()){
-                $request->file('location')->move(base_path()."/storage/app/tmp/".$name);
+                $file_name = $request->file('location')->move(base_path()."/storage/app/tmp/")->getFilename();
             }
         }
 
-        $file = file_get_contents(base_path()."/storage/app/tmp/".$name);
-        dump($file);
-        unlink(base_path()."/storage/app/tmp/".$name);
+        $file = file_get_contents(base_path()."/storage/app/tmp/".$file_name);
+
+        $explode = explode("\n", $file);
+        foreach($explode as $item) {
+            $i = explode(",", $item);
+
+            if (isset($i[0]) && $i[0] != null) {
+                $key = $i[0];
+            }
+            if (isset($i[1]) && $i[1] != null) {
+                $value = $i[1];
+            }
+
+            if(isset($key, $value) && $key != null && $value != null){
+                $var = Variable::firstOrNew(['key' => $key]);
+                if($var->exists == true){
+                    $sets = json_decode($var->sets, true);
+                    $values = json_decode($var->value, true);
+                    if(in_array($request->input('set'), $sets)){
+                        foreach($sets as $k => $s){
+                            if($request->input('set') == $s){
+                                $values[$k] = $value;
+                            }
+                        }
+                    }else{
+                        $values[] = $value;
+                        $sets[] = $request->input('set');
+                    }
+
+                    $json_values = json_encode($values);
+                    $json_sets = json_encode($sets);
+
+                    $var->value = $json_values;
+                    $var->sets = $json_sets;
+                    $var->save();
+                }else{
+                    $var->key = $key;
+                    $var->value = json_encode([$value]);
+                    $var->sets = json_encode([$request->input('set')]);
+                    $var->save();
+                }
+            }
+        }
+
+        dd("hi");
+        unlink(base_path()."/storage/app/tmp/".$file_name);
     }
 }
