@@ -17,17 +17,19 @@ class Execute extends Job implements ShouldQueue
     protected $id;
     protected $request;
     protected $set;
+    protected $group;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($request, $id, $set)
+    public function __construct($request, $id, $set, $group)
     {
         $this->id = $id;
         $this->request = $request;
         $this->set = $set;
+        $this->group = $group;
     }
 
     /**
@@ -38,7 +40,7 @@ class Execute extends Job implements ShouldQueue
     public function handle()
     {
         $this->dispatch(
-            new ExecuteFeature($this->request, $this->id, $this->set)
+            new ExecuteFeature($this->request, $this->id, $this->set, $this->group)
         );
     }
 }

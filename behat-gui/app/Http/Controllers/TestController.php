@@ -2,6 +2,7 @@
 
 use App\Category;
 use App\CategoryItem;
+use App\Group;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -17,6 +18,7 @@ use Behat\Gherkin\Parser;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller {
 
@@ -170,8 +172,10 @@ class TestController extends Controller {
 	}
 
     public function execute(Request $request, $id){
+        $group = Group::create(['user_id' => Auth::user()->id]);
+
         $this->dispatch(
-            new Execute($request->user(), $id, $request->input('set'))
+            new Execute($request->user(), $id, $request->input('set'), $group->id)
         );
 
         return redirect()->back()->with('message', 'Test Queued');
@@ -247,9 +251,10 @@ class TestController extends Controller {
 
 	public function execute_category(Request $request)
     {
+        $group = Group::create(['user_id' => Auth::user()->id]);
         foreach ($request->input('categories') as $category){
-            $this->dispatch(
-                new Categories($request->user(), $category, $request->input('set'))
+			$this->dispatch(
+                new Categories($request->user(), $category, $request->input('set'), $group->id)
             );
         }
 

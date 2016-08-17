@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Group;
 use App\Jobs\Job;
 use App\Notifications;
 use App\Test;
@@ -24,17 +25,19 @@ class ExecuteFeature extends Job implements ShouldQueue
     protected $test;
     protected $auth;
     protected $set;
+    protected $group;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($request, $test, $set)
+    public function __construct($request, $test, $set, $group)
     {
         $this->auth = $request;
         $this->test = $test;
         $this->set = $set;
+        $this->group = $group;
     }
 
     /**
@@ -181,6 +184,15 @@ class ExecuteFeature extends Job implements ShouldQueue
                 $result->user_id = $this->auth->id;
             }
             $result->save();
+
+            $group = Group::where('id', '=', $this->group)->first();
+            $results_array = json_decode($group->results, true);
+            $results_array[] = $result->id;
+            $tests_array = json_decode($group->tests, true);
+            $tests_array[] = $result->test_id;
+            $group->results = json_encode($results_array);
+            $group->tests = json_encode($tests_array);
+            $group->save();
         }
 
         rrmdir('features/report');
