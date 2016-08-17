@@ -85,6 +85,10 @@ class TestController extends Controller {
             }
         }
 
+        if($request->file('location')->getClientOriginalExtension() != 'feature'){
+            return redirect()->back()->withErrors(['File must be a feature (.feature)']);
+        }
+
         $file = str_replace(" ", " ", file_get_contents(base_path().'/features/'.$name));
 		$md5 = md5($file);
         file_put_contents(base_path()."/features/".$name, $file);
