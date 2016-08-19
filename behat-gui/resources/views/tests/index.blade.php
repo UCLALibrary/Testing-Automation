@@ -220,7 +220,7 @@
                 <div class="ui form">
                     <div class="field">
                         <label>Categories</label>
-                        <select multiple="multiple" name="categories[]" class="ui dropdown">
+                        <select multiple="multiple" name="categories[]" id="categories_dropdown" class="ui dropdown">
                             <option value="">Select Categories</option>
                             @foreach($items as $h => $i)
                                 <optgroup label="{{ $h }}">
@@ -234,7 +234,7 @@
 
                     <div class="field">
                         <label>Set</label>
-                        <select name="set" class="ui dropdown">
+                        <select name="set" id="set_dropdown" class="ui dropdown">
                             <option value="0">Default</option>
                             @if(!$sets->isEmpty())
                                 @foreach($sets as $s)
@@ -248,7 +248,10 @@
         </div>
         <div class="actions">
             <div class="ui deny black button">Close</div>
-            <input type="submit" class="ui green right button" value="Run" />
+            <div class="ui positive submit right labeled icon button">
+                Run
+                <i class="checkmark icon"></i>
+            </div>
         </div>
     </div>
 @endsection
@@ -256,6 +259,30 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
+            $('.ui.positive.submit.button').on('click', function() {
+                submitForm();
+            });
+
+            function submitForm() {
+                var categories = $('#categories_dropdown').dropdown('get value');
+                var formData = {
+                    categories: categories.splice(-1,1),
+                    set: $('#set_dropdown').dropdown('get value'),
+                    _token: '{{ csrf_token() }}',
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('tests.executeCategory')  }}',
+                    data: formData,
+                    success: function(response){
+                        if(response == "done"){
+                            $.jGrowl("Executed all tests relating to those categories", { header: 'Alert', position: 'bottom-right', life: 10000 });
+                        }
+                    }
+                });
+            }
+
             $("#runbycategory").on('click', function(){
                 $('.ui.modal')
                         .modal('show')

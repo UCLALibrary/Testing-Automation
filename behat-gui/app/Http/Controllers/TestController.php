@@ -268,15 +268,14 @@ class TestController extends Controller {
 
 	public function execute_category(Request $request)
     {
-		dd($request->input());
         $group = Group::create(['user_id' => Auth::user()->id]);
-        foreach ($request->input('categories') as $category){
+        foreach ($request->input('categories')[0] as $category){
 			$this->dispatch(
                 new Categories($request->user(), $category, $request->input('set'), $group->id)
             );
         }
 
-        return redirect()->route('tests.index')->with('message', 'Executed all tests relating to those categories');
+        print_r('done');
 	}
 
 	public function compiled($test, $set){
