@@ -192,6 +192,11 @@ class ExecuteFeature extends Job implements ShouldQueue
             $tests_array[] = $result->test_id;
             $group->results = json_encode($results_array);
             $group->tests = json_encode($tests_array);
+
+            if($s == 0){
+                $group->status = 0;
+            }
+
             $group->save();
         }
 

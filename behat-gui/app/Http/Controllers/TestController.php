@@ -29,7 +29,20 @@ class TestController extends Controller {
 	 */
 	public function index()
 	{
-		$tests = Test::orderBy('id', 'desc')->get();
+		$order = TestResult::orderBy('created_at', 'desc')->get();
+		$te = [];
+		$status = [];
+		$categories = [];
+		foreach($order as $o){
+			if(!isset($te[$o->test_id])) {
+				$tes = Test::where('id', '=', $o->test_id)->first();
+				if($tes != null) {
+					$te[$o->test_id] = $tes;
+				}
+			}
+		}
+
+		$tests = collect($te);
 
 		$it = [];
 		$items = CategoryItem::all();
@@ -37,8 +50,8 @@ class TestController extends Controller {
 			$it[$i->header][] = $i->value;
 		}
 
-        $status = [];
-        $categories = [];
+		$groups = Group::orderBy('created_at', 'desc')->limit(10)->get();
+
         foreach($tests as $t){
 			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
 			if($r != null) {
@@ -55,7 +68,7 @@ class TestController extends Controller {
 
 		view()->share('items', $it);
         view()->share('sets', Set::all());
-        return view('tests.index', compact('tests', 'status', 'categories'));
+        return view('tests.index', compact('tests', 'status', 'categories', 'groups'));
 	}
 
 	/**
@@ -255,6 +268,7 @@ class TestController extends Controller {
 
 	public function execute_category(Request $request)
     {
+		dd($request->input());
         $group = Group::create(['user_id' => Auth::user()->id]);
         foreach ($request->input('categories') as $category){
 			$this->dispatch(

@@ -43,4 +43,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+
+
 Route::post('/github', ['as' => 'triggers.github', 'uses' => 'TriggerController@github']);
