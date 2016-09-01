@@ -21,7 +21,7 @@ class TriggerController extends Controller
     public function github(Request $request){
         # at some point in the future specify when this will run.
         $this->dispatchNow(
-          new Github()
+          new Github($request->user())
         );
     }
 

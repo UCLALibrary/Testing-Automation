@@ -20,7 +20,8 @@
                 <div class="form-group @if($errors->has('command')) has-error @endif">
                        <label for="command-field">Command</label>
                        <select name="command" class="form-control">
-                           <option value="behat:execute">Execute</option>
+                           <option value="behat:execute">Execute Tests</option>
+                           <option value="behat:pull">Pull Tests</option>
                        </select>
                        @if($errors->has("command"))
                         <span class="help-block">{{ $errors->first("command") }}</span>
@@ -31,6 +32,7 @@
                         <div class="form-group @if($errors->has('parameters')) has-error @endif">
                             <label for="parameters-field">Test ID</label>
                             <select name="test_id" class="form-control">
+                                <option value="none">None</option>
                                 @if(!$tests->isEmpty())
                                     @foreach($tests as $test)
                                         <option value="{{ $test->id  }}">{{ $test->name  }}</option>
@@ -47,6 +49,7 @@
                             <label for="parameters-field">Set ID</label>
                             <select name="set_id" class="form-control">
                                 <option value="0">Default</option>
+                                <option value="none">None</option>
                                 @if(!$sets->isEmpty())
                                     @foreach($sets as $s)
                                         <option value="{{ $s->id  }}">{{ $s->name  }}</option>

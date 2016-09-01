@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTestResultsTableWithUserId extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,12 @@ class UpdateTestResultsTableWithUserId extends Migration
      */
     public function up()
     {
-        Schema::table('tests_results', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('tests')->nullable();
             $table->integer('user_id');
+            $table->text('results')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -24,8 +28,6 @@ class UpdateTestResultsTableWithUserId extends Migration
      */
     public function down()
     {
-        Schema::table('tests_results', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::drop('groups');
     }
 }

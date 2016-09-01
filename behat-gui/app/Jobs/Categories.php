@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Category;
 use App\Jobs\Job;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,17 +15,21 @@ class Categories extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     protected $category;
+    protected $auth;
     protected $set;
+    protected $group;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($category, $set)
+    public function __construct($request, $category, $set, $group)
     {
         $this->category = $category;
+        $this->auth = $request;
         $this->set = $set;
+        $this->group = $group;
     }
 
     /**
@@ -40,7 +45,7 @@ class Categories extends Job implements ShouldQueue
         foreach($tests as $test) {
             if(isset($test->test_id) && $test->test_id != null) {
                 $this->dispatch(
-                    new Execute($test->test_id, $this->set)
+                    new Execute($this->auth, $test->test_id, $this->set, $this->group)
                 );
             }
         }

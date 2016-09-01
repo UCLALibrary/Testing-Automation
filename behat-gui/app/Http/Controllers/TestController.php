@@ -2,6 +2,7 @@
 
 use App\Category;
 use App\CategoryItem;
+use App\Group;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -14,8 +15,10 @@ use App\Variable;
 use Behat\Gherkin\Keywords\ArrayKeywords;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller {
 
@@ -26,7 +29,7 @@ class TestController extends Controller {
 	 */
 	public function index()
 	{
-		$tests = Test::orderBy('id', 'desc')->paginate(10);
+		$tests = Test::orderBy('id', 'desc')->get();
 
 		$it = [];
 		$items = CategoryItem::all();
@@ -74,7 +77,6 @@ class TestController extends Controller {
 	public function store(Request $request)
 	{
 		$test = new Test();
-
 		$test->name = $request->input("name");
 		$name = md5(time()).".feature.template";
 		if($request->hasFile('location')){
@@ -83,10 +85,16 @@ class TestController extends Controller {
             }
         }
 
+        if($request->file('location')->getClientOriginalExtension() != 'feature'){
+            return redirect()->back()->withErrors(['File must be a feature (.feature)']);
+        }
+
         $file = str_replace(" ", " ", file_get_contents(base_path().'/features/'.$name));
+		$md5 = md5($file);
         file_put_contents(base_path()."/features/".$name, $file);
 
         $test->location = base_path()."/features/".$name;
+		$test->md5 = $md5;
 
 		$test->save();
 
@@ -168,8 +176,10 @@ class TestController extends Controller {
 	}
 
     public function execute(Request $request, $id){
+        $group = Group::create(['user_id' => Auth::user()->id]);
+
         $this->dispatch(
-            new Execute($id, $request->input('set'))
+            new Execute($request->user(), $id, $request->input('set'), $group->id)
         );
 
         return redirect()->back()->with('message', 'Test Queued');
@@ -245,9 +255,10 @@ class TestController extends Controller {
 
 	public function execute_category(Request $request)
     {
+        $group = Group::create(['user_id' => Auth::user()->id]);
         foreach ($request->input('categories') as $category){
-            $this->dispatch(
-                new Categories($category, $request->input('set'))
+			$this->dispatch(
+                new Categories($request->user(), $category, $request->input('set'), $group->id)
             );
         }
 
