@@ -119,7 +119,7 @@
                                     <td>
                                         @if(isset($categories[$test->id]) && $categories[$test->id] != null)
                                         @foreach($categories[$test->id] as $k => $c)
-                                            {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.deleteCategory', $k)  }}">Delete</a><br />
+                                            {{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}:  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} - <a href="{{ route('tests.category.delete', $k)  }}">Delete</a><br />
                                         @endforeach
                                         @else
                                             None

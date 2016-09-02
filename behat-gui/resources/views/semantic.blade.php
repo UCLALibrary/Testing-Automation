@@ -33,28 +33,28 @@
 </head>
 <body>
 <div class="ui inverted menu">
-    <a href="tests.html" class="header item">Behat</a>
-    <a class="active item">Tests</a>
-    <div class="item">Report</div>
+    <a href="{{ route('tests.index')  }}" class="header item">Behat</a>
+    <a href="{{ route('tests.index')  }}" class="active item">Tests</a>
+    <a href="{{ route('reports.index')  }}" class="item">Report</a>
     <div class="ui dropdown item">
         Templating
         <i class="dropdown icon"></i>
         <div class="menu">
-            <div class="item">Variables</div>
-            <div class="item">Sets</div>
+            <a href="{{ route('variables.index')  }}" class="item">Variables</a>
+            <a href="{{ route('sets.index')  }}" class="item">Sets</a>
         </div>
     </div>
     <div class="ui dropdown item">
         Triggers
         <i class="dropdown icon"></i>
         <div class="menu">
-            <div class="item">Github</div>
-            <div class="item">JIRA</div>
+            <a href="{{ route('triggers.github')  }}" class="item">Github</a>
+            <a href="{{ route('triggers.jira')  }}" class="item">JIRA</a>
         </div>
     </div>
-    <div class="item">Scheduler</div>
-    <div class="item">Categories</div>
-    <div class="item">Feature Context</div>
+    <a href="{{ route('schedulers.index')  }}" class="item">Scheduler</a>
+    <a href="{{ route('categories.index')  }}" class="item">Categories</a>
+    <a href="{{ route('feature_contexts.index')  }}" class="item">Feature Context</a>
     <div class="right menu">
         <div class="item">
             <div class="ui transparent inverted icon input">

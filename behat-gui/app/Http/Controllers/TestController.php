@@ -407,4 +407,8 @@ class TestController extends Controller {
 		view()->share('sets', Set::all());
 		return view('tests.index', compact('tests', 'status', 'categories'));
 	}
+
+	public function group_show($id){
+		
+	}
 }
