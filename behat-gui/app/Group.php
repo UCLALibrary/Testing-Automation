@@ -11,4 +11,9 @@ class Group extends Model
     protected $fillable = [
         'user_id'
     ];
+
+    protected $casts = [
+        'tests' => 'array',
+        'results' => 'array'
+    ];
 }
