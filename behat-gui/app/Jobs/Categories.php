@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Category;
 use App\Jobs\Job;
+use App\Test;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -43,10 +44,15 @@ class Categories extends Job implements ShouldQueue
         //get all of the test_ids for the category
         $tests = Category::where('category', '=', $this->category)->get();
         foreach($tests as $test) {
-            if(isset($test->test_id) && $test->test_id != null) {
-                $this->dispatch(
-                    new Execute($this->auth, $test->test_id, $this->set, $this->group)
-                );
+            $t = Test::where('id', '=', $test->test_id)->first();
+            if($t != null) {
+                if (isset($test->test_id) && $test->test_id != null) {
+                    $this->dispatch(
+                        new Execute($this->auth, $test->test_id, $this->set, $this->group)
+                    );
+                }
+            }else{
+                $this->delete();
             }
         }
     }

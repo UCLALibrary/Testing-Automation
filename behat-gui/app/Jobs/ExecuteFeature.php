@@ -185,14 +185,14 @@ class ExecuteFeature extends Job implements ShouldQueue
             }
             $result->save();
 
-            $group = Group::where('id', '=', $this->group)->first();
-            $results_array = json_decode($group->results, true);
-            $results_array[] = $result->id;
-            $tests_array = json_decode($group->tests, true);
-            $tests_array[] = $result->test_id;
-            $group->results = json_encode($results_array);
-            $group->tests = json_encode($tests_array);
 
+            $group = Group::where('id', '=', $this->group)->first();
+            $results_array = $group->results;
+            $results_array[] = $result->id;
+            $tests_array = $group->tests;
+            $tests_array[] = $result->test_id;
+            $group->results = $results_array;
+            $group->tests = $tests_array;
             if($s == 0){
                 $group->status = 0;
             }
