@@ -37,12 +37,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/search/{search}', ['as' => 'tests.search', 'uses' => 'TestController@search']);
         Route::get('/multiple/{tests}', ['as' => 'tests.destroy_multiple', 'uses' => 'TestController@destory_multiple']);
         Route::group(['prefix' => 'category'], function(){
-            Route::get('/category/delete/{test}', ['as' => 'tests.category.delete', 'uses' => 'TestController@delete_category']);
-            Route::get('/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category']);
-            Route::post('/category/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category_store']);
+            Route::get('/delete/{test}', ['as' => 'tests.category.delete', 'uses' => 'TestController@delete_category']);
+            Route::get('/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category']);
+            Route::post('/{test}', ['as' => 'tests.category', 'uses' => 'TestController@category_store']);
         });
-        Route::group(['prefix' => 'group'], function(){
-            Route::get('/{groupid}', ['as' => 'tests.group.show', 'uses' => 'TestController@group_show']);
+        Route::group(['prefix' => 'groups'], function(){
+            Route::get('/{groupid}', ['as' => 'tests.groups.show', 'uses' => 'TestController@group_show']);
         });
         Route::get('/execute/{tests}/', ['as' => 'tests.execute', 'uses' => 'TestController@execute']);
         Route::get('/compiled/{test}/{set}', ['as' => 'tests.compiled', 'uses' => 'TestController@compiled']);
@@ -66,8 +66,8 @@ Route::group(['middleware' => 'auth'], function(){
      * Ajax Routes
      */
     Route::group(['prefix' => 'ajax'], function(){
-        Route::get('/ajax/notifications', ['uses' => 'AjaxController@notification']);
-        Route::get('/ajax/kill_notifications/{id}', ['uses' => 'AjaxController@kill_notification']);
+        Route::get('/notifications', ['uses' => 'AjaxController@notification']);
+        Route::get('/kill_notifications/{id}', ['uses' => 'AjaxController@kill_notification']);
     });
 
     /**

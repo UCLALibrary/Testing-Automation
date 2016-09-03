@@ -19,6 +19,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use PHPHtmlParser\Dom;
 
 class TestController extends Controller {
 
@@ -33,12 +34,19 @@ class TestController extends Controller {
 		$te = [];
 		$status = [];
 		$categories = [];
+		$ids = Test::select('id')->where('id', '>', 0)->get()->toArray();
 		foreach($order as $o){
-			if(!isset($te[$o->test_id])) {
+			if (!isset($te[$o->test_id])) {
 				$tes = Test::where('id', '=', $o->test_id)->first();
-				if($tes != null) {
+				if ($tes != null) {
 					$te[$o->test_id] = $tes;
 				}
+			}
+		}
+		foreach($ids as $id){
+
+			if(!isset($te[$id['id']])){
+				$te[$id['id']] = Test::where('id', '=', $id['id'])->first();
 			}
 		}
 
@@ -409,6 +417,61 @@ class TestController extends Controller {
 	}
 
 	public function group_show($id){
-		
+		$group = Group::where('id','=',$id)->first();
+		$output = [];
+		if(!empty($group->results)) {
+			foreach ($group->results as $re) {
+				$res = TestResult::where('id', '=', $re)->first();
+				$dom = new Dom();
+				$dom->load($res->result);
+				$name = $dom->find('a[data-toggle=collapse]');
+				$output[$res->id] = "";
+				foreach ($name as $n) {
+
+					$output[$res->id] .= "<div class=\"ui fluid accordion\">";
+					$items = $dom->find('li');
+					$result = [];
+					foreach ($items as $ke => $item) {
+						$color = 'black';
+						if (strpos($item->class, "alert-warning") !== false) {
+							$color = '#f79232';
+						} elseif (strpos($item->class, "alert-danger") !== false) {
+							$color = '#d04437';
+						} elseif (strpos($item->class, "alert-success") !== false) {
+							$color = '#14892c';
+						} elseif (strpos($item->class, "alert-info") !== false) {
+							$color = '#59afe1';
+						}
+
+						$result[] = [
+							'id' => "#".$items[$ke]->getParent()->getParent()->id,
+							'line' => $item->text,
+							'color' => $color
+						];
+					}
+
+					$failed = false;
+					if(strpos($n->getParent()->getParent()->getParent()->class, 'failed') !== false){
+						$failed = true;
+					}
+
+					if($failed == true) {
+						$output[$re] .= "<div class=\"title\" style=\"color:#d04437;\">" . trim($n->text) . "</div><div class=\"content\"><div class=\"transition hidden\">";
+					}elseif($failed == false){
+						$output[$re] .= "<div class=\"title\">" . trim($n->text) . "</div><div class=\"content\"><div class=\"transition hidden\">";
+					}
+					$output[$re] .= "<ul>";
+					foreach ($result as $k => $r) {
+						if ($result[$k]['id'] == $n->href) {
+							$output[$re] .= "<li style=\"color:" . $result[$k]['color'] . "\" >" . $result[$k]['line'] . "</li>";
+						}
+					}
+					$output[$re] .= "</ul>";
+					$output[$re] .= "</div></div></div></div>";
+				}
+
+			}
+		}
+		return view('tests.groups.show', compact('group', 'output'));
 	}
 }

@@ -184,8 +184,7 @@ class ExecuteFeature extends Job implements ShouldQueue
                 $result->user_id = $this->auth->id;
             }
             $result->save();
-
-
+            
             $group = Group::where('id', '=', $this->group)->first();
             $results_array = $group->results;
             $results_array[] = $result->id;
