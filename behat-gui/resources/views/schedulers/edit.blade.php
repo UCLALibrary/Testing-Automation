@@ -21,7 +21,8 @@
                 <div class="form-group @if($errors->has('command')) has-error @endif">
                     <label for="command-field">Command</label>
                     <select name="command" class="form-control">
-                        <option value="behat:execute" @if($scheduler->command == "behat:execute") selected="selected" @endif>Execute</option>
+                        <option value="behat:execute" @if($scheduler->command == "behat:execute") selected="selected" @endif>Execute Tests</option>
+                        <option value="behat:pull" @if($scheduler->command == "behat:pull") selected="selected" @endif>Pull Tests</option>
                     </select>
                     @if($errors->has("command"))
                         <span class="help-block">{{ $errors->first("command") }}</span>
@@ -32,6 +33,7 @@
                         <div class="form-group @if($errors->has('parameters')) has-error @endif">
                             <label for="parameters-field">Test ID</label>
                             <select name="test_id" class="form-control">
+                                <option value="none" @if(explode(" ", $scheduler->parameter)[0] == "none") selected="selected" @endif>None</option>
                                 @if(!$tests->isEmpty())
                                     @foreach($tests as $test)
                                         <option value="{{ $test->id  }}" @if(explode(" ", $scheduler->parameter)[0] == $test->id) selected="selected" @endif>{{ $test->name  }}</option>
@@ -48,6 +50,7 @@
                             <label for="parameters-field">Set ID</label>
                             <select name="set_id" class="form-control">
                                 <option value="0">Default</option>
+                                <option value="none" @if(explode(" ", $scheduler->parameter)[1] == "none") selected="selected" @endif>None</option>
                                 @if(!$sets->isEmpty())
                                     @foreach($sets as $s)
                                         <option value="{{ $s->id  }}" @if(explode(" ", $scheduler->parameter)[1] == $s->id) selected="selected" @endif>{{ $s->name  }}</option>

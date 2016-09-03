@@ -2,6 +2,7 @@
 
 use App\Category;
 use App\CategoryItem;
+use App\Group;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -14,8 +15,11 @@ use App\Variable;
 use Behat\Gherkin\Keywords\ArrayKeywords;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use PHPHtmlParser\Dom;
 
 class TestController extends Controller {
 
@@ -26,7 +30,27 @@ class TestController extends Controller {
 	 */
 	public function index()
 	{
-		$tests = Test::orderBy('id', 'desc')->paginate(10);
+		$order = TestResult::orderBy('created_at', 'desc')->get();
+		$te = [];
+		$status = [];
+		$categories = [];
+		$ids = Test::select('id')->where('id', '>', 0)->get()->toArray();
+		foreach($order as $o){
+			if (!isset($te[$o->test_id])) {
+				$tes = Test::where('id', '=', $o->test_id)->first();
+				if ($tes != null) {
+					$te[$o->test_id] = $tes;
+				}
+			}
+		}
+		foreach($ids as $id){
+
+			if(!isset($te[$id['id']])){
+				$te[$id['id']] = Test::where('id', '=', $id['id'])->first();
+			}
+		}
+
+		$tests = collect($te);
 
 		$it = [];
 		$items = CategoryItem::all();
@@ -34,8 +58,8 @@ class TestController extends Controller {
 			$it[$i->header][] = $i->value;
 		}
 
-        $status = [];
-        $categories = [];
+		$groups = Group::orderBy('created_at', 'desc')->limit(10)->get();
+
         foreach($tests as $t){
 			$r = TestResult::where('test_id', '=', $t->id)->orderBy('created_at', 'desc')->limit(1)->first();
 			if($r != null) {
@@ -52,7 +76,7 @@ class TestController extends Controller {
 
 		view()->share('items', $it);
         view()->share('sets', Set::all());
-        return view('tests.index', compact('tests', 'status', 'categories'));
+        return view('tests.index', compact('tests', 'status', 'categories', 'groups'));
 	}
 
 	/**
@@ -74,7 +98,6 @@ class TestController extends Controller {
 	public function store(Request $request)
 	{
 		$test = new Test();
-
 		$test->name = $request->input("name");
 		$name = md5(time()).".feature.template";
 		if($request->hasFile('location')){
@@ -83,10 +106,16 @@ class TestController extends Controller {
             }
         }
 
+        if($request->file('location')->getClientOriginalExtension() != 'feature'){
+            return redirect()->back()->withErrors(['File must be a feature (.feature)']);
+        }
+
         $file = str_replace(" ", " ", file_get_contents(base_path().'/features/'.$name));
+		$md5 = md5($file);
         file_put_contents(base_path()."/features/".$name, $file);
 
         $test->location = base_path()."/features/".$name;
+		$test->md5 = $md5;
 
 		$test->save();
 
@@ -168,8 +197,10 @@ class TestController extends Controller {
 	}
 
     public function execute(Request $request, $id){
+        $group = Group::create(['user_id' => Auth::user()->id]);
+
         $this->dispatch(
-            new Execute($id, $request->input('set'))
+            new Execute($request->user(), $id, $request->input('set'), $group->id)
         );
 
         return redirect()->back()->with('message', 'Test Queued');
@@ -245,13 +276,14 @@ class TestController extends Controller {
 
 	public function execute_category(Request $request)
     {
-        foreach ($request->input('categories') as $category){
-            $this->dispatch(
-                new Categories($category, $request->input('set'))
+        $group = Group::create(['user_id' => Auth::user()->id]);
+        foreach ($request->input('categories')[0] as $category){
+			$this->dispatch(
+                new Categories($request->user(), $category, $request->input('set'), $group->id)
             );
         }
 
-        return redirect()->route('tests.index')->with('message', 'Executed all tests relating to those categories');
+        print_r('done');
 	}
 
 	public function compiled($test, $set){
@@ -382,5 +414,64 @@ class TestController extends Controller {
 		view()->share('items', $it);
 		view()->share('sets', Set::all());
 		return view('tests.index', compact('tests', 'status', 'categories'));
+	}
+
+	public function group_show($id){
+		$group = Group::where('id','=',$id)->first();
+		$output = [];
+		if(!empty($group->results)) {
+			foreach ($group->results as $re) {
+				$res = TestResult::where('id', '=', $re)->first();
+				$dom = new Dom();
+				$dom->load($res->result);
+				$name = $dom->find('a[data-toggle=collapse]');
+				$output[$res->id] = "";
+				foreach ($name as $n) {
+
+					$output[$res->id] .= "<div class=\"ui fluid accordion\">";
+					$items = $dom->find('li');
+					$result = [];
+					foreach ($items as $ke => $item) {
+						$color = 'black';
+						if (strpos($item->class, "alert-warning") !== false) {
+							$color = '#f79232';
+						} elseif (strpos($item->class, "alert-danger") !== false) {
+							$color = '#d04437';
+						} elseif (strpos($item->class, "alert-success") !== false) {
+							$color = '#14892c';
+						} elseif (strpos($item->class, "alert-info") !== false) {
+							$color = '#59afe1';
+						}
+
+						$result[] = [
+							'id' => "#".$items[$ke]->getParent()->getParent()->id,
+							'line' => $item->text,
+							'color' => $color
+						];
+					}
+
+					$failed = false;
+					if(strpos($n->getParent()->getParent()->getParent()->class, 'failed') !== false){
+						$failed = true;
+					}
+
+					if($failed == true) {
+						$output[$re] .= "<div class=\"title\" style=\"color:#d04437;\">" . trim($n->text) . "</div><div class=\"content\"><div class=\"transition hidden\">";
+					}elseif($failed == false){
+						$output[$re] .= "<div class=\"title\">" . trim($n->text) . "</div><div class=\"content\"><div class=\"transition hidden\">";
+					}
+					$output[$re] .= "<ul>";
+					foreach ($result as $k => $r) {
+						if ($result[$k]['id'] == $n->href) {
+							$output[$re] .= "<li style=\"color:" . $result[$k]['color'] . "\" >" . $result[$k]['line'] . "</li>";
+						}
+					}
+					$output[$re] .= "</ul>";
+					$output[$re] .= "</div></div></div></div>";
+				}
+
+			}
+		}
+		return view('tests.groups.show', compact('group', 'output'));
 	}
 }

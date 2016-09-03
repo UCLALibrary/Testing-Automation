@@ -24,6 +24,11 @@
                                 @if($test = \App\Test::where('id', '=', $r->test_id)->withTrashed()->first())
                                     Name: <a href="{{ route('tests.show', $test->id)  }}">{{ $test->name  }}</a><br />
                                     <b>Result Info:</b><br />
+                                    @if($r->user_id != 0)
+                                    User: <a href="mailto:{{  \App\User::where('id', '=', $r->user_id)->first()->email }}">{{  \App\User::where('id', '=', $r->user_id)->first()->email }}</a><br />
+                                    @elseif($r->user_id == 0)
+                                    User: System<br />
+                                    @endif
                                     Created: {{ $r->created_at  }}<br />
                                     Updated: {{ $r->updated_at  }}
                                     @if($r->jira_key)

@@ -13,7 +13,7 @@ class UpdateTestResultsTableWithUserId extends Migration
     public function up()
     {
         Schema::table('tests_results', function (Blueprint $table) {
-            //
+            $table->integer('user_id');
         });
     }
 
@@ -25,7 +25,7 @@ class UpdateTestResultsTableWithUserId extends Migration
     public function down()
     {
         Schema::table('tests_results', function (Blueprint $table) {
-            //
+            $table->dropColumn('user_id');
         });
     }
 }

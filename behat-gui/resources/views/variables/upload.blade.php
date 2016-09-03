@@ -16,16 +16,17 @@
             <form action="{{ route('variables.upload')  }}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            <div class="form-group @if($errors->has('file')) has-error @endif">
-                <label for="key-field">File</label>
-                <input type="file" id="default-file" name="file" class="form-control" value="{{ old("file") }}"/>
-                @if($errors->has("file"))
-                    <span class="help-block">{{ $errors->first("file") }}</span>
+            <div class="form-group @if($errors->has('location')) has-error @endif">
+                <label for="location-field">Location</label>
+                <input id="location-field" type="file" name="location" class="form-control" />
+                @if($errors->has("location"))
+                    <span class="help-block">{{ $errors->first("location") }}</span>
                 @endif
             </div>
             <div class="form-group @if($errors->has('set')) has-error @endif">
                 <label for="key-field">Set</label>
                 <select id="default-set" name="set" class="form-control">
+                        <option value="0">Default</option>
                     @if(!$sets->isEmpty())
                         @foreach($sets as $set)
                             <option value="{{ $set->id  }}">{{ $set->name  }}</option>
