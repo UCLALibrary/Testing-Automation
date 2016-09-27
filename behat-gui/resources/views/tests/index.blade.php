@@ -97,7 +97,7 @@
         </div>
 
         <div class="ui fitted" style="margin-top:-40px">
-            <button class="ui orange button right floated">Create</button>
+            <button class="ui orange button right floated" id="create">Create</button>
             <button class="ui green button right floated" id="runbycategory">Run by Category</button>
         </div>
     </div>
@@ -211,7 +211,7 @@
             @endif
         </div>
     </div>
-    <div class="ui modal">
+    <div id="runbycategory_prompt" class="ui modal">
         <div class="header">
             Run By Category
         </div>
@@ -254,6 +254,41 @@
             </div>
         </div>
     </div>
+
+    <div id="create_prompt" class="ui modal">
+        <div class="header">
+            Create
+        </div>
+        <div class="image content">
+           <form action="{{ route('tests.store') }}" method="POST" enctype="multipart/form-data">
+               <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+               <div class="form-group @if($errors->has('name')) has-error @endif">
+                <label for="name-field">Name</label>
+                <input type="text" id="name-field" name="name" class="form-control" value="{{ old("name") }}"/>
+                @if($errors->has("name"))
+                    <span class="help-block">{{ $errors->first("name") }}</span>
+                @endif
+                </div>
+                <div class="form-group @if($errors->has('location')) has-error @endif">
+                    <label for="location-field">Location</label>
+                    <input id="location-field" type="file" name="location" class="form-control" />
+                    @if($errors->has("location"))
+                        <span class="help-block">{{ $errors->first("location") }}</span>
+                    @endif
+                </div>
+            </form>
+        </div>
+
+        <div class="actions">
+            <div class="ui deny black button">Close</div>
+            <div class="ui positive submit right labeled icon button">
+                Create
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -284,9 +319,13 @@
             }
 
             $("#runbycategory").on('click', function(){
-                $('.ui.modal')
+                $('#runbycategory_prompt')
                         .modal('show')
                 ;
+            });
+
+            $("#create").on('click', function(){
+                $('#create_prompt').modal('show');
             });
 
             var check_count = 0;

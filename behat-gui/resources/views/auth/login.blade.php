@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <a href="/auth/github"><img src="{{ asset('github.png') }}" /></a>
+                    <a href="auth/github"><img src="{{ asset('github.png') }}" /></a>
                 </div>
             </div>
         </div>
