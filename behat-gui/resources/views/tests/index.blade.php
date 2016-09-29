@@ -8,21 +8,23 @@
                 <div class="ui feed">
                     @if(!$groups->isEmpty())
                         @foreach($groups as $group)
-                        <div class="event">
-                            <div class="label">
-                                @if($group->status == 0)
-                                <i class="thumbs outline down icon red"></i>
-                                @elseif($group->status == 1)
-                                <i class="thumbs outline up icon green"></i>
-                                @endif
-                            </div>
-                            <div class="content">
-                                <div class="summary">
-                                    You executed tests click <a href="{{ route('tests.groups.show', $group->id)  }}">here</a> to view results.
-                                    <div class="date">{{ $group->updated_at->diffInMonths(\Carbon\Carbon::now()) >= 1 ? $group->updated_at->format('j M Y , g:ia') : $group->updated_at->diffForHumans() }}</div>
+                            <div class="event">
+                                <div class="label">
+                                    @if($group->status == 0)
+                                        <i class="thumbs outline down icon red"></i>
+                                    @elseif($group->status == 1)
+                                        <i class="thumbs outline up icon green"></i>
+                                    @endif
+                                </div>
+                                <div class="content">
+                                    <div class="summary">
+                                        You executed tests click <a
+                                                href="{{ route('tests.groups.show', $group->id)  }}">here</a> to view
+                                        results.
+                                        <div class="date">{{ $group->updated_at->diffInMonths(\Carbon\Carbon::now()) >= 1 ? $group->updated_at->format('j M Y , g:ia') : $group->updated_at->diffForHumans() }}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     @endif
                 </div>
@@ -105,107 +107,116 @@
     <div id="body" class="ui one column doubling grid" style="margin-left:10px;margin-right:10px;">
         <div class="column">
             @if($tests->count())
-            <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th width="10%"><div class="ui ribbon label">Status</div></th>
-                    <th width="20%">Name</th>
-                    <th width="40%">Categories</th>
-                    <th width="30%">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($tests as $test)
-                @if(!$test->trashed())
-                <tr>
-                    <td>
-                        @if(isset($status[$test->id]['success']))
-                            @if($status[$test->id]['success'] == 0)
-                                <div class="ui red ribbon label">Failed</div>
-                            @elseif($status[$test->id]['success'] == 1)
-                                <div class="ui green ribbon label">Passed</div>
-                            @endif
-                        @else
-                            <div class="ui gray ribbon label">None</div>
+                <table class="ui celled table">
+                    <thead>
+                    <tr>
+                        <th width="10%">
+                            <div class="ui ribbon label">Status</div>
+                        </th>
+                        <th width="20%">Name</th>
+                        <th width="40%">Categories</th>
+                        <th width="30%">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($tests as $test)
+                        @if(!$test->trashed())
+                            <tr>
+                                <td>
+                                    @if(isset($status[$test->id]['success']))
+                                        @if($status[$test->id]['success'] == 0)
+                                            <div class="ui red ribbon label">Failed</div>
+                                        @elseif($status[$test->id]['success'] == 1)
+                                            <div class="ui green ribbon label">Passed</div>
+                                        @endif
+                                    @else
+                                        <div class="ui gray ribbon label">None</div>
+                                    @endif
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" class="{{ $test->id  }}"/>
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>{{ $test->name  }}</td>
+                                <td>
+                                    <div class="ui tag labels">
+                                        @if(isset($categories[$test->id]) && $categories[$test->id] != null)
+                                            @foreach($categories[$test->id] as $k => $c)
+                                                <div class="ui tag label">{{ \App\CategoryItem::where('id', '=', $c)->first()->header  }}
+                                                    - {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} <a
+                                                            href="{{ route('tests.category.delete', $k)  }}"><i
+                                                                class="remove icon"></i></a></div>
+                                            @endforeach
+                                        @else
+                                            None
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ui two buttons">
+                                        <a href="{{ route('tests.show', $test->id) }}" class="ui basic black button">View</a>
+                                        <div class="ui dropdown basic black button">
+                                            Actions
+                                            <i class="dropdown icon"></i>
+                                            <div class="menu">
+                                                <div class="ui dropdown item">
+                                                    Run
+                                                    <i class="left dropdown icon"></i>
+                                                    <div class="left menu">
+                                                        <div class="header">
+                                                            Variable Sets
+                                                        </div>
+                                                        <a class="item"
+                                                           href="{{ route('tests.execute', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
+                                                        @foreach(\App\Set::all() as $s)
+                                                            <a class="item"
+                                                               href="{{ route('tests.execute', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name  }}</a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="ui dropdown item">
+                                                    Download
+                                                    <i class="left dropdown icon"></i>
+                                                    <div class="left menu">
+                                                        <div class="header">
+                                                            Variable Sets
+                                                        </div>
+                                                        <a class="item"
+                                                           href="{{ route('tests.compiled', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
+                                                        @foreach(\App\Set::all() as $s)
+                                                            <a class="item"
+                                                               href="{{ route('tests.compiled', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name  }}</a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="item">Edit</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                         @endif
-                        <div class="ui checkbox">
-                            <input type="checkbox" class="{{ $test->id  }}" />
-                            <label></label>
-                        </div>
-                    </td>
-                    <td>{{ $test->name  }}</td>
-                    <td>
-                        <div class="ui tag labels">
-                            @if(isset($categories[$test->id]) && $categories[$test->id] != null)
-                                @foreach($categories[$test->id] as $k => $c)
-                                    <div class="ui tag label">{{ \App\CategoryItem::where('id', '=', $c)->first()->header  }} -  {{ \App\CategoryItem::where('id', '=', $c)->first()->value  }} <a href="{{ route('tests.category.delete', $k)  }}"><i class="remove icon"></i></a></div>
-                                @endforeach
-                            @else
-                                None
-                            @endif
-                        </div>
-                    </td>
-                    <td>
-                        <div class="ui two buttons">
-                            <a href="{{ route('tests.show', $test->id) }}" class="ui basic black button">View</a>
-                            <div class="ui dropdown basic black button">
-                                Actions
-                                <i class="dropdown icon"></i>
-                                <div class="menu">
-                                    <div class="ui dropdown item">
-                                        Run
-                                        <i class="left dropdown icon"></i>
-                                        <div class="left menu">
-                                            <div class="header">
-                                                Variable Sets
-                                            </div>
-                                            <a class="item" href="{{ route('tests.execute', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
-                                            @foreach(\App\Set::all() as $s)
-                                            <a class="item" href="{{ route('tests.execute', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name  }}</a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="ui dropdown item">
-                                        Download
-                                        <i class="left dropdown icon"></i>
-                                        <div class="left menu">
-                                            <div class="header">
-                                                Variable Sets
-                                            </div>
-                                            <a class="item" href="{{ route('tests.compiled', ['tests' => $test->id, 'set' => 0])  }}">Default</a>
-                                            @foreach(\App\Set::all() as $s)
-                                            <a class="item" href="{{ route('tests.compiled', ['tests' => $test->id, 'set' => $s->id]) }}">{{ $s->name  }}</a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="item">Edit</div>
-                                </div>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="4">
+                            <div class="ui right floated pagination menu">
+                                <a class="icon item">
+                                    <i class="left chevron icon"></i>
+                                </a>
+                                <a class="item">1</a>
+                                <a class="item">2</a>
+                                <a class="item">3</a>
+                                <a class="item">4</a>
+                                <a class="icon item">
+                                    <i class="right chevron icon"></i>
+                                </a>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                @endif
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th colspan="4">
-                        <div class="ui right floated pagination menu">
-                            <a class="icon item">
-                                <i class="left chevron icon"></i>
-                            </a>
-                            <a class="item">1</a>
-                            <a class="item">2</a>
-                            <a class="item">3</a>
-                            <a class="item">4</a>
-                            <a class="icon item">
-                                <i class="right chevron icon"></i>
-                            </a>
-                        </div>
-                    </th>
-                </tr>
-                </tfoot>
-            </table>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
             @else
 
             @endif
@@ -225,7 +236,8 @@
                             @foreach($items as $h => $i)
                                 <optgroup label="{{ $h }}">
                                     @foreach($i as  $j)
-                                        <option value="{{ \App\CategoryItem::where('header', '=', $h)->where('value', '=', $j)->first()->id }}">{{ $h }} - {{ $j }}</option>
+                                        <option value="{{ \App\CategoryItem::where('header', '=', $h)->where('value', '=', $j)->first()->id }}">{{ $h }}
+                                            - {{ $j }}</option>
                                     @endforeach
                                 </optgroup>
                             @endforeach
@@ -260,32 +272,28 @@
             Create
         </div>
         <div class="image content">
-           <form action="{{ route('tests.store') }}" method="POST" enctype="multipart/form-data">
-               <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <form action="{{ route('tests.store') }}" method="POST" enctype="multipart/form-data" class="description">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-               <div class="form-group @if($errors->has('name')) has-error @endif">
-                <label for="name-field">Name</label>
-                <input type="text" id="name-field" name="name" class="form-control" value="{{ old("name") }}"/>
-                @if($errors->has("name"))
-                    <span class="help-block">{{ $errors->first("name") }}</span>
-                @endif
-                </div>
-                <div class="form-group @if($errors->has('location')) has-error @endif">
-                    <label for="location-field">Location</label>
-                    <input id="location-field" type="file" name="location" class="form-control" />
-                    @if($errors->has("location"))
-                        <span class="help-block">{{ $errors->first("location") }}</span>
-                    @endif
+                    <div class="form-group @if($errors->has('name')) has-error @endif">
+                        <label for="name-field">Name</label>
+                        <input type="text" id="name-field" name="name" class="form-control" value="{{ old("name") }}"/>
+                        @if($errors->has("name"))
+                            <span class="help-block">{{ $errors->first("name") }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group @if($errors->has('location')) has-error @endif">
+                        <label for="location-field">Location</label>
+                        <input id="location-field" type="file" name="location" class="form-control"/>
+                        @if($errors->has("location"))
+                            <span class="help-block">{{ $errors->first("location") }}</span>
+                        @endif
+                    </div>
+                <div class="actions">
+                    <div class="ui deny black button">Close</div>
+                    <input class="ui positive submit right labeled icon button" type="submit">
                 </div>
             </form>
-        </div>
-
-        <div class="actions">
-            <div class="ui deny black button">Close</div>
-            <div class="ui positive submit right labeled icon button">
-                Create
-                <i class="checkmark icon"></i>
-            </div>
         </div>
     </div>
 
@@ -293,15 +301,15 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('.ui.positive.submit.button').on('click', function() {
+        $(document).ready(function () {
+            $('.ui.positive.submit.button').on('click', function () {
                 submitForm();
             });
 
             function submitForm() {
                 var categories = $('#categories_dropdown').dropdown('get value');
                 var formData = {
-                    categories: categories.splice(-1,1),
+                    categories: categories.splice(-1, 1),
                     set: $('#set_dropdown').dropdown('get value'),
                     _token: '{{ csrf_token() }}',
                 };
@@ -310,33 +318,37 @@
                     type: 'POST',
                     url: '{{ route('tests.executeCategory')  }}',
                     data: formData,
-                    success: function(response){
-                        if(response == "done"){
-                            $.jGrowl("Executed all tests relating to those categories", { header: 'Alert', position: 'bottom-right', life: 10000 });
+                    success: function (response) {
+                        if (response == "done") {
+                            $.jGrowl("Executed all tests relating to those categories", {
+                                header: 'Alert',
+                                position: 'bottom-right',
+                                life: 10000
+                            });
                         }
                     }
                 });
             }
 
-            $("#runbycategory").on('click', function(){
+            $("#runbycategory").on('click', function () {
                 $('#runbycategory_prompt')
                         .modal('show')
                 ;
             });
 
-            $("#create").on('click', function(){
+            $("#create").on('click', function () {
                 $('#create_prompt').modal('show');
             });
 
             var check_count = 0;
-            $("input:checkbox").change(function(){
+            $("input:checkbox").change(function () {
                 if (this.id == "check-all") {
                     if (this.checked) {
-                        $(":checkbox:not(#check-all)").each(function(){
+                        $(":checkbox:not(#check-all)").each(function () {
                             this.checked = true;
                         });
                     } else {
-                        $(":checkbox:not(#check-all)").each(function(){
+                        $(":checkbox:not(#check-all)").each(function () {
                             this.checked = false;
                         });
                     }
@@ -344,7 +356,7 @@
 
                 var check_count = $("[type='checkbox']:checked").length;
 
-                if(check_count > 0) {
+                if (check_count > 0) {
                     $("#delete").removeClass("disabled");
                     $("#add-category").removeClass("disabled");
                 } else {
@@ -355,26 +367,26 @@
                 //window.alert(check_count);
             });
 
-            $("#delete").click(function(){
+            $("#delete").click(function () {
                 var selected = [];
-                $("input:checked").each(function(){
-                    if($(this).attr('class') != undefined) {
+                $("input:checked").each(function () {
+                    if ($(this).attr('class') != undefined) {
                         selected.push($(this).attr('class'));
                     }
                 });
 
-                window.location.replace("/tests/multiple/"+selected.join(","));
+                window.location.replace("/tests/multiple/" + selected.join(","));
             });
 
-            $("#add-category").click(function(){
+            $("#add-category").click(function () {
                 var selected = [];
-                $("input:checked").each(function(){
-                    if($(this).attr('class') != undefined) {
+                $("input:checked").each(function () {
+                    if ($(this).attr('class') != undefined) {
                         selected.push($(this).attr('class'));
                     }
                 });
 
-                window.location.replace("/tests/category/"+selected.join(","));
+                window.location.replace("/tests/category/" + selected.join(","));
             });
         });
     </script>

@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/execute/{tests}/', ['as' => 'tests.execute', 'uses' => 'TestController@execute']);
         Route::get('/compiled/{test}/{set}', ['as' => 'tests.compiled', 'uses' => 'TestController@compiled']);
     });
+
+    Route::post('/tests', ['as' => 'tests.store', 'uses' => 'TestController@store']);
+
     /**
      * Reports Routes
      */
