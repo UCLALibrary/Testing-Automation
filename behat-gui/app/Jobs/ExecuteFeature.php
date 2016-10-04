@@ -50,8 +50,10 @@ class ExecuteFeature extends Job implements ShouldQueue
         $test = $this->test;
         $set = $this->set;
         $t = Test::where('id', '=', $test)->first();
+        
+        $location = $t->location;
 
-        $file = file_get_contents($t->location);
+        $file = file_get_contents($location);
         $file = str_replace(" ", " ", $file);
 
         $s = "/\[([a-zA-Z\/_]+)\]/";
@@ -205,7 +207,7 @@ class ExecuteFeature extends Job implements ShouldQueue
         Notifications::firstOrCreate(['message' => $t->name . ' was executed']);
 
         $this->dispatch(new FriendlyMessages());
-        $this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
+        //$this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
     }
 
 

@@ -203,7 +203,7 @@ class TestController extends Controller {
             new Execute($request->user(), $id, $request->input('set'), $group->id)
         );
 
-        return redirect()->back()->with('message', 'Test Queued');
+        return redirect()->route('tests.index'); //redirect()->back()->with('message', 'Test queued.');
     }
 
 	public function category($id){
