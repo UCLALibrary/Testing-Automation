@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-md-12">
-
+            
             @foreach($results as $r)
                 <div class="row">
                     <div class="col-sm-8">{!! str_replace("class=\"list-group\"","class=\"list-group\" style=\"overflow-y:scroll;\"", str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result))) !!}</div>

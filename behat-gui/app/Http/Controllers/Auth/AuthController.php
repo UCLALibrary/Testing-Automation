@@ -79,7 +79,7 @@ class AuthController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::with('github')->redirect();
+        return Socialite::driver('github')->redirect();
     }
 
     /**
@@ -90,8 +90,8 @@ class AuthController extends Controller
     public function handleProviderCallback()
     {
         try {
-            $user = Socialite::with('github')->user();
-        } catch (\Exception $e) {
+            $user = Socialite::driver('github')->user();
+        } catch (Exception $e) {
             return redirect()->to('auth/github');
         }
 

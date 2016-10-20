@@ -122,7 +122,6 @@ class ExecuteFeature extends Job implements ShouldQueue
             }
         }
 
-
         $file .= "\n";
         foreach ($info->getScenarios() as $s) {
             foreach ($s->getTags() as $te) {
@@ -149,12 +148,22 @@ class ExecuteFeature extends Job implements ShouldQueue
         fwrite($f, $file);
         fclose($f);
 
+
         Notifications::firstOrCreate(['message' => $t->name . ' was compiled']);
 
-
         $name = explode('.', $t->location)[0];
-        exec(base_path() . '/bin/behat --format html ' . $name . ".feature", $output);
+        //$confirm_feature = explode('.', $t->location)[1];
 
+        //$output = array('lilly' => 'says hi');
+        exec(base_path() . '/vender/behat/behat/bin/behat ' . $name . '.feature', $output);
+
+//Notifications::firstOrCreate(['message' => $confirm_feature . ' <====== look here']);
+
+
+        if ($output == null)
+        {
+            Notifications::firstOrCreate(['message' => 'null']);
+        }
         libxml_use_internal_errors(true);
         if (file_exists('features/report/default.html')) {
             $html = file_get_contents('features/report/default.html');
@@ -186,6 +195,7 @@ class ExecuteFeature extends Job implements ShouldQueue
                 $result->user_id = $this->auth->id;
             }
             $result->save();
+
             
             $group = Group::where('id', '=', $this->group)->first();
             $results_array = $group->results;
@@ -199,6 +209,7 @@ class ExecuteFeature extends Job implements ShouldQueue
             }
 
             $group->save();
+            return redirect()->route('tests.index')->with('message', 'ran if');
         }
 
         rrmdir('features/report');
@@ -207,7 +218,13 @@ class ExecuteFeature extends Job implements ShouldQueue
         Notifications::firstOrCreate(['message' => $t->name . ' was executed']);
 
         $this->dispatch(new FriendlyMessages());
-        //$this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
+
+        if (isset($r) && $r != null) {
+            $this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
+        }
+
+        return redirect()->route('tests.index')->with('message', 'done');
+        
     }
 
 
