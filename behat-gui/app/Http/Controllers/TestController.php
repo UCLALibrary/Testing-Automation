@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Notifications;
+
 use App\Category;
 use App\CategoryItem;
 use App\Http\Requests;
