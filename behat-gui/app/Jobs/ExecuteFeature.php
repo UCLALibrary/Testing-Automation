@@ -40,6 +40,8 @@ class ExecuteFeature extends Job implements ShouldQueue
      */
     public function handle()
     {
+        Notifications::firstOrCreate(['message' =>  'Arrived in ExecuteFeature.php']);
+
         $test = $this->test;
         $set = $this->set;
         $t = Test::where('id', '=', $test)->first();
@@ -70,6 +72,7 @@ class ExecuteFeature extends Job implements ShouldQueue
 
         $file_name = explode('.', $t->location)[0];
 
+        // Establish keywords 
         $keywords = new ArrayKeywords([
             'en' => array(
                 'feature'          => 'Feature',
@@ -88,6 +91,7 @@ class ExecuteFeature extends Job implements ShouldQueue
         $lexer = new Lexer($keywords);
         $parser = new Parser($lexer);
 
+        // Re-write $file with keywords 
         $info = $parser->parse($data);
         $file = '# language: '. $info->getLanguage();
 
@@ -135,6 +139,7 @@ class ExecuteFeature extends Job implements ShouldQueue
 
         }
 
+        $file_name = explode('.', $t->location)[0];
         $f = fopen($file_name.".feature", "w");
         fwrite($f, $file);
         fclose($f);
@@ -147,8 +152,8 @@ class ExecuteFeature extends Job implements ShouldQueue
         exec(base_path().'/bin/behat --format html '. $name.".feature", $output);
 
         libxml_use_internal_errors(true);
-        if(file_exists('features/report/default.html')) {
-            $html = file_get_contents('features/report/default.html');
+        if(file_exists(base_path() . '/features/report/default.html')) {
+            $html = file_get_contents(base_path() . '/features/report/default.html');
             $dom = new \DOMDocument();
             $dom->loadHTML($html);
             $xpath = new \DOMXPath($dom);
@@ -157,6 +162,7 @@ class ExecuteFeature extends Job implements ShouldQueue
             $r = $dom->saveXML($div);
         }
         libxml_use_internal_errors(false);
+	
 
         if(isset($r) && $r != null) {
             $s = true;
@@ -179,7 +185,7 @@ class ExecuteFeature extends Job implements ShouldQueue
         Notifications::firstOrCreate(['message' => $t->name.' was executed']);
 
         $this->dispatch(new FriendlyMessages());
-        $this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
+        /*$this->dispatch(new Jira($test, $this->sanitize_output($r), $s));*/
 
     }
 

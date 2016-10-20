@@ -90,7 +90,7 @@ class TestController extends Controller {
 
 		$test->save();
 
-		return redirect()->route('tests.index')->with('message', 'Item created successfully.');
+		return redirect()->route('tests.index')->with('message', 'Item created successfully, created testresult entry');
 	}
 
 	/**
@@ -158,6 +158,7 @@ class TestController extends Controller {
 	}
 
     public function execute(Request $request, $id){
+    	Notifications::firstOrCreate(['message' =>  'About to enter into Execute.php']);
         $this->dispatch(
             new Execute($id, $request->input('set'))
         );
