@@ -155,7 +155,7 @@ class ExecuteFeature extends Job implements ShouldQueue
         //$confirm_feature = explode('.', $t->location)[1];
 
         //$output = array('lilly' => 'says hi');
-        exec(base_path() . '/vender/behat/behat/bin/behat ' . $name . '.feature', $output);
+        exec(base_path() . '/bin/behat --format html ' . $name . '.feature', $output);
 
 //Notifications::firstOrCreate(['message' => $confirm_feature . ' <====== look here']);
 
@@ -209,7 +209,7 @@ class ExecuteFeature extends Job implements ShouldQueue
             }
 
             $group->save();
-            return redirect()->route('tests.index')->with('message', 'ran if');
+            //return redirect()->route('tests.index')->with('message', 'ran if');
         }
 
         rrmdir('features/report');
