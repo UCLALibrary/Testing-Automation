@@ -9,3 +9,4 @@ behat-gui/features//keyrings/live/pubring.gpg~
 /keyrings/live/pubring.kbx~
 /keyrings/live/secring.gpg
 /behat-gui/.env
+/keyrings/live/pubring.gpg~
