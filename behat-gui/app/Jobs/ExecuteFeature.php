@@ -227,7 +227,7 @@ class ExecuteFeature extends Job implements ShouldQueue
         unlink($name . ".feature");
 
         Notifications::firstOrCreate(['message' => $t->name . ' was executed']);
-
+//Notifications::firstOrCreate(['message' => ' JIRA ticket??']);
         $this->dispatch(new FriendlyMessages());
 
         /*

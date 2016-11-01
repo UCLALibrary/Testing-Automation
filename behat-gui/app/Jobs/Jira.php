@@ -41,7 +41,6 @@ class Jira extends Job implements ShouldQueue
      */
     public function handle()
     {
-
         $assign = Trigger::where('namespace', '=', 'jira')->where('key', '=', 'assign')->first();
         $labels = Trigger::where('namespace', '=', 'jira')->where('key', '=', 'label')->first();
         $project = Trigger::where('namespace', '=', 'jira')->where('key', '=', 'project')->first();
@@ -51,6 +50,9 @@ class Jira extends Job implements ShouldQueue
                 'Content-Type: application/json'
             );
 
+            /*
+             * Put together HTML ticket description.
+             */
             $dom = new Dom();
             $dom->load($this->result->result);
             $name = $dom->find('a[data-toggle=collapse]');
@@ -87,10 +89,14 @@ class Jira extends Job implements ShouldQueue
 
             $description .= "{panel:title=Analysis}" . $this->result->comment . "{panel}";
 
+            /*
+             * Create JSON object to be posted to JIRA.
+               NOTE: Due to bug, had to fix such that ticket auto-assigns to behatsrv.
+             */
             $post = array(
                 'fields' => array(
                     'project' => array(
-                        'key' => $project->value
+                        'key' => 'DRUP'//$project->value
                     ),
                     'summary' => 'Test Results: ' . $this->test_id,
                     'description' => $description,
@@ -98,13 +104,15 @@ class Jira extends Job implements ShouldQueue
                         'id' => 1
                     ],
                     'assignee' => [
-                        'name' => $assign->value
-                    ],
-                    'labels' => json_decode($labels->value, true),
+                        'name' => 'behatsrv'//$assign->value
+                    ]//,
+                    //'labels' => json_decode($labels->value, true),
                 )
             );
 
-
+            /*
+             * Post ticket to JIRA.
+             */
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -129,6 +137,7 @@ class Jira extends Job implements ShouldQueue
             Notifications::firstOrCreate(['message' => 'JIRA ticket created.']);
         }else{
             $this->delete();
+
         }
     }
 }
