@@ -47,7 +47,7 @@ class Github extends Job implements ShouldQueue
         if(!empty($this->categories)) {
             foreach ($this->categories as $category) {
                 $group = Group::create(['user_id' => Auth::user()->id]);
-
+Notifications::firstOrCreate(['message' => 'hook activated']);
                 $this->dispatch(
                     (new Categories($this->request, $category, $this->set, $group->id))->delay($this->wait)
                 );
