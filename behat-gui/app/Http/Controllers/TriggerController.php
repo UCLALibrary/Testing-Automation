@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications;
 use App\CategoryItem;
 use App\Jobs\Github;
 use App\Set;
@@ -24,6 +25,8 @@ class TriggerController extends Controller
         $this->dispatchNow(
           new Github($request->user())
         );
+        
+        Notifications::firstOrCreate(['message' => 'Github webhook dispatch successful.']);
     }
 
     public function github_config_post(Request $request){
