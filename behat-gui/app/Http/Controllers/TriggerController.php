@@ -20,6 +20,8 @@ class TriggerController extends Controller
      */
     public function github(Request $request){
         //TODO: at some point in the future specify when this will run.
+        Notifications::firstOrCreate(['message' => 'hook activated']);
+
         $this->dispatchNow(
           new Github($request->user())
         );
