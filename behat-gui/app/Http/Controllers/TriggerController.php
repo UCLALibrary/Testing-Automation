@@ -39,10 +39,6 @@ class TriggerController extends Controller
         $github_wait->value = $request->input('wait');
         $github_wait->save();
 
-        $this->dispatchNow(
-          new Github($request->user())
-        );
-
         return redirect()->route('triggers.github');
     }
 
