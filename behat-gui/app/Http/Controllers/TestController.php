@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Notifications;
+
 use App\Category;
 use App\CategoryItem;
 use App\Group;
@@ -202,8 +204,8 @@ class TestController extends Controller {
         $this->dispatch(
             new Execute($request->user(), $id, $request->input('set'), $group->id)
         );
-
-        return redirect()->route('tests.index'); //redirect()->back()->with('message', 'Test queued.');
+        
+        return redirect()->back()->with('message', 'Test queued.');
     }
 
 	public function category($id){

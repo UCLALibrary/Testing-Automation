@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Notifications;
+
 use App\Jobs\Job;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Bus\DispatchesJobs;

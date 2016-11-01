@@ -344,6 +344,10 @@
                 $('#create_prompt').modal('show');
             });
 
+            $("#this").on('click', function () {
+                alert("boop");
+            });
+
             var check_count = 0;
             $("input:checkbox").change(function () {
                 if (this.id == "check-all") {

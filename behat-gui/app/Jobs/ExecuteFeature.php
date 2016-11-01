@@ -53,9 +53,15 @@ class ExecuteFeature extends Job implements ShouldQueue
         
         $location = $t->location;
 
+        /*
+         * Sanitize white spaces in uploaded file.
+         */
         $file = file_get_contents($location);
         $file = str_replace(" ", " ", $file);
 
+        /*
+         * Create copy of uploaded file content with variables subbed in.
+         */
         $s = "/\[([a-zA-Z\/_]+)\]/";
         preg_match_all($s, $file, $match);
         foreach ($match[1] as $m) {
@@ -95,6 +101,9 @@ class ExecuteFeature extends Job implements ShouldQueue
             )
         ]);
 
+        /*
+         * Create feature file from template.
+         */
         $lexer = new Lexer($keywords);
         $parser = new Parser($lexer);
 
@@ -151,19 +160,17 @@ class ExecuteFeature extends Job implements ShouldQueue
 
         Notifications::firstOrCreate(['message' => $t->name . ' was compiled']);
 
-        $name = explode('.', $t->location)[0];
-        //$confirm_feature = explode('.', $t->location)[1];
+        /*
+         * Execute behat on newly created feature file.
+         */
 
-        //$output = array('lilly' => 'says hi');
+        $name = explode('.', $t->location)[0];
+
         exec(base_path() . '/bin/behat --format html ' . $name . '.feature', $output);
 
-//Notifications::firstOrCreate(['message' => $confirm_feature . ' <====== look here']);
-
-
-        if ($output == null)
-        {
-            Notifications::firstOrCreate(['message' => 'null']);
-        }
+        /*
+         * Get the HTML output from features/report.
+         */
         libxml_use_internal_errors(true);
         if (file_exists('features/report/default.html')) {
             $html = file_get_contents('features/report/default.html');
@@ -184,7 +191,9 @@ class ExecuteFeature extends Job implements ShouldQueue
                 $s = false;
             }
 
-
+            /*
+             * Push result as a new result in database.
+             */
             $result = new TestResult();
             $result->test_id = $t->id;
             $result->result = $this->sanitize_output($r);
@@ -209,9 +218,11 @@ class ExecuteFeature extends Job implements ShouldQueue
             }
 
             $group->save();
-            //return redirect()->route('tests.index')->with('message', 'ran if');
         }
 
+        /*
+         * Cleanup temporary files.
+         */
         rrmdir('features/report');
         unlink($name . ".feature");
 
@@ -219,6 +230,9 @@ class ExecuteFeature extends Job implements ShouldQueue
 
         $this->dispatch(new FriendlyMessages());
 
+        /*
+         * Create JIRA ticket.
+         */
         if (isset($r) && $r != null) {
             $this->dispatch(new Jira($test, $this->sanitize_output($r), $s));
         }
