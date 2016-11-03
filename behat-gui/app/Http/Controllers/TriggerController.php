@@ -23,8 +23,8 @@ class TriggerController extends Controller
         //TODO: at some point in the future specify when this will run.
 
         $this->dispatchNow(
-          new Github($request);
-
+          new Github($request->user())
+        );
         Notifications::firstOrCreate(['message' => 'Github webhook dispatch successful.']);
     }
 
