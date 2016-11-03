@@ -205,7 +205,7 @@ class ExecuteFeature extends Job implements ShouldQueue
             //if($this->auth->id == null){
 
             //if (!is_null($this->auth)){
-                $result->user_id = 0;
+            $result->user_id = 0;
             //}else {
                 //$result->user_id = $this->auth->id;
             //}
