@@ -183,6 +183,8 @@ class ExecuteFeature extends Job implements ShouldQueue
         }
         libxml_use_internal_errors(false);
 
+
+
         if (isset($r) && $r != null) {
             $s = true;
             if (strpos($r, "alert-warning") !== false) {
@@ -198,11 +200,16 @@ class ExecuteFeature extends Job implements ShouldQueue
             $result->test_id = $t->id;
             $result->result = $this->sanitize_output($r);
             $result->success = $s;
-            if($this->auth->id == null){
+
+            /*This portion of the code interferes with Git Webhook execution. id is not identified in $this->auth->id. */
+            //if($this->auth->id == null){
+
+            //if (!is_null($this->auth)){
                 $result->user_id = 0;
-            }elseif($this->auth->id != null) {
-                $result->user_id = $this->auth->id;
-            }
+            //}else {
+                //$result->user_id = $this->auth->id;
+            //}
+
             $result->save();
 
             
@@ -227,7 +234,7 @@ class ExecuteFeature extends Job implements ShouldQueue
         unlink($name . ".feature");
 
         Notifications::firstOrCreate(['message' => $t->name . ' was executed']);
-//Notifications::firstOrCreate(['message' => ' JIRA ticket??']);
+
         $this->dispatch(new FriendlyMessages());
 
         /*

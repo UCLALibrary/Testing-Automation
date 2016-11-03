@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Notifications;
+
 use App\Group;
 use App\Jobs\Job;
 use App\Trigger;
@@ -46,7 +48,11 @@ class Github extends Job implements ShouldQueue
     {
         if(!empty($this->categories)) {
             foreach ($this->categories as $category) {
-                $group = Group::create(['user_id' => Auth::user()->id]);
+                if (!is_null(Auth::user())) {
+                    $group = Group::create(['user_id' => Auth::user()->id]);
+                } else {
+                    $group = Group::create(['user_id' => 1]);
+                }
 
                 $this->dispatch(
                     (new Categories($this->request, $category, $this->set, $group->id))->delay($this->wait)

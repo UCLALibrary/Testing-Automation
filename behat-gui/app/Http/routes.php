@@ -1,4 +1,8 @@
 <?php
+
+use App\Jobs\Github;
+use Illuminate\Http\Request;
+
 /**
  * Auth Routes
  */
@@ -6,24 +10,31 @@ Route::get('logout', 'Auth\AuthController@logout');
 Route::get('login', 'Auth\AuthController@showLoginForm');
 Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback');
+
 /**
  * Route for github payloads
  */
-Route::post('/github', ['as' => 'triggers.githubpayload', 'uses' => 'TriggerController@github']);
+Route::post('/github', ['as' => 'triggers.githubpayload','uses' => 'TriggerController@github']);
+//Route::post('/github', function(Request $request){return $request;});
+
+
 /**
  * Route group to require authentication in all of the system routes
  */
 Route::group(['middleware' => 'auth'], function(){
+
     /**
      * Redirect the root to the tests page.
      */
     Route::get('/', function () {
         return redirect()->route('tests.index');
     });
+
     /**
      * Map all of the routes for the tests controller
      */
     Route::resource("tests","TestController");
+
     /**
      * All of the custom routes for the tests
      */
@@ -48,6 +59,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/compiled/{test}/{set}', ['as' => 'tests.compiled', 'uses' => 'TestController@compiled']);
     });
 
+    /**
+     * Saves Tests
+     */
     Route::post('/tests', ['as' => 'tests.store', 'uses' => 'TestController@store']);
 
     /**
@@ -56,6 +70,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['prefix' => 'reports'], function(){
         Route::get('/', ['as' => 'reports.index', 'uses' => 'ReportController@index']);
     });
+
     /**
      * Variables Routes
      */
