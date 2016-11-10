@@ -62,8 +62,11 @@
                 <input type="text" placeholder="Search Tests">
             </div>
         </div>
+        <div class="item">
+            <?php $you = "friend"; if(Auth::check()) {$you = Auth::user()->name; } ?>
+            Welcome, {{ $you }}.
+        </div>
         <div class="ui dropdown item">
-            <!--<?php $user = App\User::where('id','=','1')->first(); $avatar = $user->avatar; ?>-->
             <?php $avatar = Auth::user()->avatar; ?>
             <img src="{{ $avatar }}"/>
             <i class="dropdown icon"></i>
