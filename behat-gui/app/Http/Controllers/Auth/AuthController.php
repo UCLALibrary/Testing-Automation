@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth\Session;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -98,6 +99,14 @@ class AuthController extends Controller
         $authUser = $this->findOrCreateUser($user);
 
         Auth::login($authUser, true);
+
+        return redirect()->to('/');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        //Session::flush();
 
         return redirect()->to('/');
     }

@@ -63,10 +63,14 @@
             </div>
         </div>
         <div class="ui dropdown item">
-            <img src="https://avatars1.githubusercontent.com/u/1297082?v=3&s=460" />
+            <!--<?php $user = App\User::where('id','=','1')->first(); $avatar = $user->avatar; ?>-->
+            <?php $avatar = Auth::user()->avatar; ?>
+            <img src="{{ $avatar }}"/>
             <i class="dropdown icon"></i>
             <div class="menu">
-                <div class="item">Logout</div>
+                <div class="item">
+                    <a href="logout" style="color:black;">Logout</a>
+                </div>
             </div>
         </div>
     </div>

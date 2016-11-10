@@ -18,9 +18,8 @@
                                 </div>
                                 <div class="content">
                                     <div class="summary">
-                                        You executed tests click <a
-                                                href="{{ route('tests.groups.show', $group->id)  }}">here</a> to view
-                                        results.
+                                        You executed tests! Click <a
+                                                href="{{ route('tests.groups.show', $group->id)  }}">here</a> to view.
                                         <div class="date">{{ $group->updated_at->diffInMonths(\Carbon\Carbon::now()) >= 1 ? $group->updated_at->format('j M Y , g:ia') : $group->updated_at->diffForHumans() }}</div>
                                     </div>
                                 </div>
