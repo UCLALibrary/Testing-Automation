@@ -9,6 +9,7 @@ class Trigger extends Model
     protected $fillable = [
         'key',
         'value',
-        'namespace'
+        'namespace',
+        'user'
     ];
 }

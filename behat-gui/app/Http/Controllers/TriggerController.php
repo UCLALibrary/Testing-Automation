@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Notifications;
 use App\CategoryItem;
 use App\Jobs\Github;
@@ -21,7 +22,6 @@ class TriggerController extends Controller
      */
     public function github(Request $request){
         //TODO: at some point in the future specify when this will run.
-        //Notifications::firstOrCreate(['message' => 'Problem here.']);
 
         $this->dispatchNow(
           new Github($request->user())
@@ -32,15 +32,15 @@ class TriggerController extends Controller
     }
 
     public function github_config_post(Request $request){
-        $github_categories = Trigger::firstOrNew(['key' => 'categories', 'namespace' => 'github']);
+        $github_categories = Trigger::firstOrNew(['key' => 'categories', 'namespace' => 'github', 'user' => Auth::user()->github_id]);
         $github_categories->value = json_encode($request->input('categories'));
         $github_categories->save();
 
-        $github_set = Trigger::firstOrNew(['key' => 'set', 'namespace' => 'github']);
+        $github_set = Trigger::firstOrNew(['key' => 'set', 'namespace' => 'github', 'user' => Auth::user()->github_id]);
         $github_set->value = $request->input('set');
         $github_set->save();
 
-        $github_wait = Trigger::firstOrNew(['key' => 'wait', 'namespace' => 'github']);
+        $github_wait = Trigger::firstOrNew(['key' => 'wait', 'namespace' => 'github', 'user' => Auth::user()->github_id]);
         $github_wait->value = $request->input('wait');
         $github_wait->save();
 
@@ -54,9 +54,9 @@ class TriggerController extends Controller
             $it[$i->header][] = $i->value;
         }
 
-        view()->share('wait', Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->first());
-        view()->share('categories', Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->first());
-        view()->share('set', Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->first());
+        view()->share('wait', Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->where('user', '=', Auth::user()->github_id)->first());
+        view()->share('categories', Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->where('user', '=', Auth::user()->github_id)->first());
+        view()->share('set', Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->where('user', '=', Auth::user()->github_id)->first());
         view()->share('sets', Set::all());
         view()->share('items', $it);
         return view('triggers.github');

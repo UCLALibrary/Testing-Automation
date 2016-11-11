@@ -15,14 +15,15 @@
         <div class="col-md-12">
             <h4 class="text-center">Current Settings</h4>
             @if(!empty(json_decode($categories)) && $wait != null && $set != null)
-                When Behat-GUI gets a github payload, it will wait <b>{{ $wait->value  }} seconds.</b> Then, the following categories will be executed with the <b>{{ \App\Set::where('id', '=', $set->value)->first()->name  }}</b> variable set.
-                <ul>
+                <span style="color:green;">When Behat-GUI gets a github payload, it will wait <b><u>{{ $wait->value  }} seconds.</u></b> Then execute categry:
+                <b><u>
                 @foreach(json_decode($categories->value, true) as $category)
-                    <li>{{ \App\CategoryItem::where('id', '=', $category)->first()->header  }} -  {{ \App\CategoryItem::where('id', '=', $category)->first()->value  }}</li>
+                    {{ \App\CategoryItem::where('id', '=', $category)->first()->header  }} -  {{ \App\CategoryItem::where('id', '=', $category)->first()->value  }}
                 @endforeach
-            </ul>
+                </u></b>,
+                against the <b><u>{{ \App\Set::where('id', '=', $set->value)->first()->name  }}</u></b> variable set.</span>
             @else
-                <p>Nothing Configured</p>
+                <span style="color:red;"><p>There are no Github Settings configured for this user.</p></span>
             @endif
 
             <hr />
@@ -30,17 +31,17 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="form-group">
-                    <h4 class="text-center">This config area is to configure which categories get run when there is a git payload delivered to this system</h4>
+                    <h4 class="text-center">Use this area to configure which categories get run when a git payload is delivered to this address. </h4>
                 </div>
 
                 <div class="form-group">
                     <div class="form-group">
-                        <p for="wait"><u>When Behat-GUI gets a github payload it will wait (input) seconds,</u></p>
-                        <input type="text" name="wait" placeholder="(number)" class="form-control" />
+                        <p for="wait">When Behat-GUI gets a github payload it will wait <u><b>this many</b></u> seconds,</p>
+                        <input type="text" name="wait" placeholder="(number)" class="form-control" required />
                     </div>
                     <div class="form-group">
-                        <p for=categories"><u>then execute these</u> <b>categories</b></p>
-                        <select name="categories[]" id="categories" multiple class="form-control">
+                        <p for="categories">then execute <u><b>these categories</u></b></p>
+                        <select name="categories[]" id="categories" multiple class="form-control" required>
                             @foreach($items as $h => $i)
                                 <optgroup label="{{ $h }}">
                                     @foreach($i as  $j)
@@ -51,8 +52,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <p for="set"><u>against this variable</u> <b>set.</b></p>
-                        <select name="set" id="set" class="form-control">
+                        <p for="set">against <u><b>this variable set.</u></b></p>
+                        <select name="set" id="set" class="form-control" required>
                             @foreach($sets as $s)
                                 <option value="{{ $s->id  }}">{{ $s->name  }}</option>
                             @endforeach
