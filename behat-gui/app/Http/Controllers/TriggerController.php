@@ -23,12 +23,16 @@ class TriggerController extends Controller
     public function github(Request $request){
         //TODO: at some point in the future specify when this will run.
 
+        $r = $request->getContent();
+        $content = json_decode($r,true);
+        $id = $content['sender']['id'];
+
         $this->dispatchNow(
-          new Github($request)
+          new Github($id)
         );
         Notifications::firstOrCreate(['message' => 'Github webhook dispatch successful.']);
 
-        return $request;
+        return $id;
     }
 
     public function github_config_post(Request $request){

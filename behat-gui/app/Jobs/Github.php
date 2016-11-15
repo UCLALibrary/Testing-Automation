@@ -37,9 +37,9 @@ class Github extends Job implements ShouldQueue
     public function __construct($request)
     {
         //get the categories to run and the var set
-        $c = Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->first();//where('user','=',$id->id)->first();
-        $s = Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->first();
-        $w = Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->first();
+        $c = Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->where('user','=',$request)->first();
+        $s = Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->where('user','=',$request)->first();
+        $w = Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->where('user','=',$request)->first();
 
         $this->request = $request;
         $this->categories = json_decode($c->value, true);
