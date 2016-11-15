@@ -1,9 +1,10 @@
 <?php
 
+//use Auth;
 namespace App\Jobs;
 
 use App\Notifications;
-use App\Http\Controllers\Auth;
+//use App\Http\Controllers\Auth;
 
 use App\Group;
 use App\Jobs\Job;
@@ -12,7 +13,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests;
 
 class Github extends Job implements ShouldQueue
 {
@@ -34,7 +37,7 @@ class Github extends Job implements ShouldQueue
     public function __construct($request)
     {
         //get the categories to run and the var set
-        $c = Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->where('user','=',Auth::user()->github_id)->first();
+        $c = Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->first();//where('user','=',$id->id)->first();
         $s = Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->first();
         $w = Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->first();
 

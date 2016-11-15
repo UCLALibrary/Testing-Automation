@@ -1,5 +1,4 @@
 <?php
-
 use App\Jobs\Github;
 use Illuminate\Http\Request;
 
@@ -14,18 +13,22 @@ Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback')
 /**
  * Route for github payloads
  */
-Route::post('/github', ['as' => 'triggers.githubpayload','uses' => 'TriggerController@github']);
+// Route::post('/github', ['as' => 'triggers.githubpayload','uses' => 'TriggerController@github']);
+
+Route::group(['middlewareGroups' => ['web']], function () {
+    Route::auth();
+    Route::post('/github', ['as' => 'triggers.githubpayload','uses' => 'TriggerController@github']);
+});
 
 /**
  * Route group to require authentication in all of the system routes
  */
 Route::group(['middleware' => 'auth'], function(){
-
     /**
      * Redirect the root to the tests page.
      */
     Route::get('/', function () {
-        $user = App\User::where('id','=','1')->select('avatar')->get();
+        $user = App\User::where('id','=', Auth::user()->github_id)->select('avatar')->get();
         return redirect()->route('tests.index',['user' => $user]);
     });
 
