@@ -3,26 +3,24 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endsection
 @section('header')
-    <div class="page-header">
-        <h1><i class="glyphicon glyphicon-edit"></i> Variables / Edit #{{$variable->id}}</h1>
-    </div>
+        <h1><i class="icon edit"></i> Variables / Edit #{{$variable->id}}</h1>
 @endsection
 
 @section('content')
     @include('error')
 
-    <div class="row">
-        <div class="col-md-12">
+    <div class="ui piled segment">
+        <div class="ui form">
             <input type="hidden" name="_method" value="PUT">
 
-            <div class="form-group @if($errors->has('key')) has-error @endif">
+            <div class="field @if($errors->has('key')) error @endif">
                    <label for="key-field">Key</label>
                 <input type="text" id="default-key" name="key" class="form-control" value="{{ $variable->key }}"/>
                    @if($errors->has("key"))
                     <span class="help-block">{{ $errors->first("key") }}</span>
                    @endif
                 </div>
-                <div class="form-group @if($errors->has('value')) has-error @endif">
+                <div class="field @if($errors->has('value')) error @endif">
                    <label for="value-field">Value</label>
                 <input type="text" id="default-value" name="value" class="form-control" value="{{ json_decode($variable->value, true)[0] }}"/>
                    @if($errors->has("value"))
@@ -30,14 +28,14 @@
                    @endif
                 </div>
                 <hr />
-                <a id="add_set" class="btn btn-primary">Add Variable Set</a><br/><br />
+                <a id="add_set" class="ui blue button">Add Variable Set</a><br/><br />
                 @foreach(json_decode($variable->value, true) as $k => $v)
                 @if($k != 0)
-                <div class="form-group">
+                <div class="field">
                     <label for="value-field-{{ $k-1  }}">Value {{ $k-1  }}</label>
                     <input type="text" id="value-field-{{ $k-1  }}" name="value_{{ $k-1  }}" class="form-control" value="{{ $v  }}">
                 </div>
-                <div class="form-group">
+                <div class="field">
                     <label for="set-field-{{ $k-1  }}">Set {{ $k-1  }}</label>
                     <select id="set-field-{{ $k-1  }}" name="set_{{ $k-1  }}" class="form-control">
                         @foreach(\App\Set::all() as $s)
@@ -48,10 +46,10 @@
                 @endif
                 @endforeach
                 <div id="set_area"></div>
-                <div class="well well-sm">
-                    <button class="btn btn-primary" id="set_create">Create</button>
-                    <a class="btn btn-link pull-right" href="{{ route('variables.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
-                </div>
+                
+                    <button class="ui green button" id="set_create">Create</button>
+                    <a class="ui grey button" href="{{ route('variables.index') }}"><i class="reply icon"></i> Back</a>
+                
         </div>
     </div>
 @endsection

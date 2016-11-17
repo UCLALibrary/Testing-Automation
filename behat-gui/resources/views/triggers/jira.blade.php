@@ -40,7 +40,7 @@
 
 
             <button type="submit" class="ui green button">Save</button>
-            <a class="ui grey button" href="{{ route('roles.index') }}"><i class="reply icon"></i>  Back</a>
+            
 
         </form>
 
