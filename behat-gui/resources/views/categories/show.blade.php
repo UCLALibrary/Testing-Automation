@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('semantic')
 @section('header')
 <div class="page-header">
         <h1>Categories / Show #{{$category->id}}</h1>

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('semantic')
 @section('header')
 <div class="page-header">
         <h1>Sets / Show #{{$set->id}}</h1>

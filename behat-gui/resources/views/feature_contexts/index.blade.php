@@ -1,36 +1,18 @@
-@extends('layout')
+@extends('semantic')
 
 @section('header')
-    <div class="page-header clearfix">
-        <h1>
-            <i class="glyphicon glyphicon-align-justify"></i> FeatureContexts
-        </h1>
-
-    </div>
+<h1>
+    <i class="paint brush icon"></i> FeatureContexts
+    <a class="ui yellow button" href="{{ route('feature_contexts.edit', 1) }}"><i class="edit icon"></i> Edit</a>
+</h1>
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-                <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th>FEATURE</th>
-                            <th class="text-right">OPTIONS</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        <tr>
-                            <td class="code php">{!! str_replace("    ", "&emsp;", str_replace("\n", "<br />", $feature_contexts))  !!}</td>
-                            <td class="text-right">
-                                <a class="btn btn-xs btn-warning" href="{{ route('feature_contexts.edit', 1) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-        </div>
-    </div>
+<div class="ui inverted segment">
+    <code class="ignored code">
+        {!! str_replace("    ", "&emsp;", str_replace("\n", "<br />", $feature_contexts))  !!}
+    </code>
+</div>
 
 @endsection

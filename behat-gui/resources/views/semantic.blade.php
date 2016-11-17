@@ -34,7 +34,7 @@
 <body>
 <div class="ui inverted menu">
     <a href="{{ route('tests.index')  }}" class="header item">Behat</a>
-    <a href="{{ route('tests.index')  }}" class="active item">Tests</a>
+    <a href="{{ route('tests.index')  }}" class="item">Tests</a>
     <a href="{{ route('reports.index')  }}" class="item">Report</a>
     <div class="ui dropdown item">
         Templating
@@ -79,6 +79,7 @@
     </div>
 </div>
 
+@yield('header')
 @yield('content')
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>

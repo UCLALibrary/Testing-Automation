@@ -1,28 +1,32 @@
-@extends('layout')
+@extends('semantic')
 @section('css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endsection
+<!--
 @section('header')
     <div class="page-header">
         <h1><i class="glyphicon glyphicon-plus"></i> Variables / Create </h1>
     </div>
 @endsection
+-->
 
 @section('content')
     @include('error')
 
-    <div class="row">
-        <div class="col-md-12">
+    <h1><i class="plus icon"></i> Variables / Create </h1>
+
+    <div class="ui piled segment">
+        <div class="ui form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            <div class="form-group @if($errors->has('key')) has-error @endif">
+            <div class="field @if($errors->has('key')) field error @endif">
                 <label for="key-field">Key</label>
                 <input type="text" id="default-key" name="key" class="form-control" value="{{ old("key") }}"/>
                 @if($errors->has("key"))
                     <span class="help-block">{{ $errors->first("key") }}</span>
                 @endif
             </div>
-            <div class="form-group @if($errors->has('value')) has-error @endif">
+            <div class="field @if($errors->has('value')) field error @endif">
                 <label for="value-field">Default Value</label>
                 <input type="text" id="default-value" name="default-value" class="form-control" value="{{ old("value") }}"/>
                 @if($errors->has("value"))
@@ -30,14 +34,15 @@
                 @endif
             </div>
             <hr />
-            <a id="add_set" class="btn btn-primary">Add Variable Set</a><br/><br />
+            <a id="add_set" class="ui blue button">Add Variable Set</a><br/><br />
             <div id="set_area"></div>
             <div class="well well-sm">
-                <button class="btn btn-primary" id="set_create">Create</button>
-                <a class="btn btn-link pull-right" href="{{ route('variables.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
+                <button class="ui green button" id="set_create">Create</button>
+                <a class="ui grey button" href="{{ route('variables.index') }}"><i class="reply icon"></i> Back</a>
             </div>
         </div>
     </div>
+
 @endsection
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
@@ -48,7 +53,7 @@
 
         var num = 0;
         $("#add_set").on("click", function(){
-            $("#set_area").append("<div class='form-group'><label for='value-field-"+num+"'>Value "+num+"</label><input type='text' id='value-field-"+num+"' name='value_"+num+"' class='form-control' value=''/></div> <div class='form-group'> <label for='set-field-"+num+"'>Set "+num+"</label><select id='set-field-"+num+"' name='set_"+num+"' id class='form-control'>@foreach(\App\Set::all() as $s) <option value='{{ $s->id  }}'>{{ $s->name  }}</option> @endforeach</select></div>");
+            $("#set_area").append("<div class='field'><label for='value-field-"+num+"'>Value "+num+"</label><input type='text' id='value-field-"+num+"' name='value_"+num+"' class='form-control' value=''/></div> <div class='field'> <label for='set-field-"+num+"'>Set "+num+"</label><select class='ui dropdown' id='set-field-"+num+"' name='set_"+num+"' id class='form-control'>@foreach(\App\Set::all() as $s) <option value='{{ $s->id  }}'>{{ $s->name  }}</option> @endforeach</select></div>");
             num += 1;
         });
 
