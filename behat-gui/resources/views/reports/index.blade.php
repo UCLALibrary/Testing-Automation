@@ -9,9 +9,6 @@
 
 @section('content')
 @include('error')
-
-
-
 <div class="ui one column double stackable grid container">
     @foreach($results as $r)
     <div class="column">
