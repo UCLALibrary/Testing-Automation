@@ -14,7 +14,7 @@
     <div class="column">
         <div class="ui two column double stackable grid container">
             <div class="column">
-                <div class="ui piled inverted segment">
+                <div class="ui piled segment">
                     {!! str_replace("class=\"list-group\"","class=\"list-group\" style=\"overflow-y:scroll;\"", str_replace('data-toggle="collapse" data-parent="#accordion" href="#scenario-1-1" aria-expanded="true" aria-controls="scenario-1-1"', "", str_replace("col-sm-8", "col-sm-12", $r->result))) !!}
                 </div>
             </div>

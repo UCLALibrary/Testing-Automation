@@ -504,13 +504,13 @@ class TestController extends Controller {
                     foreach ($items as $ke => $item) {
                         $color = 'black';
                         if (strpos($item->class, "alert-warning") !== false) {
-                            $color = '#f79232';
+                            $color = '#f79232'; // orange
                         } elseif (strpos($item->class, "alert-danger") !== false) {
-                            $color = '#d04437';
+                            $color = '#d04437'; // red
                         } elseif (strpos($item->class, "alert-success") !== false) {
-                            $color = '#14892c';
+                            $color = '#14892c'; // green
                         } elseif (strpos($item->class, "alert-info") !== false) {
-                            $color = '#59afe1';
+                            $color = '#59afe1'; // blue
                         }
 
                         $result[] = [
@@ -530,13 +530,13 @@ class TestController extends Controller {
                     }elseif($failed == false){
                         $output[$re] .= "<div class=\"title\">" . trim($n->text) . "</div><div class=\"content\"><div class=\"transition hidden\">";
                     }
-                    $output[$re] .= "<ul>";
+                    $output[$re] .= "<div class=\"ui list\">";
                     foreach ($result as $k => $r) {
                         if ($result[$k]['id'] == $n->href) {
-                            $output[$re] .= "<li style=\"color:" . $result[$k]['color'] . "\" >" . $result[$k]['line'] . "</li>";
+                            $output[$re] .= "<div class=\"item\" style=\"color:" . $result[$k]['color'] . ";\" >" . $result[$k]['line'] . "</div>";
                         }
                     }
-                    $output[$re] .= "</ul>";
+                    $output[$re] .= "</div>";
                     $output[$re] .= "</div></div></div></div>";
                 }
 
