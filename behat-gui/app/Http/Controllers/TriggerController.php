@@ -14,17 +14,16 @@ use App\Http\Requests;
 
 class TriggerController extends Controller
 {
-    /*
-     * When github sends a payload...
+    /**
+     * When github sends a payload, dispatch Github() so that tests
+     * will be executed according to previously configured settings.
      *
-     * do something.
-     *
+     * @param  Request $request
+     * @return Response
      */
     public function github(Request $request){
-        //TODO: at some point in the future specify when this will run.
-
-        $r = $request->getContent();
-        $content = json_decode($r,true);
+        $request_content = $request->getContent();
+        $content = json_decode($request_content,true);
         $id = $content['sender']['id'];
 
         $this->dispatchNow(
@@ -35,6 +34,13 @@ class TriggerController extends Controller
         return $id;
     }
 
+    /**
+     * Create trigger instances to save submitted data.
+     * Each trigger corresponds to a category in table behat > triggers.
+     *
+     * @param  Request $request
+     * @return Response
+     */
     public function github_config_post(Request $request){
         $github_categories = Trigger::firstOrNew(['key' => 'categories', 'namespace' => 'github', 'user' => Auth::user()->github_id]);
         $github_categories->value = json_encode($request->input('categories'));
@@ -51,6 +57,11 @@ class TriggerController extends Controller
         return redirect()->route('triggers.github');
     }
 
+    /**
+     * Pass necessary variables to /github view so that configured settings can be displayed.
+     *
+     * @return Response
+     */
     public function github_config(){
         $it = [];
         $items = CategoryItem::all();
@@ -66,24 +77,35 @@ class TriggerController extends Controller
         return view('triggers.github');
     }
 
+    /**
+     * Create trigger instances to save submitted data.
+     * Each trigger corresponds to a category in table behat > triggers
+     *
+     * @param  Request $request
+     * @return Response
+     */
     public function jira_config_post(Request $request){
-            $jira_assign = Trigger::firstOrNew(['key' => 'assign', 'namespace' => 'jira']);
-            $jira_assign->value = $request->input('assign');
-            $jira_assign->save();
+        $jira_assign = Trigger::firstOrNew(['key' => 'assign', 'namespace' => 'jira']);
+        $jira_assign->value = $request->input('assign');
+        $jira_assign->save();
 
-            $jira_label = Trigger::firstOrNew(['key' => 'label', 'namespace' => 'jira']);
-            $jira_label->value = json_encode(explode(",", $request->input('labels')));
-            $jira_label->save();
+        $jira_label = Trigger::firstOrNew(['key' => 'label', 'namespace' => 'jira']);
+        $jira_label->value = json_encode(explode(",", $request->input('labels')));
+        $jira_label->save();
 
-            $jira_project = Trigger::firstOrNew(['key' => 'project', 'namespace' => 'jira']);
-            $jira_project->value = $request->input('project');
-            $jira_project->save();
+        $jira_project = Trigger::firstOrNew(['key' => 'project', 'namespace' => 'jira']);
+        $jira_project->value = $request->input('project');
+        $jira_project->save();
 
         return redirect()->route('triggers.jira');
     }
 
+    /**
+     * Pass necessary variables to /jira view so that configured settings can be displayed.
+     *
+     * @return Response
+     */
     public function jira_config(){
-
         view()->share('assign', Trigger::where('namespace', '=', 'jira')->where('key', '=', 'assign')->first());
         view()->share('label', Trigger::where('namespace', '=', 'jira')->where('key', '=', 'label')->first());
         view()->share('project', Trigger::where('namespace', '=', 'jira')->where('key', '=', 'project')->first());

@@ -32,10 +32,6 @@ Route::group(['middleware' => 'auth'], function(){
         return redirect()->route('tests.index',['user' => $user]);
     });
 
-    Route::get('/home', function (){
-        return redirect()->route('home');
-    });
-
     /**
      * Map all of the routes for the tests controller
      */

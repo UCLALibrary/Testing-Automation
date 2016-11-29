@@ -8,105 +8,105 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$roles = Role::orderBy('id', 'desc')->paginate(10);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $roles = Role::orderBy('id', 'desc')->paginate(10);
 
-		return view('roles.index', compact('roles'));
-	}
+        return view('roles.index', compact('roles'));
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return view('roles.create');
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('roles.create');
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function store(Request $request)
-	{
-		$role = new Role();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $role = new Role();
 
-		$role->name = $request->input("name");
+        $role->name = $request->input("name");
         $role->display_name = $request->input("display_name");
         $role->description = $request->input("description");
 
-		$role->save();
+        $role->save();
 
-		return redirect()->route('roles.index')->with('message', 'Item created successfully.');
-	}
+        return redirect()->route('roles.index')->with('message', 'Item created successfully.');
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$role = Role::findOrFail($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $role = Role::findOrFail($id);
 
-		return view('roles.show', compact('role'));
-	}
+        return view('roles.show', compact('role'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$role = Role::findOrFail($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $role = Role::findOrFail($id);
 
-		return view('roles.edit', compact('role'));
-	}
+        return view('roles.edit', compact('role'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function update(Request $request, $id)
-	{
-		$role = Role::findOrFail($id);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int       $id
+     * @param  Request   $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
 
-		$role->name = $request->input("name");
+        $role->name = $request->input("name");
         $role->display_name = $request->input("display_name");
         $role->description = $request->input("description");
 
-		$role->save();
+        $role->save();
 
-		return redirect()->route('roles.index')->with('message', 'Item updated successfully.');
-	}
+        return redirect()->route('roles.index')->with('message', 'Item updated successfully.');
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$role = Role::findOrFail($id);
-		$role->delete();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $role = Role::findOrFail($id);
+        $role->delete();
 
-		return redirect()->route('roles.index')->with('message', 'Item deleted successfully.');
-	}
+        return redirect()->route('roles.index')->with('message', 'Item deleted successfully.');
+    }
 
 }

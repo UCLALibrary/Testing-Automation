@@ -10,37 +10,37 @@ use Illuminate\Support\Facades\Validator;
 
 class VariableController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$variables = Variable::orderBy('id', 'desc')->paginate(50);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $variables = Variable::orderBy('id', 'desc')->paginate(50);
 
-		return view('variables.index', compact('variables'));
-	}
+        return view('variables.index', compact('variables'));
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return view('variables.create');
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('variables.create');
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function store(Request $request)
-	{
-		$variable = new Variable();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $variable = new Variable();
 
         $main = json_decode($request->input('main'), true);
         $data = json_decode($request->input('data'), true);
@@ -58,50 +58,50 @@ class VariableController extends Controller {
         $json = json_encode($json_array);
         $set = json_encode($sets_array);
 
-		$variable->key = str_replace("&amp;", "&", $main['key']);
+        $variable->key = str_replace("&amp;", "&", $main['key']);
         $variable->value = $json;
         $variable->sets = $set;
-		$variable->save();
+        $variable->save();
 
-		return redirect()->route('variables.index')->with('message', 'Item created successfully.');
-	}
+        return redirect()->route('variables.index')->with('message', 'Item created successfully.');
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$variable = Variable::findOrFail($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $variable = Variable::findOrFail($id);
 
-		return view('variables.show', compact('variable'));
-	}
+        return view('variables.show', compact('variable'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$variable = Variable::findOrFail($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $variable = Variable::findOrFail($id);
 
-		return view('variables.edit', compact('variable'));
-	}
+        return view('variables.edit', compact('variable'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function update(Request $request, $id)
-	{
-		$variable = Variable::findOrFail($id);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int       $id
+     * @param  Request   $request
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        $variable = Variable::findOrFail($id);
 
         $main = json_decode($request->input('main'), true);
         $data = json_decode($request->input('data'), true);
@@ -127,47 +127,65 @@ class VariableController extends Controller {
         $variable->save();
 
         return redirect()->route('variables.index')->with('message', 'Item updated successfully.');
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$variable = Variable::findOrFail($id);
-		$variable->delete();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $variable = Variable::findOrFail($id);
+        $variable->delete();
 
-		return redirect()->route('variables.index')->with('message', 'Item deleted successfully.');
-	}
+        return redirect()->route('variables.index')->with('message', 'Item deleted successfully.');
+    }
 
-	public function delete_value($id, $set){
-		$var = Variable::where('id', '=', $id)->first();
-		$sets = json_decode($var->sets, true);
-		$value = json_decode($var->value, true);
+    /**
+     * Delete a variable.
+     *
+     * @param  int $id
+     * @param  $set
+     * @return Response
+     */
+    public function delete_value($id, $set){
+        $var = Variable::where('id', '=', $id)->first();
+        $sets = json_decode($var->sets, true);
+        $value = json_decode($var->value, true);
 
-		foreach($sets as $k => $s){
-			if($set == $s){
-				unset($sets[$k], $value[$k]);
-			}
-		}
+        foreach($sets as $k => $s){
+            if($set == $s){
+                unset($sets[$k], $value[$k]);
+            }
+        }
 
-		$var->sets = json_encode($sets);
-		$var->value = json_encode($value);
-		$var->save();
+        $var->sets = json_encode($sets);
+        $var->value = json_encode($value);
+        $var->save();
 
-		return redirect()->route('variables.index')->with('message', 'Variable value deleted successfully.');
+        return redirect()->route('variables.index')->with('message', 'Variable value deleted successfully.');
 
-	}
+    }
 
+    /**
+     * Upload variables.
+     * 
+     * @return Response
+     */
     public function upload(){
         $sets = Set::all();
 
         return view('variables.upload', compact('sets'));
     }
 
+    /**
+     * Store uploaded variables in database.
+     *
+     * @param  Request $request
+     * @return Response
+     */
     public function upload_store(Request $request){
         $validator = validator($request->input(), [
             'set' => 'required'

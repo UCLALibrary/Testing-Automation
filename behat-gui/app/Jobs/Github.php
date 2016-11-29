@@ -22,21 +22,18 @@ class Github extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
     protected $categories;
-
     protected $request;
-
     protected $set;
-
     protected $wait;
 
     /**
      * Create a new job instance.
      *
+     * @param  $request
      * @return void
      */
     public function __construct($request)
     {
-        //get the categories to run and the var set
         $c = Trigger::where('namespace', '=', 'github')->where('key', '=', 'categories')->where('user','=',$request)->first();
         $s = Trigger::where('namespace', '=', 'github')->where('key', '=', 'set')->where('user','=',$request)->first();
         $w = Trigger::where('namespace', '=', 'github')->where('key', '=', 'wait')->where('user','=',$request)->first();
