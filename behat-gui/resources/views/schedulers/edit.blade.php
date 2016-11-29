@@ -3,22 +3,20 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endsection
 @section('header')
-    <div class="page-header">
-        <h1><i class="glyphicon glyphicon-edit"></i> Schedulers / Edit #{{$scheduler->id}}</h1>
-    </div>
+    <h1><i class="ui edit icon"></i> Schedulers / Edit #{{$scheduler->id}}</h1>
 @endsection
 
 @section('content')
     @include('error')
 
-    <div class="row">
-        <div class="col-md-12">
+    <div class="ui piled segment">
+        <div class="ui form">
 
             <form action="{{ route('schedulers.update', $scheduler->id) }}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <div class="form-group @if($errors->has('command')) has-error @endif">
+                <div class="field @if($errors->has('command')) error @endif">
                     <label for="command-field">Command</label>
                     <select name="command" class="form-control">
                         <option value="behat:execute" @if($scheduler->command == "behat:execute") selected="selected" @endif>Execute Tests</option>
@@ -30,7 +28,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group @if($errors->has('parameters')) has-error @endif">
+                        <div class="field @if($errors->has('parameters')) error @endif">
                             <label for="parameters-field">Test ID</label>
                             <select name="test_id" class="form-control">
                                 <option value="none" @if(explode(" ", $scheduler->parameter)[0] == "none") selected="selected" @endif>None</option>
@@ -46,7 +44,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group @if($errors->has('set_id')) has-error @endif">
+                        <div class="field @if($errors->has('set_id')) error @endif">
                             <label for="parameters-field">Set ID</label>
                             <select name="set_id" class="form-control">
                                 <option value="0">Default</option>
@@ -64,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="form-group @if($errors->has('frequency')) has-error @endif">
+                <div class="field @if($errors->has('frequency')) error @endif">
                     <label for="frequency-field">Frequency</label>
                     <select name="frequency" class="form-control">
                         <option value="everyMinute" @if($scheduler->frequency == "everyMinute") selected="selected" @endif>Every Minute</option>
@@ -90,7 +88,7 @@
                         <span class="help-block">{{ $errors->first("frequency") }}</span>
                     @endif
                 </div>
-                <div class="form-group @if($errors->has('disabled')) has-error @endif">
+                <div class="field @if($errors->has('disabled')) error @endif">
                     <label for="disabled-field">Disabled</label>
                     <input type="hidden" name="disabled" value="0" />
                     <input type="checkbox" id="disabled-field" name="disabled" class="form-control" value="{{ old("disabled") }}"/>
@@ -100,7 +98,7 @@
                 </div>
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">Create</button>
-                    <a class="btn btn-link pull-right" href="{{ route('schedulers.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
+                    <a class="ui grey button" href="{{ route('schedulers.index') }}"><i class="ui reply icon"></i> Back</a>
                 </div>
             </form>
 
