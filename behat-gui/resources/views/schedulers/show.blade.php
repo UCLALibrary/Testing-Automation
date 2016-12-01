@@ -35,6 +35,7 @@
                     <div class="field">
                      <label for="frequency">FREQUENCY</label>
                      <p class="form-control-static">{{$scheduler->frequency}}</p>
+                     <p>
                 </div>
             </form>
 

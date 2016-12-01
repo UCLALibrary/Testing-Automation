@@ -43,15 +43,16 @@
                             @endif
                         </div>
                     </div>
+                    <p>
                     <div class="col-md-6">
                         <div class="field @if($errors->has('set_id')) error @endif">
                             <label for="parameters-field">Set ID</label>
                             <select name="set_id" class="form-control">
                                 <option value="0">Default</option>
-                                <option value="none" @if(explode(" ", $scheduler->parameter)[1] == "none") selected="selected" @endif>None</option>
+                                <option value="none" @if(explode(" ", $scheduler->parameter)[0] == "none") selected="selected" @endif>None</option>
                                 @if(!$sets->isEmpty())
                                     @foreach($sets as $s)
-                                        <option value="{{ $s->id  }}" @if(explode(" ", $scheduler->parameter)[1] == $s->id) selected="selected" @endif>{{ $s->name  }}</option>
+                                        <option value="{{ $s->id  }}" @if(explode(" ", $scheduler->parameter)[0] == $s->id) selected="selected" @endif>{{ $s->name  }}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -61,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-
+                <p>
                 <div class="field @if($errors->has('frequency')) error @endif">
                     <label for="frequency-field">Frequency</label>
                     <select name="frequency" class="form-control">
@@ -97,7 +98,7 @@
                     @endif
                 </div>
                 <div class="well well-sm">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="ui green button">Create</button>
                     <a class="ui grey button" href="{{ route('schedulers.index') }}"><i class="ui reply icon"></i> Back</a>
                 </div>
             </form>
