@@ -188,7 +188,7 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                                <div class="item">Edit</div>
+                                                <a class="item" href="{{ route('tests.edit', $test->id) }}">Edit</a>
                                             </div>
                                         </div>
                                     </div>
@@ -370,8 +370,6 @@
                     $("#delete").addClass("disabled");
                     $("#add-category").addClass("disabled");
                 }
-
-                //window.alert(check_count);
             });
 
             $("#delete").click(function () {

@@ -3,15 +3,13 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endsection
 @section('header')
-    <div class="page-header">
-        <h1><i class="glyphicon glyphicon-edit"></i> Categories / Edit #{{$category->id}}</h1>
-    </div>
+<h1><i class="edit icon"></i> Categories / Edit #{{$category->id}}</h1>
 @endsection
 
 @section('content')
     @include('error')
 
-    <div class="row">
+    <div class="ui piled segment">
         <div class="col-md-12">
 
             <form action="{{ route('categories.update', $category->id) }}" method="POST">

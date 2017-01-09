@@ -2,7 +2,9 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Console\Kernel;
 
+use App\Notifications;
 use App\Scheduler;
 use App\Set;
 use App\Test;
@@ -48,9 +50,10 @@ class SchedulerController extends Controller {
         $scheduler->command = $request->input("command");
         $scheduler->parameters = $request->input("test_id"). ' '. $request->input('set_id');
         $scheduler->frequency = $request->input("frequency");
-        $scheduler->disabled = $request->input('disabled');
+        $scheduler->disabled = $request->input("disabled");
 
         $scheduler->save();
+
 
         return redirect()->route('schedulers.index')->with('message', 'Item created successfully.');
     }
@@ -98,7 +101,8 @@ class SchedulerController extends Controller {
         $scheduler->command = $request->input("command");
         $scheduler->parameters = $request->input("test_id"). ' '. $request->input('set_id');
         $scheduler->frequency = $request->input("frequency");
-        $scheduler->disabled = $request->input('disabled');
+        $scheduler->disabled = $request->input("disabled");
+
 
         $scheduler->save();
 
@@ -118,5 +122,4 @@ class SchedulerController extends Controller {
 
         return redirect()->route('schedulers.index')->with('message', 'Item deleted successfully.');
     }
-
 }

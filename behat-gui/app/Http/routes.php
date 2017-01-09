@@ -13,8 +13,6 @@ Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback')
 /**
  * Route for github payloads
  */
-// Route::post('/github', ['as' => 'triggers.githubpayload','uses' => 'TriggerController@github']);
-
 Route::group(['middlewareGroups' => ['web']], function () {
     Route::auth();
     Route::post('/github', ['as' => 'triggers.githubpayload','uses' => 'TriggerController@github']);

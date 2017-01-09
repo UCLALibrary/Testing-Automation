@@ -92,7 +92,7 @@
         <div class="ui checkbox">
          <label for="disabled-field">Disabled</label>
          <input type="hidden" name="disabled" value="0" />
-         <input type="checkbox" id="disabled-field" name="disabled" class="form-control" value="{{ old("disabled") }}"/>
+         <input type="checkbox" id="disabled-field" name="disabled" class="form-control" value="1"/>
          @if($errors->has("disabled"))
          <span class="help-block">{{ $errors->first("disabled") }}</span>
          @endif

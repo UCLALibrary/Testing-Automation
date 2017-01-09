@@ -33,9 +33,9 @@
                 <td>{{$scheduler->frequency}}</td>
                 <td>
                   @if($scheduler->disabled == 0)
-                  <span class="label label-success">Active</span>
+                  <span class="ui green circular label">Active</span>
                   @elseif($scheduler->disabled == 1)
-                  <span class="label label-danger">Disabled</span>
+                  <span class="ui red circular label">Disabled</span>
                   @endif
               </td>
               <td class="text-right">

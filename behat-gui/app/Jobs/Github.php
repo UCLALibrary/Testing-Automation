@@ -1,10 +1,6 @@
 <?php
 
-//use Auth;
 namespace App\Jobs;
-
-use App\Notifications;
-//use App\Http\Controllers\Auth;
 
 use App\Group;
 use App\Jobs\Job;

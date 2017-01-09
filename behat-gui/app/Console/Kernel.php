@@ -15,8 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ExecuteFeature::class,
-        Commands\PullTests::class,
+        'App\Console\Commands\ExecuteFeature',
+        'App\Console\Commands\PullTests',
     ];
 
     /**

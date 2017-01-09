@@ -1,24 +1,22 @@
-@extends('layout')
+@extends('semantic')
 @section('css')
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" rel="stylesheet">
 @endsection
 @section('header')
-    <div class="page-header">
-        <h1><i class="glyphicon glyphicon-edit"></i> Tests / Edit #{{$test->id}}</h1>
-    </div>
+<h1><i class="icon edit"></i> Tests / Edit #{{$test->id}}</h1>
 @endsection
 
 @section('content')
     @include('error')
 
-    <div class="row">
-        <div class="col-md-12">
+    <div class="ui piled segment">
+        <div class="ui form">
 
             <form action="{{ route('tests.update', $test->id) }}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <div class="form-group @if($errors->has('name')) has-error @endif">
+                <div class="field @if($errors->has('name')) error @endif">
                        <label for="name-field">Name</label>
                         <input type="text" id="name-field" name="name" class="form-control" value="{{ $test->name }}"/>
                        @if($errors->has("name"))
@@ -26,7 +24,7 @@
                        @endif
                 </div>
 
-                <div class="form-group @if($errors->has('location')) has-error @endif">
+                <div class="field @if($errors->has('location')) error @endif">
                     <label for="name-field">File</label>
                     <textarea id="name-field" name="location" class="form-control">{!! str_replace(" ", "&nbsp;", file_get_contents($test->location))   !!}</textarea>
                     @if($errors->has("name"))
@@ -34,8 +32,8 @@
                     @endif
                 </div>
                 <div class="well well-sm">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-link pull-right" href="{{ route('tests.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
+                    <button type="submit" class="ui green button">Save</button>
+                    <a class="ui grey button" href="{{ route('tests.index') }}"><i class="reply icon"></i>  Back</a>
                 </div>
             </form>
 
