@@ -20,16 +20,16 @@
 <div class="ui piled segment">
     <form action="#" class="ui form">
         <div class="field">
-           <label for="name">NAME</label>
-           <p class="form-control-static">{{$test->name}}</p>
-       </div>
-       <div class="field">
-           <label for="location">FILE</label><br />
-           <a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Code</a><br /><br />
+         <label for="name">NAME</label>
+         <p class="form-control-static">{{$test->name}}</p>
+     </div>
+     <div class="field">
+         <label for="location">FILE</label><br />
+         <a href="#" id="code_{{ $test->id  }}" class="btn btn-xs btn-default">Show/Hide Test Code</a><br /><br />
 
-       </div>
-   </form>
-   <div class="ui inverted segment">
+     </div>
+ </form>
+ <div class="ui inverted segment">
     <p class="form-control-static code gherkin hidden" id="toggle_{{ $test->id  }}">{!! str_replace("\n", "<br />", str_replace(" ", "&nbsp;", file_get_contents($test->location)))   !!}</p>
 </div>
 </div>
@@ -116,25 +116,25 @@
                                 </div>
                             </div>
                         </div>
-                    @if($r->comment_complete == 1)
-                    @if($r->comment != null)
-                    <div class="row">
-                        <div class="ui card">
-                            <div class="content">
-                                <div class="heading">Analysis of Message</div>
-                            </div>
-                            <div class="content">
-                                <small>This area will give you some check points for failure.
-                                    They will not include any issues that might be on the website you are testing.
-                                </small><br /><br />
-                                <ul>
-                                    @foreach(explode("\n", $r->comment) as $e)<li>{!!  $e  !!}</li>@endforeach
-                                </ul>
+                        @if($r->comment_complete == 1)
+                        @if($r->comment != null)
+                        <div class="row">
+                            <div class="ui card">
+                                <div class="content">
+                                    <div class="heading">Analysis of Message</div>
+                                </div>
+                                <div class="content">
+                                    <small>This area will give you some check points for failure.
+                                        They will not include any issues that might be on the website you are testing.
+                                    </small><br /><br />
+                                    <ul>
+                                        @foreach(explode("\n", $r->comment) as $e)<li>{!!  $e  !!}</li>@endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @endif
-                    @endif
+                        @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -147,17 +147,17 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#code_{{ $test->id  }}").on('click', function(){
-            $("#toggle_{{ $test->id  }}").toggleClass('hidden');
-        });
-
-        $('.ui.sticky')
-        .sticky({
-            context: '#stick2me',
-            pushing: true
-        });
+$(document).ready(function () {
+    $("#code_{{ $test->id  }}").on('click', function(){
+        $("#toggle_{{ $test->id  }}").toggleClass('hidden');
     });
+
+    $('.ui.sticky')
+    .sticky({
+        context: '#stick2me',
+        pushing: true
+    });
+});
 
 </script>
 @endsection
