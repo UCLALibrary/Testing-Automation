@@ -6,7 +6,7 @@
                 <table class="ui celled table">
                     <thead>
                         <tr>
-                            <th width="10%"><div class="ui ribbon label">Status</div></th>
+                            <th width="10%">Status</th>
                             <th width="10%">User</th>
                             <th width="10%">JIRA</th>
                             <th width="40%">Output</th>
