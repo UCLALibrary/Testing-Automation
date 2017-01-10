@@ -19,7 +19,7 @@
                             @if($result = \App\TestResult::where('id','=', $result)->first())
                             <tr>
                                 <td><div class="ui @if($result->success == 0) red @elseif($result->success == 1) green @endif ribbon label">@if($result->success == 0) Failed @elseif($result->success == 1) Passed @endif</div></td>
-                                <td><img class="ui avatar image" src="{{ $result->user->avatar  }}">{{ $result->user->name }}</td>
+                                <td><img class="ui avatar image" src="{{ \App\User::where('id','=',$group->user_id)->first()->avatar }}">{{ \App\User::where('id','=',$group->user_id)->first()->name }}</td>
                                 <td>@if($result->jira_url != null)<i class="tasks icon"></i><a href="{{ $result->jira_url  }}">Ticket</a>@else None @endif</td>
                                 <td>{!! $output[$result->id] !!}</td>
                             </tr>

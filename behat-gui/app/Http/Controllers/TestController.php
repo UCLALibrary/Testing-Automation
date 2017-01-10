@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use PHPHtmlParser\Dom;
 
+use App\User;
+
 class TestController extends Controller {
 
     /**
@@ -487,7 +489,7 @@ class TestController extends Controller {
      * @return Response
      */
     public function group_show($id){
-        $group = Group::where('id','=',$id)->first();
+        $group = Group::where('id','=',$id)->orderBy('created_at')->first();
         $output = [];
         if(!empty($group->results)) {
             foreach ($group->results as $re) {
@@ -542,6 +544,6 @@ class TestController extends Controller {
 
             }
         }
-        return view('tests.groups.show', compact('group', 'output'));
+        return view('tests.groups.show', compact('group', 'output', 'users'));
     }
 }

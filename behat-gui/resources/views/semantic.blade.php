@@ -72,7 +72,7 @@
             <i class="dropdown icon"></i>
             <div class="menu">
                 <div class="item">
-                    <a href="logout" style="color:black;">Logout</a>
+                    <a href="/logout" style="color:black;">Logout</a>
                 </div>
             </div>
         </div>

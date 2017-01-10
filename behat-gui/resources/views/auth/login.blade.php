@@ -1,15 +1,15 @@
-@extends('layout')
+@extends('welcome')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
+<div class="ui centered segment">
+    <div class="ui one column centered grid">
+        <div class="one column centered row">
+            <!-- <div class="panel panel-default"> -->
+                <h1 class="header">Login</h1>
+                <div class="content">
                     <a href="auth/github"><img src="{{ asset('github.png') }}" /></a>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 </div>

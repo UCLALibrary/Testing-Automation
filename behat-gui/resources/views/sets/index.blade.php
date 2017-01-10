@@ -17,7 +17,7 @@
                 <th>ID</th>
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
-                <th>USER_ID</th>
+                <th>USER</th>
                 <th class="text-right">OPTIONS</th>
             </tr>
         </thead>
@@ -28,7 +28,7 @@
                 <td>{{$set->id}}</td>
                 <td>{{$set->name}}</td>
                 <td>{{$set->description}}</td>
-                <td>{{$set->user_id}}</td>
+                <td><img class="ui avatar image" src="{{ \App\User::where('id','=',$set->user_id)->first()->avatar }}">{{ \App\User::where('id','=',$set->user_id)->first()->name }}</td>
                 <td class="text-right">
                     <a class="ui blue button" href="{{ route('sets.show', $set->id) }}"><i class="eye icon"></i> View</a>
                     <a class="ui yellow button" href="{{ route('sets.edit', $set->id) }}"><i class="edit icon"></i> Edit</a>
